@@ -43,8 +43,14 @@ final class AlgoMetadata {
           other.description == description);
 
   @override
-  int get hashCode => Object.hash(name, timeComplexity, spaceComplexity,
-      requiresSorted, memoryOverheadBytes, description,);
+  int get hashCode => Object.hash(
+        name,
+        timeComplexity,
+        spaceComplexity,
+        requiresSorted,
+        memoryOverheadBytes,
+        description,
+      );
 
   @override
   String toString() => 'AlgoMetadata('

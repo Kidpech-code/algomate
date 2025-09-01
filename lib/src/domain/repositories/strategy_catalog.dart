@@ -54,7 +54,9 @@ abstract class StrategyCatalog {
   ///
   /// This can be more efficient than individual registrations for batch operations.
   void registerBatch<I, O>(
-      List<Strategy<I, O>> strategies, StrategySignature signature,);
+    List<Strategy<I, O>> strategies,
+    StrategySignature signature,
+  );
 
   /// Get statistics about the catalog (for debugging/monitoring).
   CatalogStats get stats;
@@ -62,10 +64,11 @@ abstract class StrategyCatalog {
 
 /// Statistics about the strategy catalog.
 class CatalogStats {
-  const CatalogStats(
-      {required this.totalStrategies,
-      required this.categoryCounts,
-      required this.typeCounts,});
+  const CatalogStats({
+    required this.totalStrategies,
+    required this.categoryCounts,
+    required this.typeCounts,
+  });
 
   /// Total number of registered strategies
   final int totalStrategies;

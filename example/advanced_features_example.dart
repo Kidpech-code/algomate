@@ -69,13 +69,16 @@ Future<void> productionConfigExample() async {
   result.fold(
     (success) {
       print(
-          '✅ Production sort completed in ${stopwatch.elapsedMilliseconds}ms',);
+        '✅ Production sort completed in ${stopwatch.elapsedMilliseconds}ms',
+      );
       print('   → Algorithm: ${success.selectedStrategy.name}');
       print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
       print(
-          '   → Is stable: ${success.selectedStrategy.spaceComplexity == TimeComplexity.o1 ? "In-place" : "Uses extra space"}',);
+        '   → Is stable: ${success.selectedStrategy.spaceComplexity == TimeComplexity.o1 ? "In-place" : "Uses extra space"}',
+      );
       print(
-          '   → Sample output: ${success.output.take(5).toList()}...${success.output.skip(success.output.length - 5).toList()}',);
+        '   → Sample output: ${success.output.take(5).toList()}...${success.output.skip(success.output.length - 5).toList()}',
+      );
     },
     (failure) => print('❌ Production sort failed: $failure'),
   );
@@ -115,7 +118,8 @@ void customPolicyExample() {
       result.fold(
         (success) {
           print(
-              '   $hintName → ${success.selectedStrategy.name} (${success.selectedStrategy.timeComplexity})',);
+            '   $hintName → ${success.selectedStrategy.name} (${success.selectedStrategy.timeComplexity})',
+          );
         },
         (failure) => print('   $hintName → Failed: $failure'),
       );
@@ -135,7 +139,8 @@ void benchmarkingExample() {
 
   print('Running performance benchmarks...\n');
   print(
-      '${"Size".padRight(8)} | ${"Algorithm".padRight(20)} | ${"Time(μs)".padLeft(10)} | ${"Complexity".padRight(12)}',);
+    '${"Size".padRight(8)} | ${"Algorithm".padRight(20)} | ${"Time(μs)".padLeft(10)} | ${"Complexity".padRight(12)}',
+  );
   print('-' * 60);
 
   for (final size in testSizes) {
@@ -171,7 +176,8 @@ void benchmarkingExample() {
     if (algorithmName != null && complexity != null) {
       final avgTime = totalTime ~/ iterations;
       print(
-          '${size.toString().padRight(8)} | ${algorithmName!.padRight(20)} | ${avgTime.toString().padLeft(10)} | ${complexity!.padRight(12)}',);
+        '${size.toString().padRight(8)} | ${algorithmName!.padRight(20)} | ${avgTime.toString().padLeft(10)} | ${complexity!.padRight(12)}',
+      );
 
       // Store results for analysis
       results
@@ -194,7 +200,8 @@ void benchmarkingExample() {
       final timeRatio = lastResult.time / firstResult.time;
 
       print(
-          '   $algorithmName: ${sizeRatio.toStringAsFixed(1)}x size → ${timeRatio.toStringAsFixed(1)}x time',);
+        '   $algorithmName: ${sizeRatio.toStringAsFixed(1)}x size → ${timeRatio.toStringAsFixed(1)}x time',
+      );
     }
   }
 }
@@ -209,8 +216,10 @@ void errorHandlingExample() {
   print('Testing empty input handling:');
   var result = selector.sort(input: <int>[], hint: const SelectorHint(n: 0));
 
-  result.fold((success) => print('   ✅ Empty input handled: ${success.output}'),
-      (failure) => print('   ❌ Empty input failed: $failure'),);
+  result.fold(
+    (success) => print('   ✅ Empty input handled: ${success.output}'),
+    (failure) => print('   ❌ Empty input failed: $failure'),
+  );
 
   // Example 2: Handling very large input hints
   print('\nTesting extreme size hint:');
@@ -244,7 +253,8 @@ void errorHandlingExample() {
 
     scenarioResult.fold(
       (success) => print(
-          '   ✅ $name: ${success.output} via ${success.selectedStrategy.name}',),
+        '   ✅ $name: ${success.output} via ${success.selectedStrategy.name}',
+      ),
       (failure) => print('   ❌ $name failed: $failure'),
     );
   }
@@ -272,7 +282,9 @@ void complexDataScenariosExample() {
   final result1 = selector.sort(
     input: nearlySorted,
     hint: SelectorHint(
-        n: nearlySorted.length, sorted: null,), // Unknown sorted state
+      n: nearlySorted.length,
+      sorted: null,
+    ), // Unknown sorted state
   );
 
   result1.fold(
@@ -298,7 +310,8 @@ void complexDataScenariosExample() {
     (success) {
       print('   → Algorithm: ${success.selectedStrategy.name}');
       print(
-          '   → Is stable sorting important: ${success.selectedStrategy.timeComplexity}',);
+        '   → Is stable sorting important: ${success.selectedStrategy.timeComplexity}',
+      );
       print('   → Unique values in result: ${success.output.toSet().length}');
     },
     (failure) => print('   ❌ Many duplicates failed: $failure'),
@@ -317,9 +330,11 @@ void complexDataScenariosExample() {
     (success) {
       print('   → Selected memory-efficient: ${success.selectedStrategy.name}');
       print(
-          '   → Space complexity: ${success.selectedStrategy.spaceComplexity}',);
+        '   → Space complexity: ${success.selectedStrategy.spaceComplexity}',
+      );
       print(
-          '   → Time complexity trade-off: ${success.selectedStrategy.timeComplexity}',);
+        '   → Time complexity trade-off: ${success.selectedStrategy.timeComplexity}',
+      );
     },
     (failure) => print('   ❌ Memory-constrained failed: $failure'),
   );
@@ -350,7 +365,8 @@ void algorithmComparisonExample() {
   };
 
   print(
-      '${"Pattern".padRight(15)} | ${"Algorithm".padRight(20)} | ${"Time Complexity".padRight(15)} | ${"Space Complexity"}',);
+    '${"Pattern".padRight(15)} | ${"Algorithm".padRight(20)} | ${"Time Complexity".padRight(15)} | ${"Space Complexity"}',
+  );
   print('-' * 70);
 
   for (final entry in dataPatterns.entries) {
@@ -369,7 +385,8 @@ void algorithmComparisonExample() {
         );
       },
       (failure) => print(
-          '${patternName.padRight(15)} | ${"FAILED".padRight(20)} | ${failure.toString().substring(0, 15).padRight(15)} |',),
+        '${patternName.padRight(15)} | ${"FAILED".padRight(20)} | ${failure.toString().substring(0, 15).padRight(15)} |',
+      ),
     );
   }
 
@@ -382,11 +399,14 @@ void algorithmComparisonExample() {
   // Strategy utilization analysis
   print('\n🎯 Strategy Utilization:');
   print(
-      '   → This demo tested various scenarios to showcase intelligent selection',);
+    '   → This demo tested various scenarios to showcase intelligent selection',
+  );
   print(
-      '   → AlgoMate automatically chooses optimal algorithms based on data characteristics',);
+    '   → AlgoMate automatically chooses optimal algorithms based on data characteristics',
+  );
   print(
-      '   → Memory constraints, stability requirements, and dataset size all influence selection',);
+    '   → Memory constraints, stability requirements, and dataset size all influence selection',
+  );
 }
 
 // Helper classes for organized testing

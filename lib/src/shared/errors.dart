@@ -14,8 +14,9 @@ final class NoStrategyFailure extends AlgoMateFailure {
   const NoStrategyFailure(super.message, [super.details]);
 
   factory NoStrategyFailure.forSignature(String signature) => NoStrategyFailure(
-      'No strategy found for signature: $signature',
-      'Consider registering built-in strategies or adjusting your selector hint.',);
+        'No strategy found for signature: $signature',
+        'Consider registering built-in strategies or adjusting your selector hint.',
+      );
 }
 
 /// Failure when input data doesn't meet strategy requirements.
@@ -30,8 +31,9 @@ final class InapplicableInputFailure extends AlgoMateFailure {
 
   factory InapplicableInputFailure.sizeLimit(String strategyName, int limit) =>
       InapplicableInputFailure(
-          'Strategy "$strategyName" has size limit of $limit',
-          'Use a different strategy or reduce input size.',);
+        'Strategy "$strategyName" has size limit of $limit',
+        'Use a different strategy or reduce input size.',
+      );
 }
 
 /// Failure when resource limits are exceeded.
@@ -46,8 +48,9 @@ final class ResourceLimitFailure extends AlgoMateFailure {
 
   factory ResourceLimitFailure.timeout(Duration timeout) =>
       ResourceLimitFailure(
-          'Operation timed out after ${timeout.inMilliseconds}ms',
-          'Consider using async execution or increasing timeout.',);
+        'Operation timed out after ${timeout.inMilliseconds}ms',
+        'Consider using async execution or increasing timeout.',
+      );
 }
 
 /// Failure during strategy execution.
@@ -56,10 +59,13 @@ final class ExecutionFailure extends AlgoMateFailure {
 
   factory ExecutionFailure.strategyError(String strategyName, Object error) =>
       ExecutionFailure(
-          'Strategy "$strategyName" failed during execution', error.toString(),);
+        'Strategy "$strategyName" failed during execution',
+        error.toString(),
+      );
 
   factory ExecutionFailure.fallbackExhausted(
-          List<String> attemptedStrategies,) =>
+    List<String> attemptedStrategies,
+  ) =>
       ExecutionFailure(
         'All fallback strategies failed',
         'Attempted strategies: ${attemptedStrategies.join(", ")}. Consider using different input or registering more robust strategies.',
@@ -71,14 +77,17 @@ final class IsolateFailure extends AlgoMateFailure {
   const IsolateFailure(super.message, [super.details]);
 
   factory IsolateFailure.spawnError(Object error) => IsolateFailure(
-      'Failed to spawn isolate for async execution', error.toString(),);
+        'Failed to spawn isolate for async execution',
+        error.toString(),
+      );
 
   factory IsolateFailure.communicationError(Object error) =>
       IsolateFailure('Communication error with isolate', error.toString());
 
   factory IsolateFailure.timeout(Duration timeout) => IsolateFailure(
-      'Isolate execution timed out after ${timeout.inMilliseconds}ms',
-      'Consider increasing timeout or reducing workload size.',);
+        'Isolate execution timed out after ${timeout.inMilliseconds}ms',
+        'Consider increasing timeout or reducing workload size.',
+      );
 }
 
 /// Failure during benchmarking operations.
@@ -90,11 +99,15 @@ final class BenchmarkFailure extends AlgoMateFailure {
 
   factory BenchmarkFailure.executionError(String benchmarkName, Object error) =>
       BenchmarkFailure(
-          'Benchmark "$benchmarkName" execution failed', error.toString(),);
+        'Benchmark "$benchmarkName" execution failed',
+        error.toString(),
+      );
 
   factory BenchmarkFailure.insufficientData(int required, int actual) =>
-      BenchmarkFailure('Insufficient benchmark iterations',
-          'Required at least $required iterations but only $actual completed successfully.',);
+      BenchmarkFailure(
+        'Insufficient benchmark iterations',
+        'Required at least $required iterations but only $actual completed successfully.',
+      );
 }
 
 /// Failure in memory management operations.
@@ -125,7 +138,9 @@ final class TimeoutFailure extends AlgoMateFailure {
       );
 
   factory TimeoutFailure.strategyTimeout(
-          String strategyName, Duration timeout,) =>
+    String strategyName,
+    Duration timeout,
+  ) =>
       TimeoutFailure(
         'Strategy "$strategyName" execution timed out',
         'Exceeded ${timeout.inMilliseconds}ms limit. The strategy may be inefficient for this input size.',
@@ -146,7 +161,9 @@ final class StrategyRegistrationFailure extends AlgoMateFailure {
       StrategyRegistrationFailure('Invalid strategy metadata', reason);
 
   factory StrategyRegistrationFailure.incompatibleInterface(
-          String expected, String actual,) =>
+    String expected,
+    String actual,
+  ) =>
       StrategyRegistrationFailure(
         'Strategy interface mismatch',
         'Expected $expected but got $actual. Ensure strategy implements correct generic types.',

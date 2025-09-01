@@ -17,8 +17,10 @@ final class ExecuteResult<O> {
   });
 
   /// Create a minimal result without timing information
-  factory ExecuteResult.simple(
-          {required O output, required AlgoMetadata selectedStrategy,}) =>
+  factory ExecuteResult.simple({
+    required O output,
+    required AlgoMetadata selectedStrategy,
+  }) =>
       ExecuteResult<O>(output: output, selectedStrategy: selectedStrategy);
 
   /// Create a result with timing information
@@ -74,8 +76,13 @@ final class ExecuteResult<O> {
           other.selectionTimeMicros == selectionTimeMicros);
 
   @override
-  int get hashCode => Object.hash(output, selectedStrategy, executionTimeMicros,
-      candidateCount, selectionTimeMicros,);
+  int get hashCode => Object.hash(
+        output,
+        selectedStrategy,
+        executionTimeMicros,
+        candidateCount,
+        selectionTimeMicros,
+      );
 
   @override
   String toString() {
@@ -100,12 +107,13 @@ final class ExecuteResult<O> {
   }
 
   /// Create a copy with optional field overrides
-  ExecuteResult<O> copyWith(
-          {O? output,
-          AlgoMetadata? selectedStrategy,
-          int? executionTimeMicros,
-          int? candidateCount,
-          int? selectionTimeMicros,}) =>
+  ExecuteResult<O> copyWith({
+    O? output,
+    AlgoMetadata? selectedStrategy,
+    int? executionTimeMicros,
+    int? candidateCount,
+    int? selectionTimeMicros,
+  }) =>
       ExecuteResult<O>(
         output: output ?? this.output,
         selectedStrategy: selectedStrategy ?? this.selectedStrategy,

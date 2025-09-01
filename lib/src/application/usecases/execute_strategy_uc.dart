@@ -32,7 +32,8 @@ class ExecuteStrategyUseCase {
   /// Returns a Result containing either the execution result or a failure.
   /// This method never throws exceptions - all errors are wrapped in Results.
   Result<ExecuteResult<O>, AlgoMateFailure> call<I, O>(
-      ExecuteCommand<I, O> command,) {
+    ExecuteCommand<I, O> command,
+  ) {
     final selectionStopwatch = enableTiming ? clock.createStopwatch() : null;
     selectionStopwatch?.start();
 
@@ -42,7 +43,8 @@ class ExecuteStrategyUseCase {
 
       if (candidates.isEmpty) {
         return Result.failure(
-            NoStrategyFailure.forSignature(command.signature.toString()),);
+          NoStrategyFailure.forSignature(command.signature.toString()),
+        );
       }
 
       logger.debug('Found ${candidates.length} candidate strategies');
@@ -76,14 +78,17 @@ class ExecuteStrategyUseCase {
     } catch (e, stackTrace) {
       logger.error('Unexpected error in strategy execution', e, stackTrace);
       return Result.failure(
-          ExecutionFailure('Unexpected error during execution', e.toString()),);
+        ExecutionFailure('Unexpected error during execution', e.toString()),
+      );
     }
   }
 
   /// Filter strategies that can be applied to the given command.
   /// Uses fast filtering with minimal allocations in the hot path.
   List<Strategy<I, O>> _filterApplicable<I, O>(
-      List<Strategy<I, O>> candidates, ExecuteCommand<I, O> command,) {
+    List<Strategy<I, O>> candidates,
+    ExecuteCommand<I, O> command,
+  ) {
     final applicable = <Strategy<I, O>>[];
 
     // Use traditional for loop for best performance
@@ -96,7 +101,8 @@ class ExecuteStrategyUseCase {
         }
       } catch (e) {
         logger.warn(
-            'Strategy ${strategy.meta.name}.canApply() threw exception: $e',);
+          'Strategy ${strategy.meta.name}.canApply() threw exception: $e',
+        );
         // Skip strategies that throw during canApply
       }
     }
@@ -106,7 +112,8 @@ class ExecuteStrategyUseCase {
 
   /// Handle the case where no strategies are applicable.
   Result<ExecuteResult<O>, AlgoMateFailure> _handleNoApplicableStrategies<I, O>(
-      ExecuteCommand<I, O> command,) {
+    ExecuteCommand<I, O> command,
+  ) {
     // Try fallback strategy if specified
     if (command.fallbackStrategyName != null) {
       final fallback =
@@ -116,10 +123,11 @@ class ExecuteStrategyUseCase {
         logger.info('Using fallback strategy: ${fallback.meta.name}');
 
         return _executeStrategy(
-            strategy: fallback,
-            input: command.input,
-            candidateCount: 1,
-            selectionTimeMicros: null,);
+          strategy: fallback,
+          input: command.input,
+          candidateCount: 1,
+          selectionTimeMicros: null,
+        );
       }
     }
 
@@ -137,13 +145,15 @@ class ExecuteStrategyUseCase {
 
     if (hint.memoryBudgetBytes != null) {
       details.add(
-          'Consider increasing memory budget or using in-place algorithms',);
+        'Consider increasing memory budget or using in-place algorithms',
+      );
     }
 
     return Result.failure(
       InapplicableInputFailure(
-          'No strategies can be applied with the given hint and input',
-          details.isEmpty ? null : details.join('; '),),
+        'No strategies can be applied with the given hint and input',
+        details.isEmpty ? null : details.join('; '),
+      ),
     );
   }
 
@@ -174,17 +184,22 @@ class ExecuteStrategyUseCase {
 
         if (executionStopwatch != null) {
           logger.debug(
-              'Execution time: ${executionStopwatch.elapsedMicroseconds}μs',);
+            'Execution time: ${executionStopwatch.elapsedMicroseconds}μs',
+          );
         }
       }
 
       return Result.success(result);
     } catch (e, stackTrace) {
-      logger.error('Strategy ${strategy.meta.name} failed during execution', e,
-          stackTrace,);
+      logger.error(
+        'Strategy ${strategy.meta.name} failed during execution',
+        e,
+        stackTrace,
+      );
 
       return Result.failure(
-          ExecutionFailure.strategyError(strategy.meta.name, e),);
+        ExecutionFailure.strategyError(strategy.meta.name, e),
+      );
     }
   }
 }

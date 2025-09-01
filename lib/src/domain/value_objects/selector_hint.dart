@@ -4,12 +4,13 @@ import 'package:meta/meta.dart';
 /// Provides performance hints without making assumptions about data correctness.
 @immutable
 final class SelectorHint {
-  const SelectorHint(
-      {this.n,
-      this.sorted,
-      this.memoryBudgetBytes,
-      this.preferStable,
-      this.maxTimeComplexity,});
+  const SelectorHint({
+    this.n,
+    this.sorted,
+    this.memoryBudgetBytes,
+    this.preferStable,
+    this.maxTimeComplexity,
+  });
 
   /// Creates a hint for small datasets (typically < 100 elements)
   factory SelectorHint.small({bool? sorted}) => SelectorHint(
@@ -56,7 +57,12 @@ final class SelectorHint {
 
   @override
   int get hashCode => Object.hash(
-      n, sorted, memoryBudgetBytes, preferStable, maxTimeComplexity,);
+        n,
+        sorted,
+        memoryBudgetBytes,
+        preferStable,
+        maxTimeComplexity,
+      );
 
   @override
   String toString() => 'SelectorHint('
@@ -68,12 +74,13 @@ final class SelectorHint {
       ')';
 
   /// Creates a copy of this hint with optional field overrides
-  SelectorHint copyWith(
-          {int? n,
-          bool? sorted,
-          int? memoryBudgetBytes,
-          bool? preferStable,
-          String? maxTimeComplexity,}) =>
+  SelectorHint copyWith({
+    int? n,
+    bool? sorted,
+    int? memoryBudgetBytes,
+    bool? preferStable,
+    String? maxTimeComplexity,
+  }) =>
       SelectorHint(
         n: n ?? this.n,
         sorted: sorted ?? this.sorted,

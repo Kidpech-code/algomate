@@ -10,15 +10,21 @@ abstract class IsolateExecutor {
   ///
   /// Returns a Future that completes with the result or throws
   /// an exception if execution fails or times out.
-  Future<R> execute<T, R>(
-      {required R Function(T) function, required T input, Duration? timeout,});
+  Future<R> execute<T, R>({
+    required R Function(T) function,
+    required T input,
+    Duration? timeout,
+  });
 
   /// Execute a static function by name in an isolate.
   ///
   /// This is more efficient for simple functions as it avoids
   /// serializing function closures.
-  Future<R> executeStatic<T, R>(
-      {required String functionName, required T input, Duration? timeout,});
+  Future<R> executeStatic<T, R>({
+    required String functionName,
+    required T input,
+    Duration? timeout,
+  });
 
   /// Check if isolate execution is available on this platform.
   bool get isAvailable;
@@ -32,8 +38,11 @@ abstract class IsolateExecutor {
 
 /// Configuration for isolate execution.
 class IsolateConfig {
-  const IsolateConfig(
-      {this.debugName, this.paused = false, this.errorsAreFatal = false,});
+  const IsolateConfig({
+    this.debugName,
+    this.paused = false,
+    this.errorsAreFatal = false,
+  });
 
   /// Debug name for the isolate (useful for debugging)
   final String? debugName;
@@ -58,9 +67,11 @@ abstract class IsolateMessage {
 
 /// Message to execute a function in an isolate.
 class ExecuteMessage<T> extends IsolateMessage {
-  const ExecuteMessage(
-      {required int id, required this.functionName, required this.input,})
-      : super(IsolateMessageType.execute, id);
+  const ExecuteMessage({
+    required int id,
+    required this.functionName,
+    required this.input,
+  }) : super(IsolateMessageType.execute, id);
 
   final String functionName;
   final T input;

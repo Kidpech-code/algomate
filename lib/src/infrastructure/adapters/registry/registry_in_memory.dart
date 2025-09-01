@@ -30,7 +30,8 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
       for (final entry in entries) {
         if (entry.strategyName == strategy.meta.name) {
           throw ArgumentError(
-              'Strategy "${strategy.meta.name}" already registered for signature $signature',);
+            'Strategy "${strategy.meta.name}" already registered for signature $signature',
+          );
         }
       }
     }
@@ -148,7 +149,9 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
 
   @override
   void registerBatch<I, O>(
-      List<Strategy<I, O>> strategies, StrategySignature signature,) {
+    List<Strategy<I, O>> strategies,
+    StrategySignature signature,
+  ) {
     for (final strategy in strategies) {
       register<I, O>(strategy, signature);
     }
@@ -157,20 +160,27 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
   @override
   CatalogStats get stats {
     return CatalogStats(
-        totalStrategies: count,
-        categoryCounts: Map.from(_categoryCount),
-        typeCounts: Map.from(_typeCount),);
+      totalStrategies: count,
+      categoryCounts: Map.from(_categoryCount),
+      typeCounts: Map.from(_typeCount),
+    );
   }
 
   /// Internal method to perform the registration
   void _doRegister<I, O>(
-      Strategy<I, O> strategy, StrategySignature signature, String key,) {
+    Strategy<I, O> strategy,
+    StrategySignature signature,
+    String key,
+  ) {
     // Add to main storage
     final entries = _strategies[key] ??= <_StrategyEntry>[];
-    entries.add(_StrategyEntry(
+    entries.add(
+      _StrategyEntry(
         strategy: strategy,
         strategyName: strategy.meta.name,
-        signature: signature,),);
+        signature: signature,
+      ),
+    );
 
     // Update statistics
     _categoryCount[signature.category] =
@@ -203,10 +213,11 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
 
 /// Internal class for storing strategy entries with metadata
 class _StrategyEntry {
-  const _StrategyEntry(
-      {required this.strategy,
-      required this.strategyName,
-      required this.signature,});
+  const _StrategyEntry({
+    required this.strategy,
+    required this.strategyName,
+    required this.signature,
+  });
 
   final Strategy<dynamic, dynamic>
       strategy; // Using dynamic Strategy for storage efficiency

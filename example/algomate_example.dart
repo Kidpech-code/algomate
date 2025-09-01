@@ -104,7 +104,8 @@ void datasetSizeExample(AlgoSelectorFacade selector) {
       print('   → Selected: ${success.selectedStrategy.name}');
       print('   → First 10: ${success.output.take(10).toList()}');
       print(
-          '   → Last 10: ${success.output.skip(success.output.length - 10).toList()}',);
+        '   → Last 10: ${success.output.skip(success.output.length - 10).toList()}',
+      );
     },
     (failure) => print('   ❌ Failed: $failure'),
   );
@@ -127,7 +128,8 @@ void memoryConstraintExample(AlgoSelectorFacade selector) {
     (success) {
       print('   → Selected: ${success.selectedStrategy.name}');
       print(
-          '   → Space complexity: ${success.selectedStrategy.spaceComplexity}',);
+        '   → Space complexity: ${success.selectedStrategy.spaceComplexity}',
+      );
     },
     (failure) => print('   ❌ Failed: $failure'),
   );
@@ -158,7 +160,10 @@ void searchExample(AlgoSelectorFacade selector) {
   // Binary search on sorted data
   print('Binary search on sorted data:');
   var result = selector.search(
-      input: sortedData, target: 7, hint: const SelectorHint(sorted: true),);
+    input: sortedData,
+    target: 7,
+    hint: const SelectorHint(sorted: true),
+  );
 
   result.fold(
     (success) {
@@ -176,7 +181,10 @@ void searchExample(AlgoSelectorFacade selector) {
   // Linear search on unsorted data
   print('\nLinear search on unsorted data:');
   result = selector.search(
-      input: unsortedData, target: 25, hint: const SelectorHint(sorted: false),);
+    input: unsortedData,
+    target: 25,
+    hint: const SelectorHint(sorted: false),
+  );
 
   result.fold(
     (success) {
@@ -201,7 +209,10 @@ void customStrategyExample(AlgoSelectorFacade selector) {
 
   // Register the custom strategy
   final registerResult = selector.register<List<int>, List<int>>(
-      strategy: customStrategy, signature: signature, allowReplace: true,);
+    strategy: customStrategy,
+    signature: signature,
+    allowReplace: true,
+  );
 
   registerResult.fold(
     (success) {
@@ -274,10 +285,11 @@ void performanceExample(AlgoSelectorFacade selector) {
 class _CustomBubbleSortStrategy extends Strategy<List<int>, List<int>> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-      name: 'custom_bubble_sort',
-      timeComplexity: TimeComplexity.oN2,
-      spaceComplexity: TimeComplexity.o1,
-      requiresSorted: false,);
+        name: 'custom_bubble_sort',
+        timeComplexity: TimeComplexity.oN2,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

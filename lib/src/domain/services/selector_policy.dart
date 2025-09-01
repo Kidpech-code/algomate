@@ -64,7 +64,9 @@ class SelectorPolicy {
   ///
   /// Returns a new sorted list without modifying the input.
   List<Strategy<I, O>> rank<I, O>(
-      List<Strategy<I, O>> candidates, SelectorHint hint,) {
+    List<Strategy<I, O>> candidates,
+    SelectorHint hint,
+  ) {
     if (candidates.isEmpty) return [];
     if (candidates.length == 1) return [...candidates];
 

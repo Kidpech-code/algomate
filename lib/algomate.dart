@@ -116,7 +116,7 @@ export 'src/domain/services/complexity_ranker.dart';
 export 'src/infrastructure/adapters/logging/console_logger.dart';
 export 'src/infrastructure/adapters/registry/registry_in_memory.dart';
 export 'src/infrastructure/adapters/benchmark/harness_benchmark_runner.dart';
-export 'src/infrastructure/adapters/concurrency/dart_isolate_executor.dart';
+export 'src/infrastructure/adapters/concurrency/isolate_executor.dart';
 
 // Built-in strategies (for reference)
 export 'src/infrastructure/strategies/search/linear_search.dart';

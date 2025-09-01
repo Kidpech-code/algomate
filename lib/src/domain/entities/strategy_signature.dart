@@ -4,20 +4,25 @@ import 'package:meta/meta.dart';
 /// Used to find candidate strategies that match input/output types and categories.
 @immutable
 final class StrategySignature {
-  const StrategySignature(
-      {required this.inputType,
-      required this.outputType,
-      required this.category,
-      this.tag,});
+  const StrategySignature({
+    required this.inputType,
+    required this.outputType,
+    required this.category,
+    this.tag,
+  });
 
   /// Creates a signature for search algorithms
-  factory StrategySignature.search(
-          {required Type inputType, required Type outputType, String? tag,}) =>
+  factory StrategySignature.search({
+    required Type inputType,
+    required Type outputType,
+    String? tag,
+  }) =>
       StrategySignature(
-          inputType: inputType,
-          outputType: outputType,
-          category: 'search',
-          tag: tag,);
+        inputType: inputType,
+        outputType: outputType,
+        category: 'search',
+        tag: tag,
+      );
 
   /// Creates a signature for sorting algorithms
   factory StrategySignature.sort({required Type inputType, String? tag}) =>

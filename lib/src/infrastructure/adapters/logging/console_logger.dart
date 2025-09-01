@@ -147,7 +147,8 @@ class BufferedLogger implements Logger {
   void error(String message, [Object? error, StackTrace? stackTrace]) {
     if (_shouldLog(LogLevel.error)) {
       _buffer.add(
-          LogEntry('ERROR', message, error: error, stackTrace: stackTrace),);
+        LogEntry('ERROR', message, error: error, stackTrace: stackTrace),
+      );
     }
   }
 
@@ -164,9 +165,14 @@ class BufferedLogger implements Logger {
 
 /// A single log entry in the buffered logger.
 class LogEntry {
-  const LogEntry(this.level, this.message,
-      {this.context, this.error, this.stackTrace, DateTime? timestamp,})
-      : timestamp = timestamp ?? const _CurrentTime();
+  const LogEntry(
+    this.level,
+    this.message, {
+    this.context,
+    this.error,
+    this.stackTrace,
+    DateTime? timestamp,
+  }) : timestamp = timestamp ?? const _CurrentTime();
 
   final String level;
   final String message;

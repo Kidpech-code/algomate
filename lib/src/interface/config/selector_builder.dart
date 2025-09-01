@@ -33,14 +33,16 @@ class SelectorBuilder {
   }
 
   /// Use the default selection policy with optional customizations.
-  SelectorBuilder useDefaultPolicy(
-      {int smallNThreshold = 32,
-      double memoryWeight = 0.1,
-      double stabilityWeight = 0.05,}) {
+  SelectorBuilder useDefaultPolicy({
+    int smallNThreshold = 32,
+    double memoryWeight = 0.1,
+    double stabilityWeight = 0.05,
+  }) {
     _policy = SelectorPolicy(
-        smallNThreshold: smallNThreshold,
-        memoryWeight: memoryWeight,
-        stabilityWeight: stabilityWeight,);
+      smallNThreshold: smallNThreshold,
+      memoryWeight: memoryWeight,
+      stabilityWeight: stabilityWeight,
+    );
     return this;
   }
 
@@ -105,19 +107,24 @@ class SelectorBuilder {
     // Note: In practice, you'd want to register factory methods or
     // use a more dynamic approach for target values
     final signature = StrategySignature.search(
-        inputType: List<int>, outputType: int, tag: 'index_search',);
+      inputType: List<int>,
+      outputType: int,
+      tag: 'index_search',
+    );
 
     // For demo purposes, register with a placeholder target
     // Real implementation would handle target specification differently
     registerUC.call(
-        strategy: LinearSearchStrategy(0),
-        signature: signature,
-        allowReplace: true,);
+      strategy: LinearSearchStrategy(0),
+      signature: signature,
+      allowReplace: true,
+    );
 
     registerUC.call(
-        strategy: BinarySearchStrategy(0),
-        signature: signature,
-        allowReplace: true,);
+      strategy: BinarySearchStrategy(0),
+      signature: signature,
+      allowReplace: true,
+    );
 
     _catalog = catalog;
     return this;
@@ -136,34 +143,40 @@ class SelectorBuilder {
         StrategySignature.sort(inputType: List<int>, tag: 'int_sort');
 
     registerUC.call(
-        strategy: InsertionSortStrategy(),
-        signature: signature,
-        allowReplace: true,);
+      strategy: InsertionSortStrategy(),
+      signature: signature,
+      allowReplace: true,
+    );
 
     registerUC.call(
-        strategy: InPlaceInsertionSortStrategy(),
-        signature: signature,
-        allowReplace: true,);
+      strategy: InPlaceInsertionSortStrategy(),
+      signature: signature,
+      allowReplace: true,
+    );
 
     registerUC.call(
-        strategy: BinaryInsertionSortStrategy(),
-        signature: signature,
-        allowReplace: true,);
+      strategy: BinaryInsertionSortStrategy(),
+      signature: signature,
+      allowReplace: true,
+    );
 
     registerUC.call(
-        strategy: MergeSortStrategy(),
-        signature: signature,
-        allowReplace: true,);
+      strategy: MergeSortStrategy(),
+      signature: signature,
+      allowReplace: true,
+    );
 
     registerUC.call(
-        strategy: IterativeMergeSortStrategy(),
-        signature: signature,
-        allowReplace: true,);
+      strategy: IterativeMergeSortStrategy(),
+      signature: signature,
+      allowReplace: true,
+    );
 
     registerUC.call(
-        strategy: HybridMergeSortStrategy(),
-        signature: signature,
-        allowReplace: true,);
+      strategy: HybridMergeSortStrategy(),
+      signature: signature,
+      allowReplace: true,
+    );
 
     _catalog = catalog;
     return this;
@@ -184,14 +197,16 @@ class SelectorBuilder {
     if (catalog.count == 0 && _catalog != null) {
       // Log warning if catalog was explicitly set but is empty
       loggerFactory.create('SelectorBuilder').warn(
-          'Building selector with empty strategy catalog. Consider calling withAllBuiltIns().',);
+            'Building selector with empty strategy catalog. Consider calling withAllBuiltIns().',
+          );
     }
 
     return SelectorBuilderResult(
-        catalog: catalog,
-        policy: policy,
-        loggerFactory: loggerFactory,
-        enableTiming: _enableTiming,);
+      catalog: catalog,
+      policy: policy,
+      loggerFactory: loggerFactory,
+      enableTiming: _enableTiming,
+    );
   }
 
   /// Create a builder with sensible defaults for development.
@@ -224,11 +239,12 @@ class SelectorBuilder {
 
 /// Result of the builder containing all configured components.
 class SelectorBuilderResult {
-  const SelectorBuilderResult(
-      {required this.catalog,
-      required this.policy,
-      required this.loggerFactory,
-      required this.enableTiming,});
+  const SelectorBuilderResult({
+    required this.catalog,
+    required this.policy,
+    required this.loggerFactory,
+    required this.enableTiming,
+  });
 
   final StrategyCatalog catalog;
   final SelectorPolicy policy;

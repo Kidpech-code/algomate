@@ -143,7 +143,12 @@ class IterativeMergeSortStrategy extends Strategy<List<int>, List<int>> {
   }
 
   void _mergeInPlace(
-      List<int> arr, List<int> temp, int left, int mid, int right,) {
+    List<int> arr,
+    List<int> temp,
+    int left,
+    int mid,
+    int right,
+  ) {
     // Copy data to temp arrays
     for (var i = left; i <= right; i++) {
       temp[i] = arr[i];

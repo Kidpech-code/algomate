@@ -15,14 +15,18 @@ void main() {
       test('should handle empty lists correctly', () {
         final result =
             selector.sort(input: <int>[], hint: SelectorHint.small());
-        result.fold((success) => expect(success.output, isEmpty),
-            (failure) => fail('Should not fail on empty input: $failure'),);
+        result.fold(
+          (success) => expect(success.output, isEmpty),
+          (failure) => fail('Should not fail on empty input: $failure'),
+        );
       });
 
       test('should handle single element lists', () {
         final result = selector.sort(input: [42], hint: SelectorHint.small());
-        result.fold((success) => expect(success.output, equals([42])),
-            (failure) => fail('Should not fail on single element: $failure'),);
+        result.fold(
+          (success) => expect(success.output, equals([42])),
+          (failure) => fail('Should not fail on single element: $failure'),
+        );
       });
 
       test('should handle lists with duplicate elements', () {
@@ -33,8 +37,10 @@ void main() {
           input: input,
           hint: SelectorHint(n: input.length),
         );
-        result.fold((success) => expect(success.output, equals(expected)),
-            (failure) => fail('Should handle duplicates: $failure'),);
+        result.fold(
+          (success) => expect(success.output, equals(expected)),
+          (failure) => fail('Should handle duplicates: $failure'),
+        );
       });
 
       test('should handle already sorted lists efficiently', () {
@@ -63,8 +69,10 @@ void main() {
           input: input,
           hint: SelectorHint(n: input.length),
         );
-        result.fold((success) => expect(success.output, equals(expected)),
-            (failure) => fail('Should handle reverse sorted: $failure'),);
+        result.fold(
+          (success) => expect(success.output, equals(expected)),
+          (failure) => fail('Should handle reverse sorted: $failure'),
+        );
       });
 
       test('should handle extreme values', () {
@@ -75,8 +83,10 @@ void main() {
           input: input,
           hint: SelectorHint(n: input.length),
         );
-        result.fold((success) => expect(success.output, equals(expected)),
-            (failure) => fail('Should handle extreme values: $failure'),);
+        result.fold(
+          (success) => expect(success.output, equals(expected)),
+          (failure) => fail('Should handle extreme values: $failure'),
+        );
       });
     });
 
@@ -86,8 +96,10 @@ void main() {
         final result = selector.sort(input: input, hint: SelectorHint.small());
 
         result.fold(
-          (success) => expect(success.selectedStrategy.name,
-              anyOf(contains('insertion'), contains('hybrid')),),
+          (success) => expect(
+            success.selectedStrategy.name,
+            anyOf(contains('insertion'), contains('hybrid')),
+          ),
           (failure) => fail('Should select appropriate algorithm: $failure'),
         );
       });
@@ -97,8 +109,10 @@ void main() {
         final result = selector.sort(input: input, hint: SelectorHint.large());
 
         result.fold(
-          (success) => expect(success.selectedStrategy.name,
-              anyOf(contains('merge'), contains('quick'), contains('heap')),),
+          (success) => expect(
+            success.selectedStrategy.name,
+            anyOf(contains('merge'), contains('quick'), contains('heap')),
+          ),
           (failure) => fail('Should select scalable algorithm: $failure'),
         );
       });
@@ -111,8 +125,10 @@ void main() {
         result.fold(
           (success) {
             // Should select in-place or low memory algorithm
-            expect(success.selectedStrategy.spaceComplexity.rankValue,
-                lessThanOrEqualTo(2),);
+            expect(
+              success.selectedStrategy.spaceComplexity.rankValue,
+              lessThanOrEqualTo(2),
+            );
           },
           (failure) => fail('Should respect memory constraints: $failure'),
         );
@@ -146,9 +162,10 @@ void main() {
           );
 
           result.fold(
-              (success) => results.add(success.selectedStrategy.name),
-              (failure) =>
-                  fail('Should select algorithm for size $size: $failure'),);
+            (success) => results.add(success.selectedStrategy.name),
+            (failure) =>
+                fail('Should select algorithm for size $size: $failure'),
+          );
         }
 
         // Different sizes should potentially select different algorithms
@@ -167,18 +184,23 @@ void main() {
 
         // Register custom strategy
         final signature = StrategySignature.sort(
-            inputType: List<int>, tag: 'test_quick_sort',);
+          inputType: List<int>,
+          tag: 'test_quick_sort',
+        );
 
         final registrationResult = selector.register<List<int>, List<int>>(
-            strategy: customStrategy, signature: signature,);
+          strategy: customStrategy,
+          signature: signature,
+        );
         expect(registrationResult.isSuccess, isTrue);
 
         // Use custom strategy
         final input = List.generate(50, (i) => 50 - i);
         final sortResult = selector.execute<List<int>, List<int>>(
-            input: input,
-            signature: signature,
-            hint: const SelectorHint(n: 50),);
+          input: input,
+          signature: signature,
+          hint: const SelectorHint(n: 50),
+        );
 
         sortResult.fold(
           (success) {
@@ -206,8 +228,10 @@ void main() {
             expect(success.output, hasLength(10));
             // Should be sorted
             for (int i = 1; i < success.output.length; i++) {
-              expect(success.output[i],
-                  greaterThanOrEqualTo(success.output[i - 1]),);
+              expect(
+                success.output[i],
+                greaterThanOrEqualTo(success.output[i - 1]),
+              );
             }
           },
           (failure) => fail('Should fallback gracefully: $failure'),
@@ -222,7 +246,9 @@ void main() {
             StrategySignature.sort(inputType: List<int>, tag: 'invalid_test');
 
         final result = selector.register<List<int>, List<int>>(
-            strategy: invalidStrategy, signature: signature,);
+          strategy: invalidStrategy,
+          signature: signature,
+        );
 
         expect(result.isFailure, isTrue);
       });
@@ -233,14 +259,16 @@ void main() {
             StrategySignature.sort(inputType: List<int>, tag: 'nonexistent');
 
         final result = selector.execute<List<int>, List<int>>(
-            input: input,
-            signature: invalidSignature,
-            hint: SelectorHint.small(),);
+          input: input,
+          signature: invalidSignature,
+          hint: SelectorHint.small(),
+        );
 
         expect(result.isFailure, isTrue);
         result.fold(
-            (success) => fail('Should fail with non-existent signature'),
-            (failure) => expect(failure, isA<NoStrategyFailure>()),);
+          (success) => fail('Should fail with non-existent signature'),
+          (failure) => expect(failure, isA<NoStrategyFailure>()),
+        );
       });
 
       test('should provide detailed error information', () {
@@ -248,9 +276,10 @@ void main() {
             StrategySignature.sort(inputType: List<int>, tag: 'missing_algo');
 
         final result = selector.execute<List<int>, List<int>>(
-            input: [1, 2, 3],
-            signature: invalidSignature,
-            hint: SelectorHint.small(),);
+          input: [1, 2, 3],
+          signature: invalidSignature,
+          hint: SelectorHint.small(),
+        );
 
         result.fold((success) => fail('Should fail with missing algorithm'),
             (failure) {
@@ -318,23 +347,35 @@ void main() {
             StrategySignature.sort(inputType: List<int>, tag: 'removable_sort');
 
         selector.register<List<int>, List<int>>(
-            strategy: strategy, signature: signature,);
+          strategy: strategy,
+          signature: signature,
+        );
         expect(
-            selector.hasStrategy<List<int>, List<int>>(
-                'test_quick_sort', signature,),
-            isTrue,);
+          selector.hasStrategy<List<int>, List<int>>(
+            'test_quick_sort',
+            signature,
+          ),
+          isTrue,
+        );
 
         // Now remove it
         final removeResult = selector.removeStrategy<List<int>, List<int>>(
-            strategyName: 'test_quick_sort', signature: signature,);
+          strategyName: 'test_quick_sort',
+          signature: signature,
+        );
 
-        removeResult.fold((removed) => expect(removed, isTrue),
-            (failure) => fail('Should successfully remove strategy: $failure'),);
+        removeResult.fold(
+          (removed) => expect(removed, isTrue),
+          (failure) => fail('Should successfully remove strategy: $failure'),
+        );
 
         expect(
-            selector.hasStrategy<List<int>, List<int>>(
-                'test_quick_sort', signature,),
-            isFalse,);
+          selector.hasStrategy<List<int>, List<int>>(
+            'test_quick_sort',
+            signature,
+          ),
+          isFalse,
+        );
       });
 
       test('should find specific strategies', () {
@@ -343,10 +384,14 @@ void main() {
             StrategySignature.sort(inputType: List<int>, tag: 'findable_sort');
 
         selector.register<List<int>, List<int>>(
-            strategy: strategy, signature: signature,);
+          strategy: strategy,
+          signature: signature,
+        );
 
         final found = selector.findStrategy<List<int>, List<int>>(
-            'test_quick_sort', signature,);
+          'test_quick_sort',
+          signature,
+        );
         expect(found, isNotNull);
         expect(found!.meta.name, equals('test_quick_sort'));
       });

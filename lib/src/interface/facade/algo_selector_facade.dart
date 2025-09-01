@@ -34,25 +34,27 @@ class AlgoSelectorFacade {
   /// Create a facade with development-friendly defaults.
   factory AlgoSelectorFacade.development() {
     return AlgoSelectorFacade.fromBuilder(
-        SelectorBuilder.development().build(),);
+      SelectorBuilder.development().build(),
+    );
   }
 
   /// Create a facade with production-optimized settings.
   factory AlgoSelectorFacade.production() {
     return AlgoSelectorFacade.fromBuilder(SelectorBuilder.production().build());
   }
-  AlgoSelectorFacade._(
-      {required this.catalog,
-      required this.policy,
-      required this.logger,
-      required this.clock,
-      required this.enableTiming,})
-      : _executeUC = ExecuteStrategyUseCase(
-            catalog: catalog,
-            policy: policy,
-            logger: logger,
-            clock: clock,
-            enableTiming: enableTiming,),
+  AlgoSelectorFacade._({
+    required this.catalog,
+    required this.policy,
+    required this.logger,
+    required this.clock,
+    required this.enableTiming,
+  })  : _executeUC = ExecuteStrategyUseCase(
+          catalog: catalog,
+          policy: policy,
+          logger: logger,
+          clock: clock,
+          enableTiming: enableTiming,
+        ),
         _registerUC = RegisterStrategyUseCase(catalog: catalog, logger: logger);
 
   final StrategyCatalog catalog;
@@ -67,19 +69,24 @@ class AlgoSelectorFacade {
   /// Register a new strategy.
   ///
   /// Returns a Result indicating success or failure of the registration.
-  Result<void, AlgoMateFailure> register<I, O>(
-      {required Strategy<I, O> strategy,
-      required StrategySignature signature,
-      bool allowReplace = false,}) {
+  Result<void, AlgoMateFailure> register<I, O>({
+    required Strategy<I, O> strategy,
+    required StrategySignature signature,
+    bool allowReplace = false,
+  }) {
     try {
       _registerUC.call<I, O>(
-          strategy: strategy, signature: signature, allowReplace: allowReplace,);
+        strategy: strategy,
+        signature: signature,
+        allowReplace: allowReplace,
+      );
 
       return const Result.success(null);
     } catch (e) {
       logger.error('Failed to register strategy', e);
       return Result.failure(
-          ExecutionFailure('Strategy registration failed', e.toString()),);
+        ExecutionFailure('Strategy registration failed', e.toString()),
+      );
     }
   }
 
@@ -106,14 +113,18 @@ class AlgoSelectorFacade {
   }
 
   /// Convenience method for search operations.
-  Result<ExecuteResult<int?>, AlgoMateFailure> search(
-      {required List<int> input,
-      required int target,
-      SelectorHint? hint,
-      String? tag,}) {
+  Result<ExecuteResult<int?>, AlgoMateFailure> search({
+    required List<int> input,
+    required int target,
+    SelectorHint? hint,
+    String? tag,
+  }) {
     // Create a search-specific strategy signature
     final signature = StrategySignature.search(
-        inputType: List<int>, outputType: int, tag: tag ?? 'index_search',);
+      inputType: List<int>,
+      outputType: int,
+      tag: tag ?? 'index_search',
+    );
 
     // For simplicity in this demo, we'll need a more sophisticated approach
     // to handle target values in practice
@@ -125,8 +136,11 @@ class AlgoSelectorFacade {
   }
 
   /// Convenience method for sorting operations.
-  Result<ExecuteResult<List<int>>, AlgoMateFailure> sort(
-      {required List<int> input, SelectorHint? hint, String? tag,}) {
+  Result<ExecuteResult<List<int>>, AlgoMateFailure> sort({
+    required List<int> input,
+    SelectorHint? hint,
+    String? tag,
+  }) {
     final signature =
         StrategySignature.sort(inputType: List<int>, tag: tag ?? 'int_sort');
 
@@ -147,17 +161,22 @@ class AlgoSelectorFacade {
   List<StrategySignature> get signatures => catalog.signatures;
 
   /// Remove a strategy from the catalog.
-  Result<bool, AlgoMateFailure> removeStrategy<I, O>(
-      {required String strategyName, required StrategySignature signature,}) {
+  Result<bool, AlgoMateFailure> removeStrategy<I, O>({
+    required String strategyName,
+    required StrategySignature signature,
+  }) {
     try {
       final removed = _registerUC.removeStrategy<I, O>(
-          strategyName: strategyName, signature: signature,);
+        strategyName: strategyName,
+        signature: signature,
+      );
 
       return Result.success(removed);
     } catch (e) {
       logger.error('Failed to remove strategy', e);
       return Result.failure(
-          ExecutionFailure('Strategy removal failed', e.toString()),);
+        ExecutionFailure('Strategy removal failed', e.toString()),
+      );
     }
   }
 
@@ -174,7 +193,9 @@ class AlgoSelectorFacade {
 
   /// Find a specific strategy by name and signature.
   Strategy<I, O>? findStrategy<I, O>(
-      String strategyName, StrategySignature signature,) {
+    String strategyName,
+    StrategySignature signature,
+  ) {
     return catalog.find<I, O>(strategyName, signature);
   }
 

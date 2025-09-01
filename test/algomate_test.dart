@@ -47,13 +47,19 @@ void main() {
       final signature = StrategySignature.sort(inputType: List<int>);
 
       final registerResult = selector.register<List<int>, List<int>>(
-          strategy: customStrategy, signature: signature, allowReplace: true,);
+        strategy: customStrategy,
+        signature: signature,
+        allowReplace: true,
+      );
 
       expect(registerResult.isSuccess, isTrue);
       expect(
-          selector.hasStrategy<List<int>, List<int>>(
-              'test_strategy', signature,),
-          isTrue,);
+        selector.hasStrategy<List<int>, List<int>>(
+          'test_strategy',
+          signature,
+        ),
+        isTrue,
+      );
     });
 
     test('should handle empty input', () {
@@ -81,7 +87,9 @@ void main() {
 class _TestStrategy extends Strategy<List<int>, List<int>> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-      name: 'test_strategy', timeComplexity: TimeComplexity.oN,);
+        name: 'test_strategy',
+        timeComplexity: TimeComplexity.oN,
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) => true;
