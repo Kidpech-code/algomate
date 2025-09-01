@@ -3,6 +3,7 @@
 
 /// Platform-aware isolate executor exports.
 library algomate.src.infrastructure.adapters.concurrency.isolate_executor;
+
 ///
 /// This file provides the appropriate isolate executor implementation
 /// based on the target platform:
@@ -13,5 +14,7 @@ library algomate.src.infrastructure.adapters.concurrency.isolate_executor;
 export '../../../application/ports/isolate_executor.dart';
 
 // Conditional exports based on platform - only export the implementation classes
-export 'dart_isolate_executor.dart' if (dart.library.html) 'stub_isolate_executor.dart' if (dart.library.js_interop) 'stub_isolate_executor.dart'
+export 'dart_isolate_executor.dart'
+    if (dart.library.html) 'stub_isolate_executor.dart'
+    if (dart.library.js_interop) 'stub_isolate_executor.dart'
     hide IsolateExecutionException, IsolateTimeoutException;

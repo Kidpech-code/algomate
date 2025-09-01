@@ -24,7 +24,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  algomate: ^0.1.3
+  algomate: ^0.1.4
 ```
 
 ### Basic Usage
