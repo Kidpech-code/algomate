@@ -9,7 +9,7 @@
 
 **🌟 The Smart Algorithm Selection Library for Dart and Flutter**
 
-> **For Thai documentation**: [📖 เอกสารภาษาไทย](./docs/README.th.md)
+> **For Thai documentation**: [📖 เอกสารภาษาไทย](./doc/README.th.md)
 
 AlgoMate is an intelligent algorithm selection library that **automatically chooses the optimal algorithm** for your data operations. Instead of manually deciding which sorting or searching algorithm to use, AlgoMate analyzes your data characteristics and selects the most efficient strategy.
 
@@ -1036,7 +1036,7 @@ result.fold(
 
 ## 📚 Additional Resources
 
-- **📖 Full Thai Documentation**: [docs/README.th.md](./docs/README.th.md)
+- **📖 Full Thai Documentation**: [doc/README.th.md](./doc/README.th.md)
 - **🚀 Complete Demo**: [example/algomate_demo.dart](./example/algomate_demo.dart)
 - **🔧 Advanced Examples**: [example/](./example/)
 - **📊 Parallel Algorithms Guide**: [PARALLEL_ALGORITHMS.md](./PARALLEL_ALGORITHMS.md)

@@ -35,7 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - 📚 **Comprehensive Documentation**:
 
-  - **Complete Thai documentation** (`docs/README.th.md`) with detailed explanations for beginners
+  - **Complete Thai documentation** (`doc/README.th.md`) with detailed explanations for beginners
   - **Enhanced English README** with 4 real-world use cases (gaming, mobile, financial, scientific)
   - **Performance comparisons** with actual benchmark data
   - **Working demonstration examples** with comprehensive performance analysis
@@ -66,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `lib/src/infrastructure/strategies/matrix/parallel_matrix_algorithms.dart`
 - `lib/src/infrastructure/strategies/graph/parallel_graph_algorithms.dart`
 - `example/algomate_demo.dart` - Working comprehensive demonstration
-- `docs/README.th.md` - Complete Thai documentation
+- `doc/README.th.md` - Complete Thai documentation
 - 21+ additional example and implementation files
 
 ## [0.1.4] - 2025-09-01
