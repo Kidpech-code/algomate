@@ -37,7 +37,8 @@ enum TimeComplexity {
   int compareTo(TimeComplexity other) => rankValue.compareTo(other.rankValue);
 
   /// Returns true if this complexity is better than or equal to the other
-  bool isBetterThanOrEqualTo(TimeComplexity other) => rankValue <= other.rankValue;
+  bool isBetterThanOrEqualTo(TimeComplexity other) =>
+      rankValue <= other.rankValue;
 
   /// Returns true if this complexity is strictly better than the other
   bool isBetterThan(TimeComplexity other) => rankValue < other.rankValue;

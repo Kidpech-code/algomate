@@ -22,6 +22,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved async support integration
 - Enhanced documentation coverage
 
+## [0.1.2] - 2025-01-24
+
+### Fixed
+
+- Fixed repository URL format from `kidpech-code` to `Kidpech-code` to match actual GitHub repository
+- Applied comprehensive code formatting using `dart format` across all 35 files
+- Added 182 trailing commas for consistent code style compliance
+- Resolved all pub.dev static analysis formatting issues
+
+### Technical Details
+
+- Updated pubspec.yaml URLs to use correct GitHub username casing
+- Applied automatic Dart formatting fixes for better code consistency
+- Improved pub.dev scoring by addressing code formatting requirements
+- All tests continue to pass (26/26) after formatting changes
+
 ## [0.1.1] - 2025-01-24
 
 ### Fixed

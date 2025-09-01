@@ -13,13 +13,13 @@ class InsertionSortStrategy extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'insertion_sort',
-    timeComplexity: TimeComplexity.oN2,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-    description: 'Stable insertion sort, efficient for small lists',
-  );
+        name: 'insertion_sort',
+        timeComplexity: TimeComplexity.oN2,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+        description: 'Stable insertion sort, efficient for small lists',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -74,13 +74,13 @@ class InPlaceInsertionSortStrategy extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'in_place_insertion_sort',
-    timeComplexity: TimeComplexity.oN2,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-    description: 'In-place insertion sort, modifies original list',
-  );
+        name: 'in_place_insertion_sort',
+        timeComplexity: TimeComplexity.oN2,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+        description: 'In-place insertion sort, modifies original list',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -122,13 +122,13 @@ class BinaryInsertionSortStrategy extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'binary_insertion_sort',
-    timeComplexity: TimeComplexity.oN2, // Still O(n²) due to shifting
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-    description: 'Insertion sort with binary search for insertion point',
-  );
+        name: 'binary_insertion_sort',
+        timeComplexity: TimeComplexity.oN2, // Still O(n²) due to shifting
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+        description: 'Insertion sort with binary search for insertion point',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

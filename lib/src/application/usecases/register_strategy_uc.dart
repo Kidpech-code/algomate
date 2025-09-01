@@ -18,7 +18,10 @@ class RegisterStrategyUseCase {
   /// - Strategy name is empty or contains invalid characters
   /// - A strategy with the same name and signature already exists
   /// - Strategy fails basic validation
-  void call<I, O>({required Strategy<I, O> strategy, required StrategySignature signature, bool allowReplace = false}) {
+  void call<I, O>(
+      {required Strategy<I, O> strategy,
+      required StrategySignature signature,
+      bool allowReplace = false,}) {
     // Validate strategy name
     _validateStrategyName(strategy.meta.name);
 
@@ -26,7 +29,8 @@ class RegisterStrategyUseCase {
     _validateSignatureCompatibility<I, O>(signature);
 
     // Check for existing strategy unless replacement is allowed
-    if (!allowReplace && catalog.contains<I, O>(strategy.meta.name, signature)) {
+    if (!allowReplace &&
+        catalog.contains<I, O>(strategy.meta.name, signature)) {
       throw ArgumentError(
         'Strategy "${strategy.meta.name}" already exists for signature $signature. '
         'Use allowReplace: true to replace existing strategy.',
@@ -54,7 +58,10 @@ class RegisterStrategyUseCase {
   }
 
   /// Register multiple strategies in a batch for efficiency.
-  void registerBatch<I, O>({required List<Strategy<I, O>> strategies, required StrategySignature signature, bool allowReplace = false}) {
+  void registerBatch<I, O>(
+      {required List<Strategy<I, O>> strategies,
+      required StrategySignature signature,
+      bool allowReplace = false,}) {
     if (strategies.isEmpty) {
       logger.warn('Attempted to register empty batch of strategies');
       return;
@@ -62,9 +69,13 @@ class RegisterStrategyUseCase {
 
     for (final strategy in strategies) {
       try {
-        call<I, O>(strategy: strategy, signature: signature, allowReplace: allowReplace);
+        call<I, O>(
+            strategy: strategy,
+            signature: signature,
+            allowReplace: allowReplace,);
       } catch (e) {
-        logger.error('Failed to register strategy ${strategy.meta.name} in batch', e);
+        logger.error(
+            'Failed to register strategy ${strategy.meta.name} in batch', e,);
         rethrow;
       }
     }
@@ -73,13 +84,15 @@ class RegisterStrategyUseCase {
   }
 
   /// Remove a strategy from the catalog.
-  bool removeStrategy<I, O>({required String strategyName, required StrategySignature signature}) {
+  bool removeStrategy<I, O>(
+      {required String strategyName, required StrategySignature signature,}) {
     final removed = catalog.remove<I, O>(strategyName, signature);
 
     if (removed) {
       logger.info('Removed strategy: $strategyName for $signature');
     } else {
-      logger.warn('Strategy not found for removal: $strategyName for $signature');
+      logger
+          .warn('Strategy not found for removal: $strategyName for $signature');
     }
 
     return removed;
@@ -120,7 +133,8 @@ class RegisterStrategyUseCase {
     // this could use reflection or code generation for stricter validation
 
     if (signature.inputType == dynamic || signature.outputType == dynamic) {
-      logger.warn('Strategy signature uses dynamic types, consider explicit typing');
+      logger.warn(
+          'Strategy signature uses dynamic types, consider explicit typing',);
     }
 
     // Validate category format
@@ -129,7 +143,8 @@ class RegisterStrategyUseCase {
     }
 
     if (signature.category.length > 32) {
-      throw ArgumentError('Strategy signature category too long (max 32 characters)');
+      throw ArgumentError(
+          'Strategy signature category too long (max 32 characters)',);
     }
   }
 }

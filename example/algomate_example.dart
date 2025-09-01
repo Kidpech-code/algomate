@@ -50,12 +50,15 @@ void basicSortingExample(AlgoSelectorFacade selector) {
     hint: SelectorHint(n: data.length),
   );
 
-  result.fold((success) {
-    print('✅ Sorted: ${success.output}');
-    print('   Algorithm used: ${success.selectedStrategy.name}');
-    print('   Time complexity: ${success.selectedStrategy.timeComplexity}');
-    print('   Space complexity: ${success.selectedStrategy.spaceComplexity}');
-  }, (failure) => print('❌ Sorting failed: $failure'),);
+  result.fold(
+    (success) {
+      print('✅ Sorted: ${success.output}');
+      print('   Algorithm used: ${success.selectedStrategy.name}');
+      print('   Time complexity: ${success.selectedStrategy.timeComplexity}');
+      print('   Space complexity: ${success.selectedStrategy.spaceComplexity}');
+    },
+    (failure) => print('❌ Sorting failed: $failure'),
+  );
 }
 
 void datasetSizeExample(AlgoSelectorFacade selector) {
@@ -67,10 +70,13 @@ void datasetSizeExample(AlgoSelectorFacade selector) {
   print('Small dataset (${smallData.length} elements):');
 
   var result = selector.sort(input: smallData, hint: SelectorHint.small());
-  result.fold((success) {
-    print('   → Selected: ${success.selectedStrategy.name}');
-    print('   → Reason: Optimal for small datasets');
-  }, (failure) => print('   ❌ Failed: $failure'),);
+  result.fold(
+    (success) {
+      print('   → Selected: ${success.selectedStrategy.name}');
+      print('   → Reason: Optimal for small datasets');
+    },
+    (failure) => print('   ❌ Failed: $failure'),
+  );
 
   // Medium dataset (50-1000 elements) - may choose binary insertion
   final mediumData = List.generate(100, (i) => 100 - i);
@@ -80,21 +86,28 @@ void datasetSizeExample(AlgoSelectorFacade selector) {
     input: mediumData,
     hint: SelectorHint(n: mediumData.length),
   );
-  result.fold((success) {
-    print('   → Selected: ${success.selectedStrategy.name}');
-    print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
-  }, (failure) => print('   ❌ Failed: $failure'),);
+  result.fold(
+    (success) {
+      print('   → Selected: ${success.selectedStrategy.name}');
+      print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
+    },
+    (failure) => print('   ❌ Failed: $failure'),
+  );
 
   // Large dataset (> 1000 elements) - should prefer merge sort
   final largeData = List.generate(2000, (i) => 2000 - i);
   print('\nLarge dataset (${largeData.length} elements):');
 
   result = selector.sort(input: largeData, hint: SelectorHint.large());
-  result.fold((success) {
-    print('   → Selected: ${success.selectedStrategy.name}');
-    print('   → First 10: ${success.output.take(10).toList()}');
-    print('   → Last 10: ${success.output.skip(success.output.length - 10).toList()}');
-  }, (failure) => print('   ❌ Failed: $failure'),);
+  result.fold(
+    (success) {
+      print('   → Selected: ${success.selectedStrategy.name}');
+      print('   → First 10: ${success.output.take(10).toList()}');
+      print(
+          '   → Last 10: ${success.output.skip(success.output.length - 10).toList()}',);
+    },
+    (failure) => print('   ❌ Failed: $failure'),
+  );
 }
 
 void memoryConstraintExample(AlgoSelectorFacade selector) {
@@ -110,10 +123,14 @@ void memoryConstraintExample(AlgoSelectorFacade selector) {
     hint: SelectorHint.lowMemory(n: data.length),
   );
 
-  result.fold((success) {
-    print('   → Selected: ${success.selectedStrategy.name}');
-    print('   → Space complexity: ${success.selectedStrategy.spaceComplexity}');
-  }, (failure) => print('   ❌ Failed: $failure'),);
+  result.fold(
+    (success) {
+      print('   → Selected: ${success.selectedStrategy.name}');
+      print(
+          '   → Space complexity: ${success.selectedStrategy.spaceComplexity}',);
+    },
+    (failure) => print('   ❌ Failed: $failure'),
+  );
 
   // Regular memory - can choose best time complexity
   print('\nRegular memory environment:');
@@ -122,10 +139,13 @@ void memoryConstraintExample(AlgoSelectorFacade selector) {
     hint: SelectorHint(n: data.length),
   );
 
-  result.fold((success) {
-    print('   → Selected: ${success.selectedStrategy.name}');
-    print('   → Time complexity: ${success.selectedStrategy.timeComplexity}');
-  }, (failure) => print('   ❌ Failed: $failure'),);
+  result.fold(
+    (success) {
+      print('   → Selected: ${success.selectedStrategy.name}');
+      print('   → Time complexity: ${success.selectedStrategy.timeComplexity}');
+    },
+    (failure) => print('   ❌ Failed: $failure'),
+  );
 }
 
 void searchExample(AlgoSelectorFacade selector) {
@@ -137,30 +157,38 @@ void searchExample(AlgoSelectorFacade selector) {
 
   // Binary search on sorted data
   print('Binary search on sorted data:');
-  var result = selector.search(input: sortedData, target: 7, hint: const SelectorHint(sorted: true));
+  var result = selector.search(
+      input: sortedData, target: 7, hint: const SelectorHint(sorted: true),);
 
-  result.fold((success) {
-    if (success.output != null) {
-      print('   → Found 7 at index: ${success.output}');
-    } else {
-      print('   → 7 not found in data');
-    }
-    print('   → Algorithm: ${success.selectedStrategy.name}');
-    print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
-  }, (failure) => print('   ❌ Search failed: $failure'),);
+  result.fold(
+    (success) {
+      if (success.output != null) {
+        print('   → Found 7 at index: ${success.output}');
+      } else {
+        print('   → 7 not found in data');
+      }
+      print('   → Algorithm: ${success.selectedStrategy.name}');
+      print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
+    },
+    (failure) => print('   ❌ Search failed: $failure'),
+  );
 
   // Linear search on unsorted data
   print('\nLinear search on unsorted data:');
-  result = selector.search(input: unsortedData, target: 25, hint: const SelectorHint(sorted: false));
+  result = selector.search(
+      input: unsortedData, target: 25, hint: const SelectorHint(sorted: false),);
 
-  result.fold((success) {
-    if (success.output != null) {
-      print('   → Found 25 at index: ${success.output}');
-    } else {
-      print('   → 25 not found in data');
-    }
-    print('   → Algorithm: ${success.selectedStrategy.name}');
-  }, (failure) => print('   ❌ Search failed: $failure'),);
+  result.fold(
+    (success) {
+      if (success.output != null) {
+        print('   → Found 25 at index: ${success.output}');
+      } else {
+        print('   → 25 not found in data');
+      }
+      print('   → Algorithm: ${success.selectedStrategy.name}');
+    },
+    (failure) => print('   ❌ Search failed: $failure'),
+  );
 }
 
 void customStrategyExample(AlgoSelectorFacade selector) {
@@ -172,23 +200,36 @@ void customStrategyExample(AlgoSelectorFacade selector) {
   final signature = StrategySignature.sort(inputType: List<int>);
 
   // Register the custom strategy
-  final registerResult = selector.register<List<int>, List<int>>(strategy: customStrategy, signature: signature, allowReplace: true);
+  final registerResult = selector.register<List<int>, List<int>>(
+      strategy: customStrategy, signature: signature, allowReplace: true,);
 
-  registerResult.fold((success) {
-    print('✅ Custom bubble sort registered successfully');
+  registerResult.fold(
+    (success) {
+      print('✅ Custom bubble sort registered successfully');
 
-    // Use the custom strategy by providing conditions where it's optimal
-    final data = [5, 2, 8, 1, 9]; // Very small dataset where bubble sort is acceptable
-    final result = selector.sort(
-      input: data,
-      hint: SelectorHint(n: data.length),
-    );
+      // Use the custom strategy by providing conditions where it's optimal
+      final data = [
+        5,
+        2,
+        8,
+        1,
+        9,
+      ]; // Very small dataset where bubble sort is acceptable
+      final result = selector.sort(
+        input: data,
+        hint: SelectorHint(n: data.length),
+      );
 
-    result.fold((success) {
-      print('   → Result: ${success.output}');
-      print('   → Strategy: ${success.selectedStrategy.name}');
-    }, (failure) => print('   ❌ Custom sort failed: $failure'),);
-  }, (failure) => print('❌ Failed to register custom strategy: $failure'),);
+      result.fold(
+        (success) {
+          print('   → Result: ${success.output}');
+          print('   → Strategy: ${success.selectedStrategy.name}');
+        },
+        (failure) => print('   ❌ Custom sort failed: $failure'),
+      );
+    },
+    (failure) => print('❌ Failed to register custom strategy: $failure'),
+  );
 }
 
 void performanceExample(AlgoSelectorFacade selector) {
@@ -199,18 +240,22 @@ void performanceExample(AlgoSelectorFacade selector) {
   final testSizes = [10, 50, 100, 500];
 
   for (final size in testSizes) {
-    final data = List.generate(size, (i) => size - i); // Reverse sorted (worst case)
+    final data =
+        List.generate(size, (i) => size - i); // Reverse sorted (worst case)
 
     final result = selector.sort(
       input: data,
       hint: SelectorHint(n: size),
     );
 
-    result.fold((success) {
-      print('Size $size:');
-      print('   → Algorithm: ${success.selectedStrategy.name}');
-      print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
-    }, (failure) => print('Size $size: ❌ Failed: $failure'),);
+    result.fold(
+      (success) {
+        print('Size $size:');
+        print('   → Algorithm: ${success.selectedStrategy.name}');
+        print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
+      },
+      (failure) => print('Size $size: ❌ Failed: $failure'),
+    );
   }
 
   // Show algorithm selection statistics
@@ -228,8 +273,11 @@ void performanceExample(AlgoSelectorFacade selector) {
 /// Custom bubble sort implementation for demonstration
 class _CustomBubbleSortStrategy extends Strategy<List<int>, List<int>> {
   @override
-  AlgoMetadata get meta =>
-      const AlgoMetadata(name: 'custom_bubble_sort', timeComplexity: TimeComplexity.oN2, spaceComplexity: TimeComplexity.o1, requiresSorted: false);
+  AlgoMetadata get meta => const AlgoMetadata(
+      name: 'custom_bubble_sort',
+      timeComplexity: TimeComplexity.oN2,
+      spaceComplexity: TimeComplexity.o1,
+      requiresSorted: false,);
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

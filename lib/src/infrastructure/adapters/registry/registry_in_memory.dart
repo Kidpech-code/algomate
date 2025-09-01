@@ -29,7 +29,8 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
     if (entries != null) {
       for (final entry in entries) {
         if (entry.strategyName == strategy.meta.name) {
-          throw ArgumentError('Strategy "${strategy.meta.name}" already registered for signature $signature');
+          throw ArgumentError(
+              'Strategy "${strategy.meta.name}" already registered for signature $signature',);
         }
       }
     }
@@ -59,8 +60,10 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
         entries.removeAt(i);
 
         // Update statistics
-        _categoryCount[signature.category] = (_categoryCount[signature.category] ?? 0) - 1;
-        _typeCount[signature.inputType.toString()] = (_typeCount[signature.inputType.toString()] ?? 0) - 1;
+        _categoryCount[signature.category] =
+            (_categoryCount[signature.category] ?? 0) - 1;
+        _typeCount[signature.inputType.toString()] =
+            (_typeCount[signature.inputType.toString()] ?? 0) - 1;
 
         // Remove empty entries list
         if (entries.isEmpty) {
@@ -100,7 +103,8 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
     if (entries == null) return null;
 
     for (final entry in entries) {
-      if (entry.strategyName == strategyName && entry.strategy is Strategy<I, O>) {
+      if (entry.strategyName == strategyName &&
+          entry.strategy is Strategy<I, O>) {
         return entry.strategy as Strategy<I, O>;
       }
     }
@@ -143,7 +147,8 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
   }
 
   @override
-  void registerBatch<I, O>(List<Strategy<I, O>> strategies, StrategySignature signature) {
+  void registerBatch<I, O>(
+      List<Strategy<I, O>> strategies, StrategySignature signature,) {
     for (final strategy in strategies) {
       register<I, O>(strategy, signature);
     }
@@ -151,18 +156,27 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
 
   @override
   CatalogStats get stats {
-    return CatalogStats(totalStrategies: count, categoryCounts: Map.from(_categoryCount), typeCounts: Map.from(_typeCount));
+    return CatalogStats(
+        totalStrategies: count,
+        categoryCounts: Map.from(_categoryCount),
+        typeCounts: Map.from(_typeCount),);
   }
 
   /// Internal method to perform the registration
-  void _doRegister<I, O>(Strategy<I, O> strategy, StrategySignature signature, String key) {
+  void _doRegister<I, O>(
+      Strategy<I, O> strategy, StrategySignature signature, String key,) {
     // Add to main storage
     final entries = _strategies[key] ??= <_StrategyEntry>[];
-    entries.add(_StrategyEntry(strategy: strategy, strategyName: strategy.meta.name, signature: signature));
+    entries.add(_StrategyEntry(
+        strategy: strategy,
+        strategyName: strategy.meta.name,
+        signature: signature,),);
 
     // Update statistics
-    _categoryCount[signature.category] = (_categoryCount[signature.category] ?? 0) + 1;
-    _typeCount[signature.inputType.toString()] = (_typeCount[signature.inputType.toString()] ?? 0) + 1;
+    _categoryCount[signature.category] =
+        (_categoryCount[signature.category] ?? 0) + 1;
+    _typeCount[signature.inputType.toString()] =
+        (_typeCount[signature.inputType.toString()] ?? 0) + 1;
   }
 
   /// Create a consistent key for strategy lookup
@@ -189,9 +203,13 @@ class InMemoryStrategyCatalog implements StrategyCatalog {
 
 /// Internal class for storing strategy entries with metadata
 class _StrategyEntry {
-  const _StrategyEntry({required this.strategy, required this.strategyName, required this.signature});
+  const _StrategyEntry(
+      {required this.strategy,
+      required this.strategyName,
+      required this.signature,});
 
-  final Strategy<dynamic, dynamic> strategy; // Using dynamic Strategy for storage efficiency
+  final Strategy<dynamic, dynamic>
+      strategy; // Using dynamic Strategy for storage efficiency
   final String strategyName;
   final StrategySignature signature;
 }

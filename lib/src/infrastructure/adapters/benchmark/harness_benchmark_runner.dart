@@ -21,13 +21,18 @@ class HarnessBenchmarkRunner implements BenchmarkRunner {
   bool get isAvailable => true;
 
   @override
-  BenchmarkResult run({required String name, required dynamic Function() function, int? iterations, int warmupIterations = 100}) {
+  BenchmarkResult run(
+      {required String name,
+      required dynamic Function() function,
+      int? iterations,
+      int warmupIterations = 100,}) {
     // Warmup phase
     for (int i = 0; i < warmupIterations; i++) {
       function();
     }
 
-    final actualIterations = iterations ?? _determineOptimalIterations(function);
+    final actualIterations =
+        iterations ?? _determineOptimalIterations(function);
     final timings = <int>[];
     final stopwatch = Stopwatch();
 
@@ -55,7 +60,10 @@ class HarnessBenchmarkRunner implements BenchmarkRunner {
     double standardDeviation = 0.0;
     if (timings.length > 1) {
       final mean = timings.fold(0, (sum, time) => sum + time) / timings.length;
-      final variance = timings.map((time) => math.pow(time - mean, 2)).fold(0.0, (sum, sq) => sum + sq) / timings.length;
+      final variance = timings
+              .map((time) => math.pow(time - mean, 2))
+              .fold(0.0, (sum, sq) => sum + sq) /
+          timings.length;
       standardDeviation = math.sqrt(variance);
     }
 
@@ -71,12 +79,19 @@ class HarnessBenchmarkRunner implements BenchmarkRunner {
   }
 
   @override
-  ComparativeBenchmarkResult compare({required Map<String, dynamic Function()> functions, int? iterations, int warmupIterations = 100}) {
+  ComparativeBenchmarkResult compare(
+      {required Map<String, dynamic Function()> functions,
+      int? iterations,
+      int warmupIterations = 100,}) {
     final results = <String, BenchmarkResult>{};
 
     // Run benchmarks for all functions
     for (final entry in functions.entries) {
-      results[entry.key] = run(name: entry.key, function: entry.value, iterations: iterations, warmupIterations: warmupIterations);
+      results[entry.key] = run(
+          name: entry.key,
+          function: entry.value,
+          iterations: iterations,
+          warmupIterations: warmupIterations,);
     }
 
     // Find fastest and slowest
@@ -97,7 +112,8 @@ class HarnessBenchmarkRunner implements BenchmarkRunner {
       }
     }
 
-    return ComparativeBenchmarkResult(results: results, fastest: fastest, slowest: slowest);
+    return ComparativeBenchmarkResult(
+        results: results, fastest: fastest, slowest: slowest,);
   }
 
   /// Determine optimal number of iterations for reliable measurement.
@@ -139,7 +155,11 @@ class SimpleBenchmarkRunner implements BenchmarkRunner {
   bool get isAvailable => true;
 
   @override
-  BenchmarkResult run({required String name, required dynamic Function() function, int? iterations, int warmupIterations = 10}) {
+  BenchmarkResult run(
+      {required String name,
+      required dynamic Function() function,
+      int? iterations,
+      int warmupIterations = 10,}) {
     final actualIterations = iterations ?? defaultIterations;
 
     // Minimal warmup
@@ -159,15 +179,26 @@ class SimpleBenchmarkRunner implements BenchmarkRunner {
 
     final averageTimeMicros = totalTimeMicros / actualIterations;
 
-    return BenchmarkResult(name: name, iterations: actualIterations, totalTimeMicros: totalTimeMicros, averageTimeMicros: averageTimeMicros);
+    return BenchmarkResult(
+        name: name,
+        iterations: actualIterations,
+        totalTimeMicros: totalTimeMicros,
+        averageTimeMicros: averageTimeMicros,);
   }
 
   @override
-  ComparativeBenchmarkResult compare({required Map<String, dynamic Function()> functions, int? iterations, int warmupIterations = 10}) {
+  ComparativeBenchmarkResult compare(
+      {required Map<String, dynamic Function()> functions,
+      int? iterations,
+      int warmupIterations = 10,}) {
     final results = <String, BenchmarkResult>{};
 
     for (final entry in functions.entries) {
-      results[entry.key] = run(name: entry.key, function: entry.value, iterations: iterations, warmupIterations: warmupIterations);
+      results[entry.key] = run(
+          name: entry.key,
+          function: entry.value,
+          iterations: iterations,
+          warmupIterations: warmupIterations,);
     }
 
     // Find fastest and slowest
@@ -183,7 +214,8 @@ class SimpleBenchmarkRunner implements BenchmarkRunner {
       }
     }
 
-    return ComparativeBenchmarkResult(results: results, fastest: fastest, slowest: slowest);
+    return ComparativeBenchmarkResult(
+        results: results, fastest: fastest, slowest: slowest,);
   }
 }
 
@@ -192,7 +224,8 @@ class SimpleBenchmarkRunner implements BenchmarkRunner {
 /// Returns predictable results without actual execution,
 /// useful for unit testing and development.
 class MockBenchmarkRunner implements BenchmarkRunner {
-  MockBenchmarkRunner({this.mockResults = const {}, this.defaultTimeMicros = 1000.0});
+  MockBenchmarkRunner(
+      {this.mockResults = const {}, this.defaultTimeMicros = 1000.0,});
 
   final Map<String, BenchmarkResult> mockResults;
   final double defaultTimeMicros;
@@ -201,7 +234,11 @@ class MockBenchmarkRunner implements BenchmarkRunner {
   bool get isAvailable => true;
 
   @override
-  BenchmarkResult run({required String name, required dynamic Function() function, int? iterations, int warmupIterations = 0}) {
+  BenchmarkResult run(
+      {required String name,
+      required dynamic Function() function,
+      int? iterations,
+      int warmupIterations = 0,}) {
     if (mockResults.containsKey(name)) {
       return mockResults[name]!;
     }
@@ -216,16 +253,24 @@ class MockBenchmarkRunner implements BenchmarkRunner {
   }
 
   @override
-  ComparativeBenchmarkResult compare({required Map<String, dynamic Function()> functions, int? iterations, int warmupIterations = 0}) {
+  ComparativeBenchmarkResult compare(
+      {required Map<String, dynamic Function()> functions,
+      int? iterations,
+      int warmupIterations = 0,}) {
     final results = <String, BenchmarkResult>{};
 
     for (final entry in functions.entries) {
-      results[entry.key] = run(name: entry.key, function: entry.value, iterations: iterations, warmupIterations: warmupIterations);
+      results[entry.key] = run(
+          name: entry.key,
+          function: entry.value,
+          iterations: iterations,
+          warmupIterations: warmupIterations,);
     }
 
     final fastest = results.keys.first;
     final slowest = results.keys.last;
 
-    return ComparativeBenchmarkResult(results: results, fastest: fastest, slowest: slowest);
+    return ComparativeBenchmarkResult(
+        results: results, fastest: fastest, slowest: slowest,);
   }
 }

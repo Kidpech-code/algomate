@@ -33,8 +33,14 @@ class SelectorBuilder {
   }
 
   /// Use the default selection policy with optional customizations.
-  SelectorBuilder useDefaultPolicy({int smallNThreshold = 32, double memoryWeight = 0.1, double stabilityWeight = 0.05}) {
-    _policy = SelectorPolicy(smallNThreshold: smallNThreshold, memoryWeight: memoryWeight, stabilityWeight: stabilityWeight);
+  SelectorBuilder useDefaultPolicy(
+      {int smallNThreshold = 32,
+      double memoryWeight = 0.1,
+      double stabilityWeight = 0.05,}) {
+    _policy = SelectorPolicy(
+        smallNThreshold: smallNThreshold,
+        memoryWeight: memoryWeight,
+        stabilityWeight: stabilityWeight,);
     return this;
   }
 
@@ -89,20 +95,29 @@ class SelectorBuilder {
   /// Register built-in search strategies for integer lists.
   SelectorBuilder withBuiltInSearchInt() {
     final catalog = _catalog ?? InMemoryStrategyCatalog();
-    final logger = (_loggerFactory ?? ConsoleLoggerFactory.silent()).create('SelectorBuilder');
+    final logger = (_loggerFactory ?? ConsoleLoggerFactory.silent())
+        .create('SelectorBuilder');
 
-    final registerUC = RegisterStrategyUseCase(catalog: catalog, logger: logger);
+    final registerUC =
+        RegisterStrategyUseCase(catalog: catalog, logger: logger);
 
     // Register search strategies with different targets
     // Note: In practice, you'd want to register factory methods or
     // use a more dynamic approach for target values
-    final signature = StrategySignature.search(inputType: List<int>, outputType: int, tag: 'index_search');
+    final signature = StrategySignature.search(
+        inputType: List<int>, outputType: int, tag: 'index_search',);
 
     // For demo purposes, register with a placeholder target
     // Real implementation would handle target specification differently
-    registerUC.call(strategy: LinearSearchStrategy(0), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: LinearSearchStrategy(0),
+        signature: signature,
+        allowReplace: true,);
 
-    registerUC.call(strategy: BinarySearchStrategy(0), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: BinarySearchStrategy(0),
+        signature: signature,
+        allowReplace: true,);
 
     _catalog = catalog;
     return this;
@@ -111,23 +126,44 @@ class SelectorBuilder {
   /// Register built-in sorting strategies for integer lists.
   SelectorBuilder withBuiltInSortInt() {
     final catalog = _catalog ?? InMemoryStrategyCatalog();
-    final logger = (_loggerFactory ?? ConsoleLoggerFactory.silent()).create('SelectorBuilder');
+    final logger = (_loggerFactory ?? ConsoleLoggerFactory.silent())
+        .create('SelectorBuilder');
 
-    final registerUC = RegisterStrategyUseCase(catalog: catalog, logger: logger);
+    final registerUC =
+        RegisterStrategyUseCase(catalog: catalog, logger: logger);
 
-    final signature = StrategySignature.sort(inputType: List<int>, tag: 'int_sort');
+    final signature =
+        StrategySignature.sort(inputType: List<int>, tag: 'int_sort');
 
-    registerUC.call(strategy: InsertionSortStrategy(), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: InsertionSortStrategy(),
+        signature: signature,
+        allowReplace: true,);
 
-    registerUC.call(strategy: InPlaceInsertionSortStrategy(), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: InPlaceInsertionSortStrategy(),
+        signature: signature,
+        allowReplace: true,);
 
-    registerUC.call(strategy: BinaryInsertionSortStrategy(), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: BinaryInsertionSortStrategy(),
+        signature: signature,
+        allowReplace: true,);
 
-    registerUC.call(strategy: MergeSortStrategy(), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: MergeSortStrategy(),
+        signature: signature,
+        allowReplace: true,);
 
-    registerUC.call(strategy: IterativeMergeSortStrategy(), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: IterativeMergeSortStrategy(),
+        signature: signature,
+        allowReplace: true,);
 
-    registerUC.call(strategy: HybridMergeSortStrategy(), signature: signature, allowReplace: true);
+    registerUC.call(
+        strategy: HybridMergeSortStrategy(),
+        signature: signature,
+        allowReplace: true,);
 
     _catalog = catalog;
     return this;
@@ -147,31 +183,52 @@ class SelectorBuilder {
     // Validate that catalog has at least some strategies if explicitly configured
     if (catalog.count == 0 && _catalog != null) {
       // Log warning if catalog was explicitly set but is empty
-      loggerFactory.create('SelectorBuilder').warn('Building selector with empty strategy catalog. Consider calling withAllBuiltIns().');
+      loggerFactory.create('SelectorBuilder').warn(
+          'Building selector with empty strategy catalog. Consider calling withAllBuiltIns().',);
     }
 
-    return SelectorBuilderResult(catalog: catalog, policy: policy, loggerFactory: loggerFactory, enableTiming: _enableTiming);
+    return SelectorBuilderResult(
+        catalog: catalog,
+        policy: policy,
+        loggerFactory: loggerFactory,
+        enableTiming: _enableTiming,);
   }
 
   /// Create a builder with sensible defaults for development.
   static SelectorBuilder development() {
-    return SelectorBuilder().useInMemoryRegistry().useDefaultPolicy().enableLogging(LogLevel.debug).enableTiming().withAllBuiltIns();
+    return SelectorBuilder()
+        .useInMemoryRegistry()
+        .useDefaultPolicy()
+        .enableLogging(LogLevel.debug)
+        .enableTiming()
+        .withAllBuiltIns();
   }
 
   /// Create a builder with production-optimized settings.
   static SelectorBuilder production() {
-    return SelectorBuilder().useInMemoryRegistry().useDefaultPolicy().useSilentLogging().withAllBuiltIns();
+    return SelectorBuilder()
+        .useInMemoryRegistry()
+        .useDefaultPolicy()
+        .useSilentLogging()
+        .withAllBuiltIns();
   }
 
   /// Create a builder for memory-constrained environments.
   static SelectorBuilder memoryConstrained() {
-    return SelectorBuilder().useInMemoryRegistry().useMemoryConstrainedPolicy().useSilentLogging();
+    return SelectorBuilder()
+        .useInMemoryRegistry()
+        .useMemoryConstrainedPolicy()
+        .useSilentLogging();
   }
 }
 
 /// Result of the builder containing all configured components.
 class SelectorBuilderResult {
-  const SelectorBuilderResult({required this.catalog, required this.policy, required this.loggerFactory, required this.enableTiming});
+  const SelectorBuilderResult(
+      {required this.catalog,
+      required this.policy,
+      required this.loggerFactory,
+      required this.enableTiming,});
 
   final StrategyCatalog catalog;
   final SelectorPolicy policy;

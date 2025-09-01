@@ -48,7 +48,9 @@ abstract class Strategy<I, O> {
   String toString() => 'Strategy(${meta.name})';
 
   @override
-  bool operator ==(Object other) => identical(this, other) || (other is Strategy<I, O> && other.meta.name == meta.name);
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Strategy<I, O> && other.meta.name == meta.name);
 
   @override
   int get hashCode => meta.name.hashCode;
@@ -78,7 +80,8 @@ mixin ExecutionStats<I, O> on Strategy<I, O> {
   int get executionCount => _executionCount;
 
   /// Average execution time in microseconds
-  double get averageExecutionTimeMicros => _executionCount > 0 ? _totalExecutionTimeMicros / _executionCount : 0;
+  double get averageExecutionTimeMicros =>
+      _executionCount > 0 ? _totalExecutionTimeMicros / _executionCount : 0;
 
   /// Execute with timing measurement (dev/debug only)
   O executeWithTiming(I input) {

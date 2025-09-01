@@ -32,13 +32,13 @@ class HeapSort extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'heap_sort',
-    timeComplexity: TimeComplexity.oNLogN,
-    spaceComplexity: TimeComplexity.o1, // True in-place algorithm
-    requiresSorted: false,
-    memoryOverheadBytes: 0, // No extra memory needed
-    description: 'In-place sorting with guaranteed O(n log n) performance',
-  );
+        name: 'heap_sort',
+        timeComplexity: TimeComplexity.oNLogN,
+        spaceComplexity: TimeComplexity.o1, // True in-place algorithm
+        requiresSorted: false,
+        memoryOverheadBytes: 0, // No extra memory needed
+        description: 'In-place sorting with guaranteed O(n log n) performance',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -150,13 +150,13 @@ class IterativeHeapSort extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'iterative_heap_sort',
-    timeComplexity: TimeComplexity.oNLogN,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-    description: 'Iterative HeapSort with no recursion overhead',
-  );
+        name: 'iterative_heap_sort',
+        timeComplexity: TimeComplexity.oNLogN,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+        description: 'Iterative HeapSort with no recursion overhead',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

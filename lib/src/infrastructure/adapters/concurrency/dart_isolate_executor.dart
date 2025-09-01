@@ -8,7 +8,9 @@ import '../../../application/ports/isolate_executor.dart';
 /// Executes functions in separate isolates to prevent UI blocking,
 /// with proper error handling, timeouts, and resource management.
 class DartIsolateExecutor implements IsolateExecutor {
-  DartIsolateExecutor({this.maxConcurrentIsolates = 4, this.defaultTimeout = const Duration(seconds: 30)});
+  DartIsolateExecutor(
+      {this.maxConcurrentIsolates = 4,
+      this.defaultTimeout = const Duration(seconds: 30),});
 
   final int maxConcurrentIsolates;
   final Duration defaultTimeout;
@@ -21,9 +23,13 @@ class DartIsolateExecutor implements IsolateExecutor {
   int get activeIsolates => _activeIsolates.length;
 
   @override
-  Future<R> execute<T, R>({required R Function(T) function, required T input, Duration? timeout}) async {
+  Future<R> execute<T, R>(
+      {required R Function(T) function,
+      required T input,
+      Duration? timeout,}) async {
     if (_activeIsolates.length >= maxConcurrentIsolates) {
-      throw IsolateExecutionException('Maximum concurrent isolates reached: $maxConcurrentIsolates');
+      throw IsolateExecutionException(
+          'Maximum concurrent isolates reached: $maxConcurrentIsolates',);
     }
 
     final effectiveTimeout = timeout ?? defaultTimeout;
@@ -33,7 +39,8 @@ class DartIsolateExecutor implements IsolateExecutor {
     try {
       final isolate = await Isolate.spawn(
         _isolateEntryPoint<T, R>,
-        _IsolateMessage(function: function, input: input, sendPort: receivePort.sendPort),
+        _IsolateMessage(
+            function: function, input: input, sendPort: receivePort.sendPort,),
         onError: errorPort.sendPort,
         debugName: 'AlgoMate-Isolate-${DateTime.now().millisecondsSinceEpoch}',
       );
@@ -64,10 +71,12 @@ class DartIsolateExecutor implements IsolateExecutor {
           if (message.isSuccess) {
             completer.complete(message.result as R);
           } else {
-            completer.completeError(IsolateExecutionException(message.error ?? 'Unknown error in isolate'));
+            completer.completeError(IsolateExecutionException(
+                message.error ?? 'Unknown error in isolate',),);
           }
         } else {
-          completer.completeError(IsolateExecutionException('Invalid response from isolate: $message'));
+          completer.completeError(IsolateExecutionException(
+              'Invalid response from isolate: $message',),);
         }
 
         isolate.kill();
@@ -79,7 +88,8 @@ class DartIsolateExecutor implements IsolateExecutor {
         receivePort.close();
         errorPort.close();
 
-        completer.completeError(IsolateExecutionException('Isolate error: ${error.toString()}'));
+        completer.completeError(
+            IsolateExecutionException('Isolate error: ${error.toString()}'),);
 
         isolate.kill();
       });
@@ -89,7 +99,8 @@ class DartIsolateExecutor implements IsolateExecutor {
         onTimeout: () {
           _activeIsolates.remove(isolate);
           isolate.kill(priority: Isolate.immediate);
-          throw IsolateTimeoutException('Isolate execution timed out after ${effectiveTimeout.inSeconds}s');
+          throw IsolateTimeoutException(
+              'Isolate execution timed out after ${effectiveTimeout.inSeconds}s',);
         },
       );
     } catch (e) {
@@ -100,7 +111,10 @@ class DartIsolateExecutor implements IsolateExecutor {
   }
 
   @override
-  Future<R> executeStatic<T, R>({required String functionName, required T input, Duration? timeout}) async {
+  Future<R> executeStatic<T, R>(
+      {required String functionName,
+      required T input,
+      Duration? timeout,}) async {
     // For static function execution, we need to maintain a registry
     // of static functions. This is a simplified implementation.
     throw UnsupportedError('Static function execution not yet implemented');
@@ -150,14 +164,21 @@ class StubIsolateExecutor implements IsolateExecutor {
   }
 
   @override
-  Future<R> execute<T, R>({required R Function(T) function, required T input, Duration? timeout}) async {
+  Future<R> execute<T, R>(
+      {required R Function(T) function,
+      required T input,
+      Duration? timeout,}) async {
     // Execute synchronously as a fallback
     return function(input);
   }
 
   @override
-  Future<R> executeStatic<T, R>({required String functionName, required T input, Duration? timeout}) async {
-    throw UnsupportedError('Static function execution not available in stub executor');
+  Future<R> executeStatic<T, R>(
+      {required String functionName,
+      required T input,
+      Duration? timeout,}) async {
+    throw UnsupportedError(
+        'Static function execution not available in stub executor',);
   }
 }
 
@@ -166,7 +187,10 @@ class StubIsolateExecutor implements IsolateExecutor {
 /// Returns predictable results without actual isolate execution,
 /// useful for unit testing isolate-dependent code.
 class MockIsolateExecutor implements IsolateExecutor {
-  MockIsolateExecutor({this.mockResults = const {}, this.shouldThrow = false, this.throwAfterDelay});
+  MockIsolateExecutor(
+      {this.mockResults = const {},
+      this.shouldThrow = false,
+      this.throwAfterDelay,});
 
   final Map<Type, dynamic> mockResults;
   final bool shouldThrow;
@@ -184,7 +208,10 @@ class MockIsolateExecutor implements IsolateExecutor {
   }
 
   @override
-  Future<R> execute<T, R>({required R Function(T) function, required T input, Duration? timeout}) async {
+  Future<R> execute<T, R>(
+      {required R Function(T) function,
+      required T input,
+      Duration? timeout,}) async {
     if (throwAfterDelay != null) {
       await Future<void>.delayed(throwAfterDelay!);
     }
@@ -203,14 +230,19 @@ class MockIsolateExecutor implements IsolateExecutor {
   }
 
   @override
-  Future<R> executeStatic<T, R>({required String functionName, required T input, Duration? timeout}) async {
-    return execute<T, R>(function: (_) => mockResults[R] as R, input: input, timeout: timeout);
+  Future<R> executeStatic<T, R>(
+      {required String functionName,
+      required T input,
+      Duration? timeout,}) async {
+    return execute<T, R>(
+        function: (_) => mockResults[R] as R, input: input, timeout: timeout,);
   }
 }
 
 /// Message structure for isolate communication.
 class _IsolateMessage<T, R> {
-  const _IsolateMessage({required this.function, required this.input, required this.sendPort});
+  const _IsolateMessage(
+      {required this.function, required this.input, required this.sendPort,});
 
   final R Function(T) function;
   final T input;

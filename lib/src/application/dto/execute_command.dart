@@ -10,21 +10,37 @@ import '../../domain/value_objects/selector_hint.dart';
 /// and performance constraints.
 @immutable
 final class ExecuteCommand<I, O> {
-  const ExecuteCommand({required this.input, required this.signature, required this.hint, this.timeoutMillis, this.fallbackStrategyName});
+  const ExecuteCommand(
+      {required this.input,
+      required this.signature,
+      required this.hint,
+      this.timeoutMillis,
+      this.fallbackStrategyName,});
 
   /// Factory for sort operations
-  factory ExecuteCommand.sort({required I input, required SelectorHint hint, String? tag, int? timeoutMillis}) => ExecuteCommand<I, O>(
-    input: input,
-    signature: StrategySignature.sort(inputType: I, tag: tag),
-    hint: hint,
-    timeoutMillis: timeoutMillis,
-  );
-
-  /// Factory for search operations
-  factory ExecuteCommand.search({required I input, required Type outputType, required SelectorHint hint, String? tag, int? timeoutMillis}) =>
+  factory ExecuteCommand.sort(
+          {required I input,
+          required SelectorHint hint,
+          String? tag,
+          int? timeoutMillis,}) =>
       ExecuteCommand<I, O>(
         input: input,
-        signature: StrategySignature.search(inputType: I, outputType: outputType, tag: tag),
+        signature: StrategySignature.sort(inputType: I, tag: tag),
+        hint: hint,
+        timeoutMillis: timeoutMillis,
+      );
+
+  /// Factory for search operations
+  factory ExecuteCommand.search(
+          {required I input,
+          required Type outputType,
+          required SelectorHint hint,
+          String? tag,
+          int? timeoutMillis,}) =>
+      ExecuteCommand<I, O>(
+        input: input,
+        signature: StrategySignature.search(
+            inputType: I, outputType: outputType, tag: tag,),
         hint: hint,
         timeoutMillis: timeoutMillis,
       );
@@ -55,11 +71,11 @@ final class ExecuteCommand<I, O> {
           other.fallbackStrategyName == fallbackStrategyName);
 
   @override
-  int get hashCode => Object.hash(input, signature, hint, timeoutMillis, fallbackStrategyName);
+  int get hashCode =>
+      Object.hash(input, signature, hint, timeoutMillis, fallbackStrategyName);
 
   @override
-  String toString() =>
-      'ExecuteCommand('
+  String toString() => 'ExecuteCommand('
       'signature: $signature, '
       'hint: $hint, '
       'timeout: ${timeoutMillis}ms, '
@@ -67,7 +83,12 @@ final class ExecuteCommand<I, O> {
       ')';
 
   /// Create a copy with optional field overrides
-  ExecuteCommand<I, O> copyWith({I? input, StrategySignature? signature, SelectorHint? hint, int? timeoutMillis, String? fallbackStrategyName}) =>
+  ExecuteCommand<I, O> copyWith(
+          {I? input,
+          StrategySignature? signature,
+          SelectorHint? hint,
+          int? timeoutMillis,
+          String? fallbackStrategyName,}) =>
       ExecuteCommand<I, O>(
         input: input ?? this.input,
         signature: signature ?? this.signature,

@@ -15,13 +15,13 @@ class LinearSearchStrategy extends Strategy<List<int>, int?> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'linear_search',
-    timeComplexity: TimeComplexity.oN,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-    description: 'Linear search through unsorted list',
-  );
+        name: 'linear_search',
+        timeComplexity: TimeComplexity.oN,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+        description: 'Linear search through unsorted list',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -41,7 +41,9 @@ class LinearSearchStrategy extends Strategy<List<int>, int?> {
   }
 
   @override
-  bool operator ==(Object other) => identical(this, other) || (other is LinearSearchStrategy && other.target == target);
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LinearSearchStrategy && other.target == target);
 
   @override
   int get hashCode => Object.hash(meta.name, target);
@@ -51,7 +53,8 @@ class LinearSearchStrategy extends Strategy<List<int>, int?> {
 }
 
 /// Generic linear search strategy that can be configured with different targets.
-class ConfigurableLinearSearchStrategy extends ConfigurableStrategy<List<int>, int?, int> {
+class ConfigurableLinearSearchStrategy
+    extends ConfigurableStrategy<List<int>, int?, int> {
   ConfigurableLinearSearchStrategy(super.config);
 
   /// The target value to search for
@@ -59,13 +62,13 @@ class ConfigurableLinearSearchStrategy extends ConfigurableStrategy<List<int>, i
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'configurable_linear_search',
-    timeComplexity: TimeComplexity.oN,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-    description: 'Configurable linear search through unsorted list',
-  );
+        name: 'configurable_linear_search',
+        timeComplexity: TimeComplexity.oN,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+        description: 'Configurable linear search through unsorted list',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -89,20 +92,21 @@ class ConfigurableLinearSearchStrategy extends ConfigurableStrategy<List<int>, i
 }
 
 /// Linear search strategy with execution statistics.
-class LinearSearchWithStatsStrategy extends Strategy<List<int>, int?> with ExecutionStats<List<int>, int?> {
+class LinearSearchWithStatsStrategy extends Strategy<List<int>, int?>
+    with ExecutionStats<List<int>, int?> {
   LinearSearchWithStatsStrategy(this.target);
 
   final int target;
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'linear_search_with_stats',
-    timeComplexity: TimeComplexity.oN,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-    description: 'Linear search with execution statistics',
-  );
+        name: 'linear_search_with_stats',
+        timeComplexity: TimeComplexity.oN,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+        description: 'Linear search with execution statistics',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

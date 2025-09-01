@@ -15,12 +15,15 @@ void main() {
 
       expect(result.isSuccess, isTrue);
 
-      result.fold((success) {
-        expect(success.output, equals([11, 12, 22, 25, 34, 64, 90]));
-        // System chooses the most efficient algorithm for small data
-        // Could be hybrid_merge_sort due to balanced performance
-        expect(success.selectedStrategy.name, isNotEmpty);
-      }, (failure) => fail('Sort should not fail: $failure'),);
+      result.fold(
+        (success) {
+          expect(success.output, equals([11, 12, 22, 25, 34, 64, 90]));
+          // System chooses the most efficient algorithm for small data
+          // Could be hybrid_merge_sort due to balanced performance
+          expect(success.selectedStrategy.name, isNotEmpty);
+        },
+        (failure) => fail('Sort should not fail: $failure'),
+      );
     });
 
     test('should sort large arrays using merge sort', () {
@@ -29,21 +32,28 @@ void main() {
 
       expect(result.isSuccess, isTrue);
 
-      result.fold((success) {
-        expect(success.output, equals(List.generate(1000, (i) => i + 1)));
-        // Should use merge sort for large data
-        expect(success.selectedStrategy.name, contains('merge'));
-      }, (failure) => fail('Large sort should not fail: $failure'),);
+      result.fold(
+        (success) {
+          expect(success.output, equals(List.generate(1000, (i) => i + 1)));
+          // Should use merge sort for large data
+          expect(success.selectedStrategy.name, contains('merge'));
+        },
+        (failure) => fail('Large sort should not fail: $failure'),
+      );
     });
 
     test('should register custom strategy', () {
       final customStrategy = _TestStrategy();
       final signature = StrategySignature.sort(inputType: List<int>);
 
-      final registerResult = selector.register<List<int>, List<int>>(strategy: customStrategy, signature: signature, allowReplace: true);
+      final registerResult = selector.register<List<int>, List<int>>(
+          strategy: customStrategy, signature: signature, allowReplace: true,);
 
       expect(registerResult.isSuccess, isTrue);
-      expect(selector.hasStrategy<List<int>, List<int>>('test_strategy', signature), isTrue);
+      expect(
+          selector.hasStrategy<List<int>, List<int>>(
+              'test_strategy', signature,),
+          isTrue,);
     });
 
     test('should handle empty input', () {
@@ -70,7 +80,8 @@ void main() {
 
 class _TestStrategy extends Strategy<List<int>, List<int>> {
   @override
-  AlgoMetadata get meta => const AlgoMetadata(name: 'test_strategy', timeComplexity: TimeComplexity.oN);
+  AlgoMetadata get meta => const AlgoMetadata(
+      name: 'test_strategy', timeComplexity: TimeComplexity.oN,);
 
   @override
   bool canApply(List<int> input, SelectorHint hint) => true;

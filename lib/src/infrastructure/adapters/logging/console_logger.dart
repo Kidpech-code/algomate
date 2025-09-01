@@ -146,7 +146,8 @@ class BufferedLogger implements Logger {
   @override
   void error(String message, [Object? error, StackTrace? stackTrace]) {
     if (_shouldLog(LogLevel.error)) {
-      _buffer.add(LogEntry('ERROR', message, error: error, stackTrace: stackTrace));
+      _buffer.add(
+          LogEntry('ERROR', message, error: error, stackTrace: stackTrace),);
     }
   }
 
@@ -163,8 +164,9 @@ class BufferedLogger implements Logger {
 
 /// A single log entry in the buffered logger.
 class LogEntry {
-  const LogEntry(this.level, this.message, {this.context, this.error, this.stackTrace, DateTime? timestamp})
-    : timestamp = timestamp ?? const _CurrentTime();
+  const LogEntry(this.level, this.message,
+      {this.context, this.error, this.stackTrace, DateTime? timestamp,})
+      : timestamp = timestamp ?? const _CurrentTime();
 
   final String level;
   final String message;
@@ -260,7 +262,8 @@ class _CurrentTime implements DateTime {
   String toString() => _now.toString();
 
   @override
-  bool operator ==(Object other) => other is DateTime && _now.isAtSameMomentAs(other);
+  bool operator ==(Object other) =>
+      other is DateTime && _now.isAtSameMomentAs(other);
 
   @override
   int get hashCode => _now.hashCode;

@@ -43,11 +43,11 @@ final class AlgoMetadata {
           other.description == description);
 
   @override
-  int get hashCode => Object.hash(name, timeComplexity, spaceComplexity, requiresSorted, memoryOverheadBytes, description);
+  int get hashCode => Object.hash(name, timeComplexity, spaceComplexity,
+      requiresSorted, memoryOverheadBytes, description,);
 
   @override
-  String toString() =>
-      'AlgoMetadata('
+  String toString() => 'AlgoMetadata('
       'name: $name, '
       'time: ${timeComplexity.notation}, '
       'space: ${spaceComplexity.notation}, '
@@ -63,12 +63,13 @@ final class AlgoMetadata {
     bool? requiresSorted,
     int? memoryOverheadBytes,
     String? description,
-  }) => AlgoMetadata(
-    name: name ?? this.name,
-    timeComplexity: timeComplexity ?? this.timeComplexity,
-    spaceComplexity: spaceComplexity ?? this.spaceComplexity,
-    requiresSorted: requiresSorted ?? this.requiresSorted,
-    memoryOverheadBytes: memoryOverheadBytes ?? this.memoryOverheadBytes,
-    description: description ?? this.description,
-  );
+  }) =>
+      AlgoMetadata(
+        name: name ?? this.name,
+        timeComplexity: timeComplexity ?? this.timeComplexity,
+        spaceComplexity: spaceComplexity ?? this.spaceComplexity,
+        requiresSorted: requiresSorted ?? this.requiresSorted,
+        memoryOverheadBytes: memoryOverheadBytes ?? this.memoryOverheadBytes,
+        description: description ?? this.description,
+      );
 }

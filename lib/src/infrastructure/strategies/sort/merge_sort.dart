@@ -13,13 +13,14 @@ class MergeSortStrategy extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'merge_sort',
-    timeComplexity: TimeComplexity.oNLogN,
-    spaceComplexity: TimeComplexity.oN,
-    requiresSorted: false,
-    memoryOverheadBytes: 4096, // Estimated overhead for typical use (n * 4 bytes)
-    description: 'Stable merge sort with guaranteed O(n log n) performance',
-  );
+        name: 'merge_sort',
+        timeComplexity: TimeComplexity.oNLogN,
+        spaceComplexity: TimeComplexity.oN,
+        requiresSorted: false,
+        memoryOverheadBytes:
+            4096, // Estimated overhead for typical use (n * 4 bytes)
+        description: 'Stable merge sort with guaranteed O(n log n) performance',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -94,13 +95,13 @@ class IterativeMergeSortStrategy extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'iterative_merge_sort',
-    timeComplexity: TimeComplexity.oNLogN,
-    spaceComplexity: TimeComplexity.oN,
-    requiresSorted: false,
-    memoryOverheadBytes: 4096, // Similar to regular merge sort
-    description: 'Bottom-up merge sort without recursion',
-  );
+        name: 'iterative_merge_sort',
+        timeComplexity: TimeComplexity.oNLogN,
+        spaceComplexity: TimeComplexity.oN,
+        requiresSorted: false,
+        memoryOverheadBytes: 4096, // Similar to regular merge sort
+        description: 'Bottom-up merge sort without recursion',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -141,7 +142,8 @@ class IterativeMergeSortStrategy extends Strategy<List<int>, List<int>> {
     return result;
   }
 
-  void _mergeInPlace(List<int> arr, List<int> temp, int left, int mid, int right) {
+  void _mergeInPlace(
+      List<int> arr, List<int> temp, int left, int mid, int right,) {
     // Copy data to temp arrays
     for (var i = left; i <= right; i++) {
       temp[i] = arr[i];
@@ -179,13 +181,15 @@ class HybridMergeSortStrategy extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'hybrid_merge_sort',
-    timeComplexity: TimeComplexity.oNLogN,
-    spaceComplexity: TimeComplexity.oN,
-    requiresSorted: false,
-    memoryOverheadBytes: 3584, // Slightly less than regular merge sort (hybrid optimization)
-    description: 'Merge sort that switches to insertion sort for small subarrays',
-  );
+        name: 'hybrid_merge_sort',
+        timeComplexity: TimeComplexity.oNLogN,
+        spaceComplexity: TimeComplexity.oN,
+        requiresSorted: false,
+        memoryOverheadBytes:
+            3584, // Slightly less than regular merge sort (hybrid optimization)
+        description:
+            'Merge sort that switches to insertion sort for small subarrays',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

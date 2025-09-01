@@ -12,12 +12,19 @@ abstract class BenchmarkRunner {
   /// - [warmupIterations]: Number of warmup iterations before measurement
   ///
   /// Returns benchmark results with timing statistics.
-  BenchmarkResult run({required String name, required dynamic Function() function, int? iterations, int warmupIterations = 100});
+  BenchmarkResult run(
+      {required String name,
+      required dynamic Function() function,
+      int? iterations,
+      int warmupIterations = 100,});
 
   /// Run a comparative benchmark between multiple functions.
   ///
   /// All functions should produce equivalent results for the comparison to be valid.
-  ComparativeBenchmarkResult compare({required Map<String, dynamic Function()> functions, int? iterations, int warmupIterations = 100});
+  ComparativeBenchmarkResult compare(
+      {required Map<String, dynamic Function()> functions,
+      int? iterations,
+      int warmupIterations = 100,});
 
   /// Check if benchmark runner is available and properly configured.
   bool get isAvailable;
@@ -50,8 +57,7 @@ class BenchmarkResult {
   double get operationsPerSecond => 1000000.0 / averageTimeMicros;
 
   @override
-  String toString() =>
-      'BenchmarkResult('
+  String toString() => 'BenchmarkResult('
       'name: $name, '
       'avg: ${averageTimeMillis.toStringAsFixed(3)}ms, '
       'ops/sec: ${operationsPerSecond.toStringAsFixed(0)}'
@@ -60,7 +66,8 @@ class BenchmarkResult {
 
 /// Results from comparing multiple benchmarks.
 class ComparativeBenchmarkResult {
-  const ComparativeBenchmarkResult({required this.results, required this.fastest, required this.slowest});
+  const ComparativeBenchmarkResult(
+      {required this.results, required this.fastest, required this.slowest,});
 
   final Map<String, BenchmarkResult> results;
   final String fastest;
@@ -81,7 +88,9 @@ class ComparativeBenchmarkResult {
     final buffer = StringBuffer('ComparativeBenchmarkResult:\n');
 
     // Sort by performance (fastest first)
-    final sortedEntries = results.entries.toList()..sort((a, b) => a.value.averageTimeMicros.compareTo(b.value.averageTimeMicros));
+    final sortedEntries = results.entries.toList()
+      ..sort((a, b) =>
+          a.value.averageTimeMicros.compareTo(b.value.averageTimeMicros),);
 
     for (var i = 0; i < sortedEntries.length; i++) {
       final entry = sortedEntries[i];

@@ -63,7 +63,8 @@ class SelectorPolicy {
   /// 4. Special optimizations (e.g., sorted data)
   ///
   /// Returns a new sorted list without modifying the input.
-  List<Strategy<I, O>> rank<I, O>(List<Strategy<I, O>> candidates, SelectorHint hint) {
+  List<Strategy<I, O>> rank<I, O>(
+      List<Strategy<I, O>> candidates, SelectorHint hint,) {
     if (candidates.isEmpty) return [];
     if (candidates.length == 1) return [...candidates];
 
@@ -80,7 +81,8 @@ class SelectorPolicy {
     scored.sort((a, b) => a.score.compareTo(b.score));
 
     // Extract strategies in ranked order - direct list assignment for better performance
-    final result = List<Strategy<I, O>>.generate(scored.length, (i) => scored[i].strategy);
+    final result =
+        List<Strategy<I, O>>.generate(scored.length, (i) => scored[i].strategy);
 
     return result;
   }
@@ -91,7 +93,8 @@ class SelectorPolicy {
     var score = 0.0;
 
     // Base score from time complexity
-    score += complexityRanker.getRankValue(strategy.meta.timeComplexity).toDouble();
+    score +=
+        complexityRanker.getRankValue(strategy.meta.timeComplexity).toDouble();
 
     // Adjust for dataset size characteristics
     final n = hint.n;
@@ -100,13 +103,16 @@ class SelectorPolicy {
     }
 
     // Memory overhead penalty/rejection
-    if (hint.memoryBudgetBytes != null && strategy.meta.memoryOverheadBytes > 0) {
+    if (hint.memoryBudgetBytes != null &&
+        strategy.meta.memoryOverheadBytes > 0) {
       if (strategy.meta.memoryOverheadBytes > hint.memoryBudgetBytes!) {
         // Hard rejection for algorithms that exceed memory budget
         return double.infinity; // This will be filtered out
       }
-      final memoryRatio = strategy.meta.memoryOverheadBytes / hint.memoryBudgetBytes!;
-      score += memoryRatio * memoryWeight * 20; // Stronger penalty for memory usage
+      final memoryRatio =
+          strategy.meta.memoryOverheadBytes / hint.memoryBudgetBytes!;
+      score +=
+          memoryRatio * memoryWeight * 20; // Stronger penalty for memory usage
     }
 
     // Sorted data optimization bonus
@@ -115,7 +121,8 @@ class SelectorPolicy {
       if (strategy.meta.name.contains('insertion')) {
         score -= 1.0; // Strong bonus for insertion sort on sorted data
       } else if (strategy.meta.requiresSorted) {
-        score -= 0.3; // Lesser bonus for other algorithms that can use sorted property
+        score -=
+            0.3; // Lesser bonus for other algorithms that can use sorted property
       }
     }
 

@@ -1,10 +1,10 @@
 name: algomate
 description: "Professional algorithm selection companion with intelligent strategy selection, built-in benchmarking, and performance optimization."
-version: 0.1.1
-homepage: https://github.com/kidpech-code/algomate
-repository: https://github.com/kidpech-code/algomate
-issue_tracker: https://github.com/kidpech-code/algomate/issues
-documentation: https://github.com/kidpech-code/algomate#readme
+version: 0.1.2
+homepage: https://github.com/Kidpech-code/algomate
+repository: https://github.com/Kidpech-code/algomate
+issue_tracker: https://github.com/Kidpech-code/algomate/issues
+documentation: https://github.com/Kidpech-code/algomate#readme
 topics:
   - algorithms
   - sorting
@@ -12,7 +12,7 @@ topics:
   - performance
   - optimization
 funding:
-  - https://github.com/sponsors/kidpech-code
+  - https://github.com/sponsors/Kidpech-code
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

@@ -32,12 +32,12 @@ class QuickSort extends Strategy<List<int>, List<int>> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'quick_sort',
-    timeComplexity: TimeComplexity.oNLogN, // Average case
-    spaceComplexity: TimeComplexity.oLogN, // Recursion stack
-    requiresSorted: false,
-    memoryOverheadBytes: 0, // In-place algorithm
-  );
+        name: 'quick_sort',
+        timeComplexity: TimeComplexity.oNLogN, // Average case
+        spaceComplexity: TimeComplexity.oLogN, // Recursion stack
+        requiresSorted: false,
+        memoryOverheadBytes: 0, // In-place algorithm
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -133,20 +133,20 @@ class QuickSort extends Strategy<List<int>, List<int>> {
 /// - Hybrid approach: switches to insertion sort for small arrays
 /// - Tail recursion optimization to reduce stack usage
 class OptimizedQuickSort extends Strategy<List<int>, List<int>> {
-
   /// Creates an OptimizedQuickSort strategy instance.
   OptimizedQuickSort();
+
   /// Threshold for switching to insertion sort for small arrays.
   static const int _insertionSortThreshold = 10;
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'optimized_quick_sort',
-    timeComplexity: TimeComplexity.oNLogN,
-    spaceComplexity: TimeComplexity.oLogN,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-  );
+        name: 'optimized_quick_sort',
+        timeComplexity: TimeComplexity.oNLogN,
+        spaceComplexity: TimeComplexity.oLogN,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

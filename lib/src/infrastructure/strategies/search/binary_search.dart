@@ -15,13 +15,13 @@ class BinarySearchStrategy extends Strategy<List<int>, int?> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'binary_search',
-    timeComplexity: TimeComplexity.oLogN,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: true,
-    memoryOverheadBytes: 0,
-    description: 'Binary search through sorted list',
-  );
+        name: 'binary_search',
+        timeComplexity: TimeComplexity.oLogN,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: true,
+        memoryOverheadBytes: 0,
+        description: 'Binary search through sorted list',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -39,7 +39,9 @@ class BinarySearchStrategy extends Strategy<List<int>, int?> {
     var right = input.length - 1;
 
     while (left <= right) {
-      final mid = left + ((right - left) >> 1); // Equivalent to (left + right) / 2 but avoids overflow
+      final mid = left +
+          ((right - left) >>
+              1); // Equivalent to (left + right) / 2 but avoids overflow
       final midValue = input[mid];
 
       if (midValue == target) {
@@ -55,7 +57,9 @@ class BinarySearchStrategy extends Strategy<List<int>, int?> {
   }
 
   @override
-  bool operator ==(Object other) => identical(this, other) || (other is BinarySearchStrategy && other.target == target);
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BinarySearchStrategy && other.target == target);
 
   @override
   int get hashCode => Object.hash(meta.name, target);
@@ -72,13 +76,13 @@ class SafeBinarySearchStrategy extends Strategy<List<int>, int?> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'safe_binary_search',
-    timeComplexity: TimeComplexity.oLogN,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: true,
-    memoryOverheadBytes: 0,
-    description: 'Binary search with safety checks and assertions',
-  );
+        name: 'safe_binary_search',
+        timeComplexity: TimeComplexity.oLogN,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: true,
+        memoryOverheadBytes: 0,
+        description: 'Binary search with safety checks and assertions',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {
@@ -132,13 +136,13 @@ class BinarySearchInsertionStrategy extends Strategy<List<int>, int> {
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'binary_search_insertion',
-    timeComplexity: TimeComplexity.oLogN,
-    spaceComplexity: TimeComplexity.o1,
-    requiresSorted: true,
-    memoryOverheadBytes: 0,
-    description: 'Binary search to find insertion point',
-  );
+        name: 'binary_search_insertion',
+        timeComplexity: TimeComplexity.oLogN,
+        spaceComplexity: TimeComplexity.o1,
+        requiresSorted: true,
+        memoryOverheadBytes: 0,
+        description: 'Binary search to find insertion point',
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) {

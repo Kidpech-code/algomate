@@ -29,7 +29,8 @@ class SystemClock implements Clock {
 
 /// Mock clock for testing (allows time control)
 class MockClock implements Clock {
-  MockClock([int? initialTimeMicros]) : _currentTimeMicros = initialTimeMicros ?? 0;
+  MockClock([int? initialTimeMicros])
+      : _currentTimeMicros = initialTimeMicros ?? 0;
 
   int _currentTimeMicros;
 
