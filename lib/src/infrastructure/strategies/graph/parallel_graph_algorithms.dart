@@ -142,7 +142,7 @@ class ParallelBFS extends Strategy<Graph, Map<int, int>> {
 
       // Process large frontier in parallel
       final nextFrontier = _processLevelParallel(
-          graph, currentFrontier, visited, currentDistance + 1);
+          graph, currentFrontier, visited, currentDistance + 1,);
 
       // Update distances for new vertices
       for (final vertex in nextFrontier) {
@@ -158,7 +158,7 @@ class ParallelBFS extends Strategy<Graph, Map<int, int>> {
 
   /// Process a BFS level in parallel
   List<int> _processLevelParallel(
-      Graph graph, List<int> frontier, List<bool> visited, int newDistance) {
+      Graph graph, List<int> frontier, List<bool> visited, int newDistance,) {
     final numCores = _getAvailableCores();
     final chunkSize = (frontier.length / numCores).ceil();
     final chunks = <List<int>>[];
@@ -491,7 +491,7 @@ class ParallelDFS extends Strategy<Graph, Set<int>> {
 /// Task data for parallel DFS worker
 class DFSWorkerTask {
   const DFSWorkerTask(
-      this.initialWork, this.graph, this.visited, this.workerId);
+      this.initialWork, this.graph, this.visited, this.workerId,);
 
   final List<int> initialWork;
   final Graph graph;
@@ -675,7 +675,7 @@ class ParallelConnectedComponents
 
   /// Distribute edges across workers
   List<List<List<int>>> _distributeEdges(
-      List<List<int>> edges, int numWorkers) {
+      List<List<int>> edges, int numWorkers,) {
     final chunks = <List<List<int>>>[];
     final chunkSize = (edges.length / numWorkers).ceil();
 
@@ -689,7 +689,7 @@ class ParallelConnectedComponents
 
   /// Merge partial Union-Find results
   Map<String, dynamic> _mergeUnionFindResults(
-      List<UnionFindResult> partialResults, int vertices) {
+      List<UnionFindResult> partialResults, int vertices,) {
     final globalParent = <int, int>{};
     final globalRank = <int, int>{};
 
@@ -847,7 +847,7 @@ int _findRootIsolate(Map<int, int> parent, int x) {
 }
 
 void _unionVerticesIsolate(
-    Map<int, int> parent, Map<int, int> rank, int x, int y) {
+    Map<int, int> parent, Map<int, int> rank, int x, int y,) {
   final rootX = _findRootIsolate(parent, x);
   final rootY = _findRootIsolate(parent, y);
 

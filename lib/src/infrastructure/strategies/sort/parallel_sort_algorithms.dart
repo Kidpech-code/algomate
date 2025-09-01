@@ -328,7 +328,7 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
 
   /// Recursive parallel quick sort
   List<int> _parallelQuickSortRecursive(
-      List<int> arr, int low, int high, int depth) {
+      List<int> arr, int low, int high, int depth,) {
     if (low < high) {
       // Use insertion sort for small subarrays
       if (high - low < _insertionThreshold) {
@@ -414,7 +414,7 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
     return completer.future.timeout(
       const Duration(seconds: 15),
       onTimeout: () => throw TimeoutException(
-          'QuickSort timeout', const Duration(seconds: 15)),
+          'QuickSort timeout', const Duration(seconds: 15),),
     );
   }
 

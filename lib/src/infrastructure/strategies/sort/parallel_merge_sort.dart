@@ -16,13 +16,13 @@ import '../../../domain/value_objects/time_complexity.dart';
 /// parallel entrypoints used here (entryPoint/send-port protocol) work.
 class IsolateExecutor {
   Future<R> execute<T, R>(
-      [dynamic fn, dynamic inPos, dynamic entryPoint, T? input]) async {
+      [dynamic fn, dynamic inPos, dynamic entryPoint, T? input,]) async {
     final fnToUse = entryPoint ?? fn;
     final inToUse = input ?? inPos;
 
     if (fnToUse == null) {
       return Future<R>.error(
-          ArgumentError('No function provided to IsolateExecutor.execute'));
+          ArgumentError('No function provided to IsolateExecutor.execute'),);
     }
 
     try {
@@ -32,7 +32,7 @@ class IsolateExecutor {
       if (fnType.contains('SendPort')) {
         final receivePort = ReceivePort();
         await Isolate.spawn(
-            fnToUse as void Function(SendPort), receivePort.sendPort);
+            fnToUse as void Function(SendPort), receivePort.sendPort,);
 
         // First message from the spawned isolate should be its SendPort.
         final dynamic first = await receivePort.first;
@@ -59,7 +59,7 @@ class IsolateExecutor {
         } else {
           receivePort.close();
           return Future<R>.error(
-              Exception('Invalid isolate protocol: expected SendPort'));
+              Exception('Invalid isolate protocol: expected SendPort'),);
         }
       } else {
         // Direct invocation for plain functions (synchronous or returning value).

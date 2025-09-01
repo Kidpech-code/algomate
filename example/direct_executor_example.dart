@@ -50,7 +50,7 @@ Future<void> demonstrateDirectExecution() async {
       final sortedList = sorted as List<int>;
       print('   ✓ Sorted: $sortedList');
       print(
-          '   ✓ Verification: ${_isArraySorted(sortedList) ? "PASSED" : "FAILED"}');
+          '   ✓ Verification: ${_isArraySorted(sortedList) ? "PASSED" : "FAILED"}',);
     },
     (failure) => print('   ❌ Failed: $failure'),
   );
@@ -64,7 +64,7 @@ Future<void> demonstrateDirectExecution() async {
       final sortedList = sorted as List<int>;
       print('   ✓ Sorted: $sortedList');
       print(
-          '   ✓ Verification: ${_isArraySorted(sortedList) ? "PASSED" : "FAILED"}');
+          '   ✓ Verification: ${_isArraySorted(sortedList) ? "PASSED" : "FAILED"}',);
     },
     (failure) => print('   ❌ Failed: $failure'),
   );
@@ -148,7 +148,7 @@ Future<void> demonstrateBoundStrategy() async {
 
     result.fold(
       (sorted) => print(
-          '   ✓ ${boundStrategy.strategyName}: ${stopwatch.elapsedMilliseconds}ms'),
+          '   ✓ ${boundStrategy.strategyName}: ${stopwatch.elapsedMilliseconds}ms',),
       (failure) => print('   ❌ ${boundStrategy.strategyName}: $failure'),
     );
   }

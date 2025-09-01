@@ -51,7 +51,7 @@ Future<void> demonstrateBasicSorting(AlgoSelectorFacade selector) async {
         print('   ✅ Sorted successfully');
         print('   📊 Strategy: ${success.selectedStrategy.name}');
         print(
-            '   🕒 Wall time: $actualTimeμs (${(actualTime / 1000).toStringAsFixed(2)}ms)');
+            '   🕒 Wall time: $actualTimeμs (${(actualTime / 1000).toStringAsFixed(2)}ms)',);
         print('   🔍 Result verified: ${_isSorted(success.output)}');
 
         // Performance metrics

@@ -34,20 +34,20 @@ Future<void> demonstrateParallelSorting() async {
   final parallelMergeSort = ParallelMergeSort();
 
   if (parallelMergeSort.canApply(
-      largeData, SelectorHint(n: largeData.length))) {
+      largeData, SelectorHint(n: largeData.length),)) {
     final stopwatch = Stopwatch()..start();
     final sorted1 = parallelMergeSort.execute(largeData);
     stopwatch.stop();
 
     print(
-        '   ✓ Sorted ${largeData.length} elements in ${stopwatch.elapsedMilliseconds}ms');
+        '   ✓ Sorted ${largeData.length} elements in ${stopwatch.elapsedMilliseconds}ms',);
     print(
-        '   ✓ Result validation: ${_isArraySorted(sorted1) ? "PASSED" : "FAILED"}');
+        '   ✓ Result validation: ${_isArraySorted(sorted1) ? "PASSED" : "FAILED"}',);
     print(
-        '   ✓ Memory overhead: ${parallelMergeSort.meta.memoryOverheadBytes} bytes');
+        '   ✓ Memory overhead: ${parallelMergeSort.meta.memoryOverheadBytes} bytes',);
   } else {
     print(
-        '   ⚠️  Parallel merge sort not applicable (requires isolate support)');
+        '   ⚠️  Parallel merge sort not applicable (requires isolate support)',);
   }
 
   // Parallel Quick Sort
@@ -55,15 +55,15 @@ Future<void> demonstrateParallelSorting() async {
   final parallelQuickSort = ParallelQuickSort();
 
   if (parallelQuickSort.canApply(
-      largeData, SelectorHint(n: largeData.length))) {
+      largeData, SelectorHint(n: largeData.length),)) {
     final stopwatch = Stopwatch()..start();
     final sorted2 = parallelQuickSort.execute(List.from(largeData));
     stopwatch.stop();
 
     print(
-        '   ✓ Sorted ${largeData.length} elements in ${stopwatch.elapsedMilliseconds}ms');
+        '   ✓ Sorted ${largeData.length} elements in ${stopwatch.elapsedMilliseconds}ms',);
     print(
-        '   ✓ Result validation: ${_isArraySorted(sorted2) ? "PASSED" : "FAILED"}');
+        '   ✓ Result validation: ${_isArraySorted(sorted2) ? "PASSED" : "FAILED"}',);
     print('   ✓ Algorithm: ${parallelQuickSort.meta.description}');
   } else {
     print('   ⚠️  Parallel quick sort not applicable');
@@ -71,9 +71,9 @@ Future<void> demonstrateParallelSorting() async {
 
   // Performance comparison note
   print(
-      '\n💡 Note: Parallel algorithms show performance benefits on multi-core systems');
+      '\n💡 Note: Parallel algorithms show performance benefits on multi-core systems',);
   print(
-      '   with large datasets. Small datasets use sequential fallbacks for efficiency.');
+      '   with large datasets. Small datasets use sequential fallbacks for efficiency.',);
 }
 
 /// Demonstrate parallel search algorithms
@@ -94,24 +94,24 @@ Future<void> demonstrateParallelSearch() async {
   final parallelBinarySearch = ParallelBinarySearch(searchTarget);
 
   if (parallelBinarySearch.canApply(
-      largeArray, SelectorHint(n: largeArray.length))) {
+      largeArray, SelectorHint(n: largeArray.length),)) {
     final stopwatch = Stopwatch()..start();
     final index1 = parallelBinarySearch.execute(largeArray);
     stopwatch.stop();
 
     print(
-        '   ✓ Found $searchTarget at index $index1 in ${stopwatch.elapsedMicroseconds}μs');
+        '   ✓ Found $searchTarget at index $index1 in ${stopwatch.elapsedMicroseconds}μs',);
     print(
-        '   ✓ Verification: array[$index1] = ${index1 >= 0 ? largeArray[index1] : "not found"}');
+        '   ✓ Verification: array[$index1] = ${index1 >= 0 ? largeArray[index1] : "not found"}',);
 
     // Search for missing element
     final missingSearch = ParallelBinarySearch(missingTarget);
     final index2 = missingSearch.execute(largeArray);
     print(
-        '   ✓ Search for $missingTarget: ${index2 == -1 ? "not found (correct)" : "found at $index2"}');
+        '   ✓ Search for $missingTarget: ${index2 == -1 ? "not found (correct)" : "found at $index2"}',);
   } else {
     print(
-        '   ⚠️  Parallel binary search not applicable (requires isolate support or larger array)');
+        '   ⚠️  Parallel binary search not applicable (requires isolate support or larger array)',);
 
     // Fallback to regular binary search
     final regularBinarySearch = BinarySearchStrategy(searchTarget);
@@ -143,16 +143,16 @@ Future<void> demonstrateMatrixOperations() async {
     stopwatch.stop();
 
     print(
-        '   ✓ Multiplied ${size}x$size matrices in ${stopwatch.elapsedMilliseconds}ms');
+        '   ✓ Multiplied ${size}x$size matrices in ${stopwatch.elapsedMilliseconds}ms',);
     print('   ✓ Result matrix: ${result1.rows}x${result1.cols}');
     print(
-        '   ✓ Block-based approach with ${parallelMatrixMult.meta.memoryOverheadBytes} bytes overhead');
+        '   ✓ Block-based approach with ${parallelMatrixMult.meta.memoryOverheadBytes} bytes overhead',);
 
     // Verify result (spot check)
     final expectedElement = _computeMatrixElement(matrixA, matrixB, 0, 0);
     final actualElement = result1.get(0, 0);
     print(
-        '   ✓ Verification [0,0]: expected=$expectedElement, actual=$actualElement');
+        '   ✓ Verification [0,0]: expected=$expectedElement, actual=$actualElement',);
   } else {
     print('   ⚠️  Parallel matrix multiplication not applicable');
   }
@@ -169,11 +169,11 @@ Future<void> demonstrateMatrixOperations() async {
       stopwatch.stop();
 
       print(
-          '   ✓ Strassen multiplication completed in ${stopwatch.elapsedMilliseconds}ms');
+          '   ✓ Strassen multiplication completed in ${stopwatch.elapsedMilliseconds}ms',);
       print('   ✓ Algorithm: ${strassenMult.meta.description}');
     } else {
       print(
-          '   ⚠️  Strassen algorithm not applicable (requires square matrices)');
+          '   ⚠️  Strassen algorithm not applicable (requires square matrices)',);
     }
   }
 }
@@ -200,10 +200,10 @@ Future<void> demonstrateGraphAlgorithms() async {
     stopwatch.stop();
 
     print(
-        '   ✓ BFS from vertex $startVertex completed in ${stopwatch.elapsedMilliseconds}ms');
+        '   ✓ BFS from vertex $startVertex completed in ${stopwatch.elapsedMilliseconds}ms',);
     print('   ✓ Reached ${distances.length} vertices');
     print(
-        '   ✓ Max distance: ${distances.values.isEmpty ? 0 : distances.values.reduce(max)}');
+        '   ✓ Max distance: ${distances.values.isEmpty ? 0 : distances.values.reduce(max)}',);
 
     // Show some sample distances
     final samples = [0, 1, 10, 100].where((v) => distances.containsKey(v));
@@ -224,7 +224,7 @@ Future<void> demonstrateGraphAlgorithms() async {
     stopwatch.stop();
 
     print(
-        '   ✓ DFS from vertex $startVertex completed in ${stopwatch.elapsedMilliseconds}ms');
+        '   ✓ DFS from vertex $startVertex completed in ${stopwatch.elapsedMilliseconds}ms',);
     print('   ✓ Visited ${visited.length} vertices');
     print('   ✓ Work-stealing approach: ${parallelDFS.meta.description}');
   } else {
@@ -244,14 +244,14 @@ Future<void> demonstrateGraphAlgorithms() async {
     final components = result['components'] as Map<int, List<int>>;
 
     print(
-        '   ✓ Connected components analysis completed in ${stopwatch.elapsedMilliseconds}ms');
+        '   ✓ Connected components analysis completed in ${stopwatch.elapsedMilliseconds}ms',);
     print('   ✓ Found $componentCount connected components');
 
     // Show component size distribution
     final sizes = components.values.map((c) => c.length).toList()
       ..sort((a, b) => b.compareTo(a));
     print(
-        '   ✓ Component sizes: ${sizes.take(5).join(", ")}${sizes.length > 5 ? "..." : ""}');
+        '   ✓ Component sizes: ${sizes.take(5).join(", ")}${sizes.length > 5 ? "..." : ""}',);
   } else {
     print('   ⚠️  Parallel connected components not applicable');
   }

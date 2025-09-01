@@ -56,7 +56,7 @@ Future<void> demonstrateStandardAlgorithms() async {
       print('   ✓ Output: ${success.output}');
       print('   ✓ Algorithm: ${success.selectedStrategy.name}');
       print(
-          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}');
+          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',);
     },
     (failure) => print('   ❌ Error: $failure'),
   );
@@ -75,9 +75,9 @@ Future<void> demonstrateStandardAlgorithms() async {
       print('   ✓ Sorted ${mediumData.length} elements');
       print('   ✓ Algorithm: ${success.selectedStrategy.name}');
       print(
-          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}');
+          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',);
       print(
-          '   ✓ Verification: ${_isArraySorted(success.output) ? "PASSED" : "FAILED"}');
+          '   ✓ Verification: ${_isArraySorted(success.output) ? "PASSED" : "FAILED"}',);
     },
     (failure) => print('   ❌ Error: $failure'),
   );
@@ -98,7 +98,7 @@ Future<void> demonstrateStandardAlgorithms() async {
       print('   ✓ Found $searchTarget at index: ${success.output}');
       print('   ✓ Algorithm: ${success.selectedStrategy.name}');
       print(
-          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}');
+          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',);
     },
     (failure) => print('   ❌ Search failed: $failure'),
   );
@@ -125,12 +125,12 @@ Future<void> demonstrateParallelAlgorithms() async {
   print('   📊 Sequential Merge Sort:');
   print('      ✓ Time: ${stopwatch1.elapsedMilliseconds}ms');
   print(
-      '      ✓ Verification: ${_isArraySorted(sequentialResult) ? "PASSED" : "FAILED"}');
+      '      ✓ Verification: ${_isArraySorted(sequentialResult) ? "PASSED" : "FAILED"}',);
 
   // Parallel merge sort
   final parallelMergeSort = ParallelMergeSort();
   if (parallelMergeSort.canApply(
-      largeData, SelectorHint(n: largeData.length))) {
+      largeData, SelectorHint(n: largeData.length),)) {
     final stopwatch2 = Stopwatch()..start();
     final parallelResult = parallelMergeSort.execute(List.from(largeData));
     stopwatch2.stop();
@@ -138,13 +138,13 @@ Future<void> demonstrateParallelAlgorithms() async {
     print('   🚀 Parallel Merge Sort:');
     print('      ✓ Time: ${stopwatch2.elapsedMilliseconds}ms');
     print(
-        '      ✓ Verification: ${_isArraySorted(parallelResult) ? "PASSED" : "FAILED"}');
+        '      ✓ Verification: ${_isArraySorted(parallelResult) ? "PASSED" : "FAILED"}',);
 
     final speedup =
         stopwatch1.elapsedMilliseconds / stopwatch2.elapsedMilliseconds;
     print('      📈 Speedup: ${speedup.toStringAsFixed(2)}x');
     print(
-        '      💾 Memory overhead: ${parallelMergeSort.meta.memoryOverheadBytes} bytes');
+        '      💾 Memory overhead: ${parallelMergeSort.meta.memoryOverheadBytes} bytes',);
   } else {
     print('   ⚠️  Parallel merge sort not available on this platform');
   }
@@ -156,7 +156,7 @@ Future<void> demonstrateParallelAlgorithms() async {
 
   final parallelSearch = ParallelBinarySearch(searchTarget);
   if (parallelSearch.canApply(
-      hugeSortedArray, SelectorHint(n: hugeSortedArray.length))) {
+      hugeSortedArray, SelectorHint(n: hugeSortedArray.length),)) {
     final stopwatch3 = Stopwatch()..start();
     final searchIndex = parallelSearch.execute(hugeSortedArray);
     stopwatch3.stop();
@@ -201,14 +201,14 @@ Future<void> demonstrateDirectExecution() async {
     print('      • Time Complexity: ${mergeSort.meta.timeComplexity}');
     print('      • Space Complexity: ${mergeSort.meta.spaceComplexity}');
     print(
-        '      • Memory Overhead: ${mergeSort.meta.memoryOverheadBytes} bytes');
+        '      • Memory Overhead: ${mergeSort.meta.memoryOverheadBytes} bytes',);
     print('      • Description: ${mergeSort.meta.description}');
 
     print('   📊 Quick Sort Metadata:');
     print('      • Time Complexity: ${quickSort.meta.timeComplexity}');
     print('      • Space Complexity: ${quickSort.meta.spaceComplexity}');
     print(
-        '      • Memory Overhead: ${quickSort.meta.memoryOverheadBytes} bytes');
+        '      • Memory Overhead: ${quickSort.meta.memoryOverheadBytes} bytes',);
 
     // Performance comparison
     print('\n3. Performance Comparison (Direct vs Facade):');
@@ -225,7 +225,7 @@ Future<void> demonstrateDirectExecution() async {
     final stopwatch2 = Stopwatch()..start();
     for (int i = 0; i < 1000; i++) {
       selector.sort(
-          input: List.from(testData), hint: SelectorHint(n: testData.length));
+          input: List.from(testData), hint: SelectorHint(n: testData.length),);
     }
     stopwatch2.stop();
 
@@ -261,12 +261,12 @@ Future<void> demonstratePerformanceBenchmarking() async {
 
     print('   📊 Performance Comparison:');
     print(
-        '      • Direct execution median: ${overheadResults['direct_median_us']}μs');
+        '      • Direct execution median: ${overheadResults['direct_median_us']}μs',);
     print(
-        '      • Selector execution median: ${overheadResults['selector_median_us']}μs');
+        '      • Selector execution median: ${overheadResults['selector_median_us']}μs',);
     print('      • Overhead: ${overheadResults['overhead_us']}μs');
     print(
-        '      • Overhead percentage: ${overheadResults['overhead_percent']}%');
+        '      • Overhead percentage: ${overheadResults['overhead_percent']}%',);
     print('      • Test iterations: ${overheadResults['iterations']}');
 
     // Strategy benchmarking
@@ -288,7 +288,7 @@ Future<void> demonstratePerformanceBenchmarking() async {
     print('      • Min time: ${benchmarkResults['min_us']}μs');
     print('      • Max time: ${benchmarkResults['max_us']}μs');
     print(
-        '      • Success rate: ${benchmarkResults['success_count']}/${benchmarkResults['iterations']}');
+        '      • Success rate: ${benchmarkResults['success_count']}/${benchmarkResults['iterations']}',);
   } catch (e) {
     print('   ⚠️  Benchmarking failed: $e');
   }
@@ -332,7 +332,7 @@ Future<void> demonstrateAdvancedOperations() async {
     stopwatch.stop();
 
     print(
-        '   ✓ Multiplied 200×200 matrices in ${stopwatch.elapsedMilliseconds}ms');
+        '   ✓ Multiplied 200×200 matrices in ${stopwatch.elapsedMilliseconds}ms',);
     print('   ✓ Result dimensions: ${largeResult.rows}×${largeResult.cols}');
     print('   ✓ Parallel block-based algorithm');
   } else {
@@ -355,7 +355,7 @@ Future<void> demonstrateAdvancedOperations() async {
     print('      ✓ Execution time: ${stopwatch.elapsedMilliseconds}ms');
     print('      ✓ Reachable vertices: ${distances.length}');
     print(
-        '      ✓ Max distance: ${distances.values.isEmpty ? 0 : distances.values.reduce(max)}');
+        '      ✓ Max distance: ${distances.values.isEmpty ? 0 : distances.values.reduce(max)}',);
 
     // Show sample distances
     final samples = [0, 1, 5, 10, 50].where((v) => distances.containsKey(v));
@@ -382,7 +382,7 @@ Future<void> demonstrateAdvancedOperations() async {
     final sizes = components.values.map((c) => c.length).toList()
       ..sort((a, b) => b.compareTo(a));
     print(
-        '      ✓ Largest component: ${sizes.isNotEmpty ? sizes.first : 0} vertices');
+        '      ✓ Largest component: ${sizes.isNotEmpty ? sizes.first : 0} vertices',);
   } else {
     print('   ⚠️  Parallel connected components not available');
   }
