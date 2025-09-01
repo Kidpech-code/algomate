@@ -3,10 +3,22 @@
 /// - `MergeSort` - O(n log n) - Stable, predictable performance
 /// - `QuickSort` - O(n log n) avg - Fast general-purpose sorting
 /// - `HeapSort` - O(n log n) - Guaranteed performance, in-place
+/// - `ParallelMergeSort` - O(n log n) - Multi-core merge sort for large datasets
+/// - `ParallelQuickSort` - O(n log n) - Multi-core quick sort with work-stealing
 ///
 /// **Search Strategies:**
 /// - `LinearSearch` - O(n) - Works on unsorted data
-/// - `BinarySearch` - O(log n) - Requires sorted dataor Dart and Flutter.
+/// - `BinarySearch` - O(log n) - Requires sorted data
+/// - `ParallelBinarySearch` - O(log n) - Multi-core binary search for very large arrays
+///
+/// **Matrix Operations:**
+/// - `ParallelMatrixMultiplication` - O(n³) - Multi-core block-based matrix multiplication
+/// - `ParallelStrassenMultiplication` - O(n^2.807) - Divide-and-conquer matrix multiplication
+///
+/// **Graph Algorithms:**
+/// - `ParallelBFS` - O(V + E) - Multi-core breadth-first search
+/// - `ParallelDFS` - O(V + E) - Multi-core depth-first search with work-stealing
+/// - `ParallelConnectedComponents` - O(V + E) - Multi-core Union-Find algorithmor Dart and Flutter.
 ///
 /// AlgoMate provides intelligent algorithm selection with performance-focused
 /// architecture and comprehensive support for sorting, searching, benchmarking,
@@ -20,6 +32,7 @@
 /// - 📊 **Built-in Benchmarking**: Statistical performance measurement
 /// - 🔄 **Concurrent Execution**: CPU-intensive operations in isolates
 /// - 🧪 **Production Ready**: Comprehensive error handling and logging
+/// - 🚀 **Multi-Core Support**: Parallel algorithms for divide-and-conquer operations
 ///
 /// ## Quick Start
 ///
@@ -41,6 +54,39 @@
 /// }
 /// ```
 ///
+/// ## Parallel Algorithm Usage
+///
+/// ### Large Dataset Sorting
+/// ```dart
+/// final largeData = List.generate(100000, (i) => Random().nextInt(1000000));
+///
+/// // Automatically selects parallel algorithms for large datasets
+/// final result = selector.sort(
+///   input: largeData,
+///   hint: SelectorHint(n: largeData.length, preferParallel: true),
+/// );
+/// ```
+///
+/// ### Matrix Operations
+/// ```dart
+/// final matrixA = Matrix.fromLists([[1, 2], [3, 4]]);
+/// final matrixB = Matrix.fromLists([[5, 6], [7, 8]]);
+///
+/// final result = selector.execute(
+///   strategy: ParallelMatrixMultiplication(),
+///   input: [matrixA, matrixB],
+/// );
+/// ```
+///
+/// ### Graph Analysis
+/// ```dart
+/// final graph = Graph.fromEdgeList(1000, edges);
+/// final bfs = ParallelBFS(startVertex: 0);
+///
+/// final distances = bfs.execute(graph);
+/// print('BFS distances: \$distances');
+/// ```
+///
 /// ## Built-in Algorithms
 ///
 /// **Sorting Strategies:**
@@ -48,10 +94,22 @@
 /// - `MergeSort` - O(n log n) - Stable, predictable performance
 /// - `QuickSort` - O(n log n) avg - Fast general-purpose sorting
 /// - `HeapSort` - O(n log n) - Guaranteed performance, in-place
+/// - `ParallelMergeSort` - O(n log n) - Multi-core merge sort for large datasets
+/// - `ParallelQuickSort` - O(n log n) - Multi-core quick sort with work-stealing
 ///
 /// **Search Strategies:**
 /// - `LinearSearch` - O(n) - Works on unsorted data
 /// - `BinarySearch` - O(log n) - Requires sorted data
+/// - `ParallelBinarySearch` - O(log n) - Multi-core binary search for very large arrays
+///
+/// **Matrix Operations:**
+/// - `ParallelMatrixMultiplication` - O(n³) - Multi-core block-based matrix multiplication
+/// - `ParallelStrassenMultiplication` - O(n^2.807) - Divide-and-conquer matrix multiplication
+///
+/// **Graph Algorithms:**
+/// - `ParallelBFS` - O(V + E) - Multi-core breadth-first search
+/// - `ParallelDFS` - O(V + E) - Multi-core depth-first search with work-stealing
+/// - `ParallelConnectedComponents` - O(V + E) - Multi-core Union-Find algorithm
 ///
 /// ## Advanced Usage
 ///
@@ -125,3 +183,8 @@ export 'src/infrastructure/strategies/sort/insertion_sort.dart';
 export 'src/infrastructure/strategies/sort/merge_sort.dart';
 export 'src/infrastructure/strategies/sort/quick_sort.dart';
 export 'src/infrastructure/strategies/sort/heap_sort.dart';
+
+// Parallel algorithms (multi-core support)
+export 'src/infrastructure/strategies/sort/parallel_sort_algorithms.dart';
+export 'src/infrastructure/strategies/matrix/parallel_matrix_algorithms.dart';
+export 'src/infrastructure/strategies/graph/parallel_graph_algorithms.dart';

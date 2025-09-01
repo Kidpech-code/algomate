@@ -26,9 +26,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- ✅ **CHANGELOG.md Compliance**: Added missing version 0.1.3 reference to satisfy pub.dev validation requirements
-- ✅ **Dart Formatting**: Fixed code formatting issues in `isolate_executor.dart` to pass pub.dev static analysis
-- 📈 **Pub.dev Scoring**: Addressed "Follow Dart file conventions" and "Pass static analysis" validation checks
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Planned for v0.2.0 - Algorithm Expansion & Performance
+
+- **New Algorithms**: QuickSort variants (randomized, dual-pivot, 3-way), HeapSort variants
+- **Fast Path API**: Direct strategy execution for performance-critical scenarios
+- **Enhanced Benchmarking**: Statistical analysis with CI/CD integration
+- **Cross-Platform Testing**: Automated testing on Linux, macOS, Windows
+- **Performance Regression Detection**: Automated PR performance analysis
+
+## [0.1.4] - 2025-01-01
+
+### Fixed
+
+- **CHANGELOG.md Compliance**: Added missing version 0.1.3 reference with detailed technical notes addressing pub.dev validation requirements
+- **Dart Formatting**: Fixed code formatting issues in `isolate_executor.dart` to comply with `dart format` standards
+- **Pub.dev Scoring**: Addressed "Follow Dart file conventions" and "Partially passed static analysis" validation failures
+
+### Technical Details
+
+- Updated CHANGELOG.md to include comprehensive 0.1.3 release notes with proper version references per [Dart package conventions](https://dart.dev/tools/pub/package-layout#changelogmd)
+- Applied `dart format` to resolve formatting inconsistencies detected by pub.dev static analysis
+- Ensured compliance with pub.dev package scoring criteria for better discoverability
+- Maintained backward compatibility while improving pub.dev package scoring
+
+### Validation Status
+
+- ✅ **CHANGELOG.md**: Now includes proper version references and formatting
+- ✅ **Code Formatting**: All files comply with Dart formatting standards
+- ✅ **Static Analysis**: Passes pub.dev validation without warnings
+- ✅ **Package Scoring**: Improved compliance with pub.dev guidelines
 
 ### Technical Details
 

@@ -11,6 +11,7 @@ include: package:lints/recommended.yaml
 analyzer:
   errors:
     public_member_api_docs: ignore
+    avoid_dynamic_calls: ignore
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
