@@ -22,6 +22,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved async support integration
 - Enhanced documentation coverage
 
+## [0.1.1] - 2025-01-24
+
+### Fixed
+
+- Fixed documentation comment angle bracket escaping issues for pub.dev lint compliance
+- Shortened package description to meet pub.dev requirements (117 characters)
+- Improved pub.dev scoring by addressing post-publication validation feedback
+
+### Technical Details
+
+- Fixed HTML interpretation of angle brackets in documentation comments across all files
+- Updated pubspec.yaml description for better search engine optimization
+- Resolved all static analysis warnings related to documentation formatting
+
 ## [0.1.0] - 2025-09-01
 
 ### Added

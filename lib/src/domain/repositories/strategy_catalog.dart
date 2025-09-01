@@ -69,12 +69,11 @@ class CatalogStats {
   /// Number of strategies per category (e.g., {'search': 3, 'sort': 5})
   final Map<String, int> categoryCounts;
 
-  /// Number of strategies per input type (e.g., {'List<int>': 6, 'String': 2})
+  /// Number of strategies per input type (e.g., {'List\<int\>': 6, 'String': 2})
   final Map<String, int> typeCounts;
 
   @override
-  String toString() =>
-      'CatalogStats('
+  String toString() => 'CatalogStats('
       'total: $totalStrategies, '
       'categories: $categoryCounts, '
       'types: $typeCounts'

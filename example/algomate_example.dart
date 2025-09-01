@@ -55,7 +55,7 @@ void basicSortingExample(AlgoSelectorFacade selector) {
     print('   Algorithm used: ${success.selectedStrategy.name}');
     print('   Time complexity: ${success.selectedStrategy.timeComplexity}');
     print('   Space complexity: ${success.selectedStrategy.spaceComplexity}');
-  }, (failure) => print('❌ Sorting failed: $failure'));
+  }, (failure) => print('❌ Sorting failed: $failure'),);
 }
 
 void datasetSizeExample(AlgoSelectorFacade selector) {
@@ -70,7 +70,7 @@ void datasetSizeExample(AlgoSelectorFacade selector) {
   result.fold((success) {
     print('   → Selected: ${success.selectedStrategy.name}');
     print('   → Reason: Optimal for small datasets');
-  }, (failure) => print('   ❌ Failed: $failure'));
+  }, (failure) => print('   ❌ Failed: $failure'),);
 
   // Medium dataset (50-1000 elements) - may choose binary insertion
   final mediumData = List.generate(100, (i) => 100 - i);
@@ -83,7 +83,7 @@ void datasetSizeExample(AlgoSelectorFacade selector) {
   result.fold((success) {
     print('   → Selected: ${success.selectedStrategy.name}');
     print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
-  }, (failure) => print('   ❌ Failed: $failure'));
+  }, (failure) => print('   ❌ Failed: $failure'),);
 
   // Large dataset (> 1000 elements) - should prefer merge sort
   final largeData = List.generate(2000, (i) => 2000 - i);
@@ -94,7 +94,7 @@ void datasetSizeExample(AlgoSelectorFacade selector) {
     print('   → Selected: ${success.selectedStrategy.name}');
     print('   → First 10: ${success.output.take(10).toList()}');
     print('   → Last 10: ${success.output.skip(success.output.length - 10).toList()}');
-  }, (failure) => print('   ❌ Failed: $failure'));
+  }, (failure) => print('   ❌ Failed: $failure'),);
 }
 
 void memoryConstraintExample(AlgoSelectorFacade selector) {
@@ -113,7 +113,7 @@ void memoryConstraintExample(AlgoSelectorFacade selector) {
   result.fold((success) {
     print('   → Selected: ${success.selectedStrategy.name}');
     print('   → Space complexity: ${success.selectedStrategy.spaceComplexity}');
-  }, (failure) => print('   ❌ Failed: $failure'));
+  }, (failure) => print('   ❌ Failed: $failure'),);
 
   // Regular memory - can choose best time complexity
   print('\nRegular memory environment:');
@@ -125,7 +125,7 @@ void memoryConstraintExample(AlgoSelectorFacade selector) {
   result.fold((success) {
     print('   → Selected: ${success.selectedStrategy.name}');
     print('   → Time complexity: ${success.selectedStrategy.timeComplexity}');
-  }, (failure) => print('   ❌ Failed: $failure'));
+  }, (failure) => print('   ❌ Failed: $failure'),);
 }
 
 void searchExample(AlgoSelectorFacade selector) {
@@ -137,7 +137,7 @@ void searchExample(AlgoSelectorFacade selector) {
 
   // Binary search on sorted data
   print('Binary search on sorted data:');
-  var result = selector.search(input: sortedData, target: 7, hint: SelectorHint(sorted: true));
+  var result = selector.search(input: sortedData, target: 7, hint: const SelectorHint(sorted: true));
 
   result.fold((success) {
     if (success.output != null) {
@@ -147,11 +147,11 @@ void searchExample(AlgoSelectorFacade selector) {
     }
     print('   → Algorithm: ${success.selectedStrategy.name}');
     print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
-  }, (failure) => print('   ❌ Search failed: $failure'));
+  }, (failure) => print('   ❌ Search failed: $failure'),);
 
   // Linear search on unsorted data
   print('\nLinear search on unsorted data:');
-  result = selector.search(input: unsortedData, target: 25, hint: SelectorHint(sorted: false));
+  result = selector.search(input: unsortedData, target: 25, hint: const SelectorHint(sorted: false));
 
   result.fold((success) {
     if (success.output != null) {
@@ -160,7 +160,7 @@ void searchExample(AlgoSelectorFacade selector) {
       print('   → 25 not found in data');
     }
     print('   → Algorithm: ${success.selectedStrategy.name}');
-  }, (failure) => print('   ❌ Search failed: $failure'));
+  }, (failure) => print('   ❌ Search failed: $failure'),);
 }
 
 void customStrategyExample(AlgoSelectorFacade selector) {
@@ -187,8 +187,8 @@ void customStrategyExample(AlgoSelectorFacade selector) {
     result.fold((success) {
       print('   → Result: ${success.output}');
       print('   → Strategy: ${success.selectedStrategy.name}');
-    }, (failure) => print('   ❌ Custom sort failed: $failure'));
-  }, (failure) => print('❌ Failed to register custom strategy: $failure'));
+    }, (failure) => print('   ❌ Custom sort failed: $failure'),);
+  }, (failure) => print('❌ Failed to register custom strategy: $failure'),);
 }
 
 void performanceExample(AlgoSelectorFacade selector) {
@@ -210,7 +210,7 @@ void performanceExample(AlgoSelectorFacade selector) {
       print('Size $size:');
       print('   → Algorithm: ${success.selectedStrategy.name}');
       print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
-    }, (failure) => print('Size $size: ❌ Failed: $failure'));
+    }, (failure) => print('Size $size: ❌ Failed: $failure'),);
   }
 
   // Show algorithm selection statistics

@@ -20,7 +20,7 @@ void main() {
         // System chooses the most efficient algorithm for small data
         // Could be hybrid_merge_sort due to balanced performance
         expect(success.selectedStrategy.name, isNotEmpty);
-      }, (failure) => fail('Sort should not fail: $failure'));
+      }, (failure) => fail('Sort should not fail: $failure'),);
     });
 
     test('should sort large arrays using merge sort', () {
@@ -33,7 +33,7 @@ void main() {
         expect(success.output, equals(List.generate(1000, (i) => i + 1)));
         // Should use merge sort for large data
         expect(success.selectedStrategy.name, contains('merge'));
-      }, (failure) => fail('Large sort should not fail: $failure'));
+      }, (failure) => fail('Large sort should not fail: $failure'),);
     });
 
     test('should register custom strategy', () {

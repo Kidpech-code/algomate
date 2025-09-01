@@ -7,8 +7,8 @@ import '../value_objects/selector_hint.dart';
 /// with fast applicability checking and zero-allocation execution paths.
 ///
 /// Type parameters:
-/// - [I]: Input type (e.g., List<int>, String)
-/// - [O]: Output type (e.g., int, bool, List<int>)
+/// - [I]: Input type (e.g., List\<int\>, String)
+/// - [O]: Output type (e.g., int, bool, List\<int\>)
 abstract class Strategy<I, O> {
   /// Metadata describing this strategy's characteristics and requirements
   AlgoMetadata get meta;
@@ -23,10 +23,10 @@ abstract class Strategy<I, O> {
   /// Example implementations:
   /// ```dart
   /// // Binary search requires sorted input
-  /// bool canApply(List<int> input, SelectorHint hint) => hint.sorted == true;
+  /// bool canApply(List\<int\> input, SelectorHint hint) => hint.sorted == true;
   ///
   /// // Insertion sort works well for small datasets
-  /// bool canApply(List<int> input, SelectorHint hint) => (hint.n ?? input.length) <= 50;
+  /// bool canApply(List\<int\> input, SelectorHint hint) => (hint.n ?? input.length) <= 50;
   /// ```
   bool canApply(I input, SelectorHint hint);
 

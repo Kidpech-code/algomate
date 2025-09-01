@@ -72,7 +72,7 @@ Future<void> productionConfigExample() async {
     print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
     print('   → Is stable: ${success.selectedStrategy.spaceComplexity == TimeComplexity.o1 ? "In-place" : "Uses extra space"}');
     print('   → Sample output: ${success.output.take(5).toList()}...${success.output.skip(success.output.length - 5).toList()}');
-  }, (failure) => print('❌ Production sort failed: $failure'));
+  }, (failure) => print('❌ Production sort failed: $failure'),);
 }
 
 void customPolicyExample() {
@@ -83,7 +83,7 @@ void customPolicyExample() {
   final selector = AlgoSelectorFacade.development();
 
   // Test with different dataset characteristics
-  final testCases = [
+  final testCases = <TestCase>[
     TestCase('Small random', List.generate(20, (i) => Random().nextInt(100))),
     TestCase('Medium sorted', List.generate(500, (i) => i)),
     TestCase('Large reverse', List.generate(2000, (i) => 2000 - i)),
@@ -105,7 +105,7 @@ void customPolicyExample() {
 
       result.fold((success) {
         print('   $hintName → ${success.selectedStrategy.name} (${success.selectedStrategy.timeComplexity})');
-      }, (failure) => print('   $hintName → Failed: $failure'));
+      }, (failure) => print('   $hintName → Failed: $failure'),);
     }
   }
 }
@@ -148,7 +148,7 @@ void benchmarkingExample() {
         totalTime += stopwatch.elapsedMicroseconds;
         algorithmName = success.selectedStrategy.name;
         complexity = success.selectedStrategy.timeComplexity.toString();
-      }, (failure) => print('   Benchmark failed: $failure'));
+      }, (failure) => print('   Benchmark failed: $failure'),);
     }
 
     if (algorithmName != null && complexity != null) {
@@ -186,20 +186,20 @@ void errorHandlingExample() {
 
   // Example 1: Handling empty input
   print('Testing empty input handling:');
-  var result = selector.sort(input: <int>[], hint: SelectorHint(n: 0));
+  var result = selector.sort(input: <int>[], hint: const SelectorHint(n: 0));
 
   result.fold((success) => print('   ✅ Empty input handled: ${success.output}'), (failure) => print('   ❌ Empty input failed: $failure'));
 
   // Example 2: Handling very large input hints
   print('\nTesting extreme size hint:');
   final smallData = [3, 1, 4, 1, 5];
-  result = selector.sort(input: smallData, hint: SelectorHint(n: 1000000));
+  result = selector.sort(input: smallData, hint: const SelectorHint(n: 1000000));
 
   result.fold((success) {
     print('   ✅ Extreme hint handled gracefully');
     print('   → Selected: ${success.selectedStrategy.name}');
     print('   → Result: ${success.output}');
-  }, (failure) => print('   ❌ Extreme hint failed: $failure'));
+  }, (failure) => print('   ❌ Extreme hint failed: $failure'),);
 
   // Example 3: Comprehensive error handling
   print('\nTesting comprehensive error handling:');
@@ -251,7 +251,7 @@ void complexDataScenariosExample() {
     print('   → Algorithm: ${success.selectedStrategy.name}');
     print('   → Complexity: ${success.selectedStrategy.timeComplexity}');
     print('   → Sample: ${success.output.take(10).toList()}...');
-  }, (failure) => print('   ❌ Nearly sorted failed: $failure'));
+  }, (failure) => print('   ❌ Nearly sorted failed: $failure'),);
 
   // Scenario 2: Data with many duplicates
   print('\nMany duplicates scenario:');
@@ -266,7 +266,7 @@ void complexDataScenariosExample() {
     print('   → Algorithm: ${success.selectedStrategy.name}');
     print('   → Is stable sorting important: ${success.selectedStrategy.timeComplexity}');
     print('   → Unique values in result: ${success.output.toSet().length}');
-  }, (failure) => print('   ❌ Many duplicates failed: $failure'));
+  }, (failure) => print('   ❌ Many duplicates failed: $failure'),);
 
   // Scenario 3: Memory-constrained large dataset
   print('\nMemory-constrained large dataset:');
@@ -281,7 +281,7 @@ void complexDataScenariosExample() {
     print('   → Selected memory-efficient: ${success.selectedStrategy.name}');
     print('   → Space complexity: ${success.selectedStrategy.spaceComplexity}');
     print('   → Time complexity trade-off: ${success.selectedStrategy.timeComplexity}');
-  }, (failure) => print('   ❌ Memory-constrained failed: $failure'));
+  }, (failure) => print('   ❌ Memory-constrained failed: $failure'),);
 }
 
 void algorithmComparisonExample() {
@@ -324,7 +324,7 @@ void algorithmComparisonExample() {
       print(
         '${patternName.padRight(15)} | ${success.selectedStrategy.name.padRight(20)} | ${success.selectedStrategy.timeComplexity.toString().padRight(15)} | ${success.selectedStrategy.spaceComplexity}',
       );
-    }, (failure) => print('${patternName.padRight(15)} | ${"FAILED".padRight(20)} | ${failure.toString().substring(0, 15).padRight(15)} |'));
+    }, (failure) => print('${patternName.padRight(15)} | ${"FAILED".padRight(20)} | ${failure.toString().substring(0, 15).padRight(15)} |'),);
   }
 
   // Summary statistics
@@ -342,16 +342,16 @@ void algorithmComparisonExample() {
 
 // Helper classes for organized testing
 class TestCase {
+  const TestCase(this.name, this.data);
+
   final String name;
   final List<int> data;
-
-  TestCase(this.name, this.data);
 }
 
 class BenchmarkResult {
+  const BenchmarkResult(this.size, this.time, this.complexity);
+
   final int size;
   final int time; // microseconds
   final String complexity;
-
-  BenchmarkResult(this.size, this.time, this.complexity);
 }

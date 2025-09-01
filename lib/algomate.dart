@@ -57,7 +57,7 @@
 ///
 /// ### Custom Strategy Registration
 /// ```dart
-/// class MyCustomSort extends Strategy<List<int>, List<int>> {
+/// class MyCustomSort extends Strategy\<List\<int\>, List\<int\>\> {
 ///   // Implementation...
 /// }
 ///

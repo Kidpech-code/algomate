@@ -41,11 +41,14 @@ void main() {
           hint: SelectorHint(n: input.length, sorted: true),
         );
 
-        result.fold((success) {
-          expect(success.output, equals(input));
-          // Should use an algorithm that benefits from sorted input
-          expect(success.selectedStrategy.name, contains('insertion'));
-        }, (failure) => fail('Should handle sorted input: $failure'));
+        result.fold(
+          (success) {
+            expect(success.output, equals(input));
+            // Should use an algorithm that benefits from sorted input
+            expect(success.selectedStrategy.name, contains('insertion'));
+          },
+          (failure) => fail('Should handle sorted input: $failure'),
+        );
       });
 
       test('should handle reverse sorted lists', () {
@@ -96,10 +99,13 @@ void main() {
         final input = List.generate(100, (i) => 100 - i);
         final result = selector.sort(input: input, hint: SelectorHint.lowMemory());
 
-        result.fold((success) {
-          // Should select in-place or low memory algorithm
-          expect(success.selectedStrategy.spaceComplexity.rankValue, lessThanOrEqualTo(2));
-        }, (failure) => fail('Should respect memory constraints: $failure'));
+        result.fold(
+          (success) {
+            // Should select in-place or low memory algorithm
+            expect(success.selectedStrategy.spaceComplexity.rankValue, lessThanOrEqualTo(2));
+          },
+          (failure) => fail('Should respect memory constraints: $failure'),
+        );
       });
     });
 
@@ -108,10 +114,13 @@ void main() {
         final input = List.generate(100, (i) => 100 - i);
         final result = selector.sort(input: input, hint: const SelectorHint(n: 100));
 
-        result.fold((success) {
-          expect(success.executionTimeMicros, isNotNull);
-          expect(success.executionTimeMicros!, greaterThan(0));
-        }, (failure) => fail('Should provide timing information: $failure'));
+        result.fold(
+          (success) {
+            expect(success.executionTimeMicros, isNotNull);
+            expect(success.executionTimeMicros!, greaterThan(0));
+          },
+          (failure) => fail('Should provide timing information: $failure'),
+        );
       });
 
       test('should choose efficient algorithms for different sizes', () {
@@ -152,12 +161,15 @@ void main() {
         final input = List.generate(50, (i) => 50 - i);
         final sortResult = selector.execute<List<int>, List<int>>(input: input, signature: signature, hint: const SelectorHint(n: 50));
 
-        sortResult.fold((success) {
-          expect(success.output, hasLength(50));
-          expect(success.output.first, equals(1));
-          expect(success.output.last, equals(50));
-          expect(success.selectedStrategy.name, equals('test_quick_sort'));
-        }, (failure) => fail('Custom strategy integration failed: $failure'));
+        sortResult.fold(
+          (success) {
+            expect(success.output, hasLength(50));
+            expect(success.output.first, equals(1));
+            expect(success.output.last, equals(50));
+            expect(success.selectedStrategy.name, equals('test_quick_sort'));
+          },
+          (failure) => fail('Custom strategy integration failed: $failure'),
+        );
       });
 
       test('should handle strategy fallback gracefully', () {
@@ -169,14 +181,17 @@ void main() {
         const hint = SelectorHint(n: 10, sorted: false); // Explicitly unsorted
         final result = selector.sort(input: input, hint: hint);
 
-        result.fold((success) {
-          // Should successfully sort despite conflicting hint
-          expect(success.output, hasLength(10));
-          // Should be sorted
-          for (int i = 1; i < success.output.length; i++) {
-            expect(success.output[i], greaterThanOrEqualTo(success.output[i - 1]));
-          }
-        }, (failure) => fail('Should fallback gracefully: $failure'));
+        result.fold(
+          (success) {
+            // Should successfully sort despite conflicting hint
+            expect(success.output, hasLength(10));
+            // Should be sorted
+            for (int i = 1; i < success.output.length; i++) {
+              expect(success.output[i], greaterThanOrEqualTo(success.output[i - 1]));
+            }
+          },
+          (failure) => fail('Should fallback gracefully: $failure'),
+        );
       });
     });
 
@@ -223,11 +238,14 @@ void main() {
 
         final result = selector.sort(input: input, hint: hint);
 
-        result.fold((success) {
-          // Should select a memory-efficient algorithm
-          final strategy = success.selectedStrategy;
-          expect(strategy.memoryOverheadBytes, lessThanOrEqualTo(1024));
-        }, (failure) => fail('Should handle memory constraints: $failure'));
+        result.fold(
+          (success) {
+            // Should select a memory-efficient algorithm
+            final strategy = success.selectedStrategy;
+            expect(strategy.memoryOverheadBytes, lessThanOrEqualTo(1024));
+          },
+          (failure) => fail('Should handle memory constraints: $failure'),
+        );
       });
     });
 
@@ -246,11 +264,14 @@ void main() {
         // Execute multiple times to verify timing
         for (int i = 0; i < 3; i++) {
           final result = selector.sort(input: input, hint: const SelectorHint(n: 50));
-          result.fold((success) {
-            // Should have timing information
-            expect(success.executionTimeMicros, isNotNull);
-            expect(success.executionTimeMicros!, greaterThan(0));
-          }, (failure) => fail('Iteration $i failed: $failure'));
+          result.fold(
+            (success) {
+              // Should have timing information
+              expect(success.executionTimeMicros, isNotNull);
+              expect(success.executionTimeMicros!, greaterThan(0));
+            },
+            (failure) => fail('Iteration $i failed: $failure'),
+          );
         }
       });
     });
@@ -290,12 +311,12 @@ void main() {
 class _TestQuickSort extends Strategy<List<int>, List<int>> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: 'test_quick_sort',
-    timeComplexity: TimeComplexity.oNLogN,
-    spaceComplexity: TimeComplexity.oLogN,
-    requiresSorted: false,
-    memoryOverheadBytes: 0,
-  );
+        name: 'test_quick_sort',
+        timeComplexity: TimeComplexity.oNLogN,
+        spaceComplexity: TimeComplexity.oLogN,
+        requiresSorted: false,
+        memoryOverheadBytes: 0,
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) => true;
@@ -312,10 +333,10 @@ class _TestQuickSort extends Strategy<List<int>, List<int>> {
 class _InvalidStrategy extends Strategy<List<int>, List<int>> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
-    name: '', // Invalid empty name
-    timeComplexity: TimeComplexity.oN,
-    spaceComplexity: TimeComplexity.o1,
-  );
+        name: '', // Invalid empty name
+        timeComplexity: TimeComplexity.oN,
+        spaceComplexity: TimeComplexity.o1,
+      );
 
   @override
   bool canApply(List<int> input, SelectorHint hint) => throw UnimplementedError();

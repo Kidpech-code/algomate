@@ -12,16 +12,16 @@ final class StrategySignature {
 
   /// Creates a signature for sorting algorithms
   factory StrategySignature.sort({required Type inputType, String? tag}) => StrategySignature(
-    inputType: inputType,
-    outputType: inputType, // Sort returns same type as input
-    category: 'sort',
-    tag: tag,
-  );
+        inputType: inputType,
+        outputType: inputType, // Sort returns same type as input
+        category: 'sort',
+        tag: tag,
+      );
 
-  /// The input type this strategy can handle (e.g., List<int>)
+  /// The input type this strategy can handle (e.g., List\<int\>)
   final Type inputType;
 
-  /// The output type this strategy produces (e.g., int, List<int>)
+  /// The output type this strategy produces (e.g., int, List\<int\>)
   final Type outputType;
 
   /// Algorithm category (e.g., 'search', 'sort', 'graph')

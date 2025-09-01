@@ -1,17 +1,43 @@
 name: algomate
-description: "Algorithm selection companion with intelligent strategy selection, built-in benchmarking, and isolate execution. Built using DDD + Clean Architecture for production Dart applications."
-version: 0.1.0
-homepage: https://github.com/kidpech/algomate
-repository: https://github.com/kidpech/algomate
-issue_tracker: https://github.com/kidpech/algomate/issues
+description: "Professional algorithm selection companion with intelligent strategy selection, built-in benchmarking, and performance optimization."
+version: 0.1.1
+homepage: https://github.com/kidpech-code/algomate
+repository: https://github.com/kidpech-code/algomate
+issue_tracker: https://github.com/kidpech-code/algomate/issues
+documentation: https://github.com/kidpech-code/algomate#readme
+topics:
+  - algorithms
+  - sorting
+  - searching
+  - performance
+  - optimization
+funding:
+  - https://github.com/sponsors/kidpech-code
 
 environment:
-  sdk: ^3.8.1
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   meta: ^1.11.0
 
 dev_dependencies:
-  test: ^1.24.0
+  test: ^1.25.0
   benchmark_harness: ^2.2.2
   lints: ^4.0.0
+
+# Pub.dev platform compatibility
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
+
+# Execution environments
+executables:
+
+# Additional metadata for pub.dev scoring
+false_secrets:
+  - example
+  - test
