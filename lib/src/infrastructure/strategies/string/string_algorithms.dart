@@ -33,8 +33,12 @@ class KMPResult {
 
 // Rabin-Karp Algorithm
 class RabinKarpInput {
-  const RabinKarpInput(this.text, this.pattern,
-      {this.base = 256, this.prime = 101,});
+  const RabinKarpInput(
+    this.text,
+    this.pattern, {
+    this.base = 256,
+    this.prime = 101,
+  });
   final String text;
   final String pattern;
   final int base;
@@ -128,7 +132,10 @@ class LongestPalindromicSubstringInput {
 
 class LongestPalindromicSubstringResult {
   const LongestPalindromicSubstringResult(
-      this.palindrome, this.startIndex, this.length,);
+    this.palindrome,
+    this.startIndex,
+    this.length,
+  );
   final String palindrome;
   final int startIndex;
   final int length;
@@ -150,8 +157,12 @@ class ManacherInput {
 }
 
 class ManacherResult {
-  const ManacherResult(this.longestPalindrome, this.startIndex, this.length,
-      this.palindromeLengths,);
+  const ManacherResult(
+    this.longestPalindrome,
+    this.startIndex,
+    this.length,
+    this.palindromeLengths,
+  );
   final String longestPalindrome;
   final int startIndex;
   final int length;
@@ -369,8 +380,10 @@ class AhoCorasickResult {
 
 // String Compression
 class StringCompressionInput {
-  const StringCompressionInput(this.text,
-      {this.type = CompressionType.runLength,});
+  const StringCompressionInput(
+    this.text, {
+    this.type = CompressionType.runLength,
+  });
   final String text;
   final CompressionType type;
 
@@ -386,8 +399,12 @@ enum CompressionType {
 
 class StringCompressionResult {
   const StringCompressionResult(
-      this.compressedText, this.originalText, this.compressionRatio, this.type,
-      [this.metadata,]);
+    this.compressedText,
+    this.originalText,
+    this.compressionRatio,
+    this.type, [
+    this.metadata,
+  ]);
   final String compressedText;
   final String originalText;
   final double compressionRatio;
@@ -618,7 +635,8 @@ class LongestPalindromicSubstringAlgorithm extends Strategy<
 
   @override
   LongestPalindromicSubstringResult execute(
-      LongestPalindromicSubstringInput input,) {
+    LongestPalindromicSubstringInput input,
+  ) {
     final text = input.text;
     if (text.isEmpty) return const LongestPalindromicSubstringResult('', 0, 0);
 
@@ -1005,7 +1023,11 @@ class StringCompressionAlgorithm
     final ratio = compressed.length / text.length;
 
     return StringCompressionResult(
-        compressed, text, ratio, CompressionType.runLength,);
+      compressed,
+      text,
+      ratio,
+      CompressionType.runLength,
+    );
   }
 
   StringCompressionResult _lz77Compression(String text) {
@@ -1028,8 +1050,13 @@ class StringCompressionAlgorithm
     final compressed = result.join('');
     final ratio = compressed.length / text.length;
 
-    return StringCompressionResult(compressed, text, ratio,
-        CompressionType.lz77, {'tokens': result.length},);
+    return StringCompressionResult(
+      compressed,
+      text,
+      ratio,
+      CompressionType.lz77,
+      {'tokens': result.length},
+    );
   }
 
   (int, int, String?) _findLongestMatch(String text, int current) {
@@ -1077,11 +1104,12 @@ class StringCompressionAlgorithm
     final compressed = 'HUFFMAN_COMPRESSED_${text.length}_CHARS';
 
     return StringCompressionResult(
-        compressed,
-        text,
-        ratio,
-        CompressionType.huffman,
-        {'entropy': entropy, 'uniqueChars': frequency.length},);
+      compressed,
+      text,
+      ratio,
+      CompressionType.huffman,
+      {'entropy': entropy, 'uniqueChars': frequency.length},
+    );
   }
 
   double _calculateEntropy(Map<String, int> frequency, int total) {
