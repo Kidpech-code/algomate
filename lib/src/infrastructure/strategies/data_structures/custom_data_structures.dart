@@ -6,7 +6,7 @@ import '../../../domain/value_objects/time_complexity.dart';
 /// Custom data structure: Priority Queue (Min-Heap implementation)
 ///
 /// Features:
-/// - Generic type support for any Comparable<T>
+/// - Generic type support for any `Comparable<T>`
 /// - O(log n) insertion and extraction
 /// - O(1) peek operation
 /// - Automatic ordering based on priority (lowest first)
@@ -78,13 +78,11 @@ class PriorityQueue<T extends Comparable<dynamic>> {
     final rightChild = 2 * index + 2;
     int smallest = index;
 
-    if (leftChild < _heap.length &&
-        _heap[leftChild].compareTo(_heap[smallest]) < 0) {
+    if (leftChild < _heap.length && _heap[leftChild].compareTo(_heap[smallest]) < 0) {
       smallest = leftChild;
     }
 
-    if (rightChild < _heap.length &&
-        _heap[rightChild].compareTo(_heap[smallest]) < 0) {
+    if (rightChild < _heap.length && _heap[rightChild].compareTo(_heap[smallest]) < 0) {
       smallest = rightChild;
     }
 
@@ -108,7 +106,7 @@ class PriorityQueue<T extends Comparable<dynamic>> {
 /// Custom data structure: Binary Search Tree
 ///
 /// Features:
-/// - Generic type support for any Comparable<T>
+/// - Generic type support for any `Comparable<T>`
 /// - O(log n) average case for insertion, deletion, and search
 /// - In-order traversal gives sorted order
 /// - Supports duplicate values
@@ -171,9 +169,7 @@ class BinarySearchTree<T extends Comparable<dynamic>> {
     final comparison = value.compareTo(node.value);
     if (comparison == 0) return true;
 
-    return comparison < 0
-        ? _searchRecursive(node.left, value)
-        : _searchRecursive(node.right, value);
+    return comparison < 0 ? _searchRecursive(node.left, value) : _searchRecursive(node.right, value);
   }
 
   /// In-order traversal for sorted output
@@ -222,8 +218,7 @@ class BSTNode<T extends Comparable<dynamic>> {
 }
 
 /// Strategy for sorting using Priority Queue (Heap Sort variation)
-class PriorityQueueSort<T extends Comparable<dynamic>>
-    extends Strategy<List<T>, List<T>> {
+class PriorityQueueSort<T extends Comparable<dynamic>> extends Strategy<List<T>, List<T>> {
   PriorityQueueSort();
 
   @override
@@ -265,8 +260,7 @@ class PriorityQueueSort<T extends Comparable<dynamic>>
 }
 
 /// Strategy for sorting using Binary Search Tree
-class BinarySearchTreeSort<T extends Comparable<dynamic>>
-    extends Strategy<List<T>, List<T>> {
+class BinarySearchTreeSort<T extends Comparable<dynamic>> extends Strategy<List<T>, List<T>> {
   BinarySearchTreeSort();
 
   @override
@@ -311,8 +305,7 @@ class BinarySearchTreeSort<T extends Comparable<dynamic>>
 }
 
 /// Strategy for searching in Priority Queue
-class PriorityQueueSearch<T extends Comparable<dynamic>>
-    extends Strategy<PriorityQueue<T>, T?> {
+class PriorityQueueSearch<T extends Comparable<dynamic>> extends Strategy<PriorityQueue<T>, T?> {
   PriorityQueueSearch(this.target);
 
   final T target;
@@ -365,8 +358,7 @@ class PriorityQueueSearch<T extends Comparable<dynamic>>
 }
 
 /// Strategy for searching in Binary Search Tree
-class BinarySearchTreeSearch<T extends Comparable<dynamic>>
-    extends Strategy<BinarySearchTree<T>, bool> {
+class BinarySearchTreeSearch<T extends Comparable<dynamic>> extends Strategy<BinarySearchTree<T>, bool> {
   BinarySearchTreeSearch(this.target);
 
   final T target;

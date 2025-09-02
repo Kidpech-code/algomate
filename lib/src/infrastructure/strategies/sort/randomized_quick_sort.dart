@@ -229,7 +229,7 @@ class DualPivotQuickSort extends Strategy<List<int>, List<int>> {
 /// Three-way quicksort (Dijkstra's Dutch National Flag)
 ///
 /// Optimized for arrays with many duplicate values.
-/// Partitions into three sections: < pivot, = pivot, > pivot
+/// Partitions into three sections: `< pivot`, `= pivot`, `> pivot`
 class ThreeWayQuickSort extends Strategy<List<int>, List<int>> {
   static const int _insertionSortThreshold = 10;
   static final _random = math.Random();
