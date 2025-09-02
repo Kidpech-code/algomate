@@ -1,6 +1,6 @@
 # 🎯 AlgoMate Custom Objects Guide
 
-สำหรับ AlgoMate v0.1.5 รองรับการทำงานกับ custom objects และ data structures แล้ว!
+สำหรับ AlgoMate v0.1.7 รองรับการทำงานกับ custom objects และ data structures แล้ว!
 
 ## 📚 Table of Contents
 
@@ -72,7 +72,7 @@ void main() async {
 
 ## 🧬 Generic Algorithms
 
-AlgoMate v0.1.5+ มี generic algorithms ที่รองรับ custom types:
+AlgoMate v0.1.7+ มี generic algorithms ที่รองรับ custom types:
 
 ### Available Generic Algorithms
 

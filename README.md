@@ -1076,8 +1076,6 @@ Testing how AlgoMate selects algorithms for different scenarios...
 
 ## 🧬 Custom Objects & Generic Algorithms
 
-**New in v0.1.5+**: AlgoMate now supports custom objects and generic algorithms!
-
 ## 🌐 Flutter Web Compatibility
 
 **New in v0.1.7+**: AlgoMate now provides **full Flutter Web compatibility** with intelligent platform detection and fallback algorithms.
@@ -2119,7 +2117,7 @@ dart pub add algomate
 
 # Or manually in pubspec.yaml
 dependencies:
-  algomate: ^0.1.4
+  algomate: ^0.1.7
 ```
 
 ### 2. Your First AlgoMate Program
@@ -2348,7 +2346,7 @@ Want to contribute?
 
 _AlgoMate - Making optimal algorithms accessible to everyone_ 🚀
 
-**Latest Update**: September 2024 | **Version**: 0.1.5
+**Latest Update**: September 2024 | **Version**: 0.1.7
 
 ```
 
@@ -2487,7 +2485,7 @@ Follow the established DDD + Clean Architecture:
 
 ## Changelog 📝
 
-### v0.1.5 - Custom Objects & Generic Algorithms (September 2, 2024)
+### v0.1.7 - Custom Objects & Generic Algorithms (September 2, 2024)
 
 #### 🧬 **Generic Algorithm Support**
 
@@ -2698,7 +2696,7 @@ AlgoMate comes with optimized implementations:
 - `IterativeMergeSort` - O(n log n) - Stack-safe merge sort
 - `HybridMergeSort` - O(n log n) - Switches to insertion sort for small arrays
 
-**Generic Sorting Algorithms (New in v0.1.5+):**
+**Generic Sorting Algorithms (New in v0.1.7+):**
 
 - `GenericMergeSort<T>` - O(n log n) - Works with any Comparable type
 - `GenericQuickSort<T>` - O(n log n) average - Fast for random data
@@ -2718,7 +2716,7 @@ AlgoMate comes with optimized implementations:
 - `BinarySearchTree<T>` - BST with O(log n) average operations
 - `CircularBuffer<T>` - Ring buffer for streaming data with configurable capacity
 
-**Graph Algorithms (New in v0.1.5+):**
+**Graph Algorithms (New in v0.1.7+):**
 
 - `BreadthFirstSearch<T>` - O(V + E) - Level-by-level graph traversal with distance tracking
 - `DepthFirstSearch<T>` - O(V + E) - Deep graph exploration with discovery/finish times
