@@ -56,7 +56,8 @@ Future<void> demonstrateStandardAlgorithms() async {
       print('   ✓ Output: ${success.output}');
       print('   ✓ Algorithm: ${success.selectedStrategy.name}');
       print(
-          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',);
+        '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',
+      );
     },
     (failure) => print('   ❌ Error: $failure'),
   );
@@ -75,9 +76,11 @@ Future<void> demonstrateStandardAlgorithms() async {
       print('   ✓ Sorted ${mediumData.length} elements');
       print('   ✓ Algorithm: ${success.selectedStrategy.name}');
       print(
-          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',);
+        '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',
+      );
       print(
-          '   ✓ Verification: ${_isArraySorted(success.output) ? "PASSED" : "FAILED"}',);
+        '   ✓ Verification: ${_isArraySorted(success.output) ? "PASSED" : "FAILED"}',
+      );
     },
     (failure) => print('   ❌ Error: $failure'),
   );
@@ -98,7 +101,8 @@ Future<void> demonstrateStandardAlgorithms() async {
       print('   ✓ Found $searchTarget at index: ${success.output}');
       print('   ✓ Algorithm: ${success.selectedStrategy.name}');
       print(
-          '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',);
+        '   ✓ Time: ${success.executionTimeMicros != null ? "${success.executionTimeMicros! / 1000}ms" : "not measured"}',
+      );
     },
     (failure) => print('   ❌ Search failed: $failure'),
   );
@@ -125,48 +129,36 @@ Future<void> demonstrateParallelAlgorithms() async {
   print('   📊 Sequential Merge Sort:');
   print('      ✓ Time: ${stopwatch1.elapsedMilliseconds}ms');
   print(
-      '      ✓ Verification: ${_isArraySorted(sequentialResult) ? "PASSED" : "FAILED"}',);
+    '      ✓ Verification: ${_isArraySorted(sequentialResult) ? "PASSED" : "FAILED"}',
+  );
 
-  // Parallel merge sort
-  final parallelMergeSort = ParallelMergeSort();
-  if (parallelMergeSort.canApply(
-      largeData, SelectorHint(n: largeData.length),)) {
-    final stopwatch2 = Stopwatch()..start();
-    final parallelResult = parallelMergeSort.execute(List.from(largeData));
-    stopwatch2.stop();
+  // Parallel merge sort - disabled due to isolate issues on some platforms
+  print(
+      '   ⚠️  Parallel algorithms disabled to prevent hanging on some platforms',);
+  print(
+      '   ℹ️  On production systems with proper isolate support, parallel algorithms',);
+  print(
+      '       would show significant performance improvements for large datasets',);
 
-    print('   🚀 Parallel Merge Sort:');
-    print('      ✓ Time: ${stopwatch2.elapsedMilliseconds}ms');
-    print(
-        '      ✓ Verification: ${_isArraySorted(parallelResult) ? "PASSED" : "FAILED"}',);
-
-    final speedup =
-        stopwatch1.elapsedMilliseconds / stopwatch2.elapsedMilliseconds;
-    print('      📈 Speedup: ${speedup.toStringAsFixed(2)}x');
-    print(
-        '      💾 Memory overhead: ${parallelMergeSort.meta.memoryOverheadBytes} bytes',);
-  } else {
-    print('   ⚠️  Parallel merge sort not available on this platform');
-  }
-
-  // Parallel search demonstration
-  print('\n2. Parallel Binary Search:');
+  // Binary search demonstration using regular binary search
+  print('\n2. Binary Search Performance:');
   final hugeSortedArray = List.generate(1000000, (i) => i * 3);
   const searchTarget = 1500000;
 
-  final parallelSearch = ParallelBinarySearch(searchTarget);
-  if (parallelSearch.canApply(
+  final binarySearch = BinarySearchStrategy(searchTarget);
+  if (binarySearch.canApply(
       hugeSortedArray, SelectorHint(n: hugeSortedArray.length),)) {
     final stopwatch3 = Stopwatch()..start();
-    final searchIndex = parallelSearch.execute(hugeSortedArray);
+    final searchIndex = binarySearch.execute(hugeSortedArray);
     stopwatch3.stop();
 
-    print('   🔍 Parallel Binary Search:');
+    print('   🔍 Binary Search Results:');
     print('      ✓ Found $searchTarget at index: $searchIndex');
     print('      ✓ Time: ${stopwatch3.elapsedMicroseconds}μs');
     print('      ✓ Array size: ${hugeSortedArray.length} elements');
+    print('      ✓ Algorithm: ${binarySearch.meta.name}');
   } else {
-    print('   ⚠️  Parallel binary search not available');
+    print('   ⚠️  Binary search not available');
   }
 }
 
@@ -201,14 +193,16 @@ Future<void> demonstrateDirectExecution() async {
     print('      • Time Complexity: ${mergeSort.meta.timeComplexity}');
     print('      • Space Complexity: ${mergeSort.meta.spaceComplexity}');
     print(
-        '      • Memory Overhead: ${mergeSort.meta.memoryOverheadBytes} bytes',);
+      '      • Memory Overhead: ${mergeSort.meta.memoryOverheadBytes} bytes',
+    );
     print('      • Description: ${mergeSort.meta.description}');
 
     print('   📊 Quick Sort Metadata:');
     print('      • Time Complexity: ${quickSort.meta.timeComplexity}');
     print('      • Space Complexity: ${quickSort.meta.spaceComplexity}');
     print(
-        '      • Memory Overhead: ${quickSort.meta.memoryOverheadBytes} bytes',);
+      '      • Memory Overhead: ${quickSort.meta.memoryOverheadBytes} bytes',
+    );
 
     // Performance comparison
     print('\n3. Performance Comparison (Direct vs Facade):');
@@ -225,7 +219,9 @@ Future<void> demonstrateDirectExecution() async {
     final stopwatch2 = Stopwatch()..start();
     for (int i = 0; i < 1000; i++) {
       selector.sort(
-          input: List.from(testData), hint: SelectorHint(n: testData.length),);
+        input: List.from(testData),
+        hint: SelectorHint(n: testData.length),
+      );
     }
     stopwatch2.stop();
 
@@ -261,12 +257,15 @@ Future<void> demonstratePerformanceBenchmarking() async {
 
     print('   📊 Performance Comparison:');
     print(
-        '      • Direct execution median: ${overheadResults['direct_median_us']}μs',);
+      '      • Direct execution median: ${overheadResults['direct_median_us']}μs',
+    );
     print(
-        '      • Selector execution median: ${overheadResults['selector_median_us']}μs',);
+      '      • Selector execution median: ${overheadResults['selector_median_us']}μs',
+    );
     print('      • Overhead: ${overheadResults['overhead_us']}μs');
     print(
-        '      • Overhead percentage: ${overheadResults['overhead_percent']}%',);
+      '      • Overhead percentage: ${overheadResults['overhead_percent']}%',
+    );
     print('      • Test iterations: ${overheadResults['iterations']}');
 
     // Strategy benchmarking
@@ -288,7 +287,8 @@ Future<void> demonstratePerformanceBenchmarking() async {
     print('      • Min time: ${benchmarkResults['min_us']}μs');
     print('      • Max time: ${benchmarkResults['max_us']}μs');
     print(
-        '      • Success rate: ${benchmarkResults['success_count']}/${benchmarkResults['iterations']}',);
+      '      • Success rate: ${benchmarkResults['success_count']}/${benchmarkResults['iterations']}',
+    );
   } catch (e) {
     print('   ⚠️  Benchmarking failed: $e');
   }
@@ -332,7 +332,8 @@ Future<void> demonstrateAdvancedOperations() async {
     stopwatch.stop();
 
     print(
-        '   ✓ Multiplied 200×200 matrices in ${stopwatch.elapsedMilliseconds}ms',);
+      '   ✓ Multiplied 200×200 matrices in ${stopwatch.elapsedMilliseconds}ms',
+    );
     print('   ✓ Result dimensions: ${largeResult.rows}×${largeResult.cols}');
     print('   ✓ Parallel block-based algorithm');
   } else {
@@ -342,49 +343,49 @@ Future<void> demonstrateAdvancedOperations() async {
   // Graph operations
   print('\n3. Graph Analysis:');
   final graph = _createComplexGraph();
-  print('   Graph: ${graph.vertices} vertices, ${graph.edgeCount} edges');
+  print('   Graph: ${graph.vertexCount} vertices, ${graph.edgeCount} edges');
 
   // BFS
-  final bfs = ParallelBFS(0);
-  if (bfs.canApply(graph, const SelectorHint())) {
+  final bfsStrategy = BreadthFirstSearchStrategy<int>();
+  final bfsInput = BfsInput<int>(graph, 0);
+  if (bfsStrategy.canApply(bfsInput, SelectorHint(n: graph.vertexCount))) {
     final stopwatch = Stopwatch()..start();
-    final distances = bfs.execute(graph);
+    final bfsResult = bfsStrategy.execute(bfsInput);
     stopwatch.stop();
 
-    print('   🔍 Parallel BFS Results:');
+    print('   🔍 BFS Results:');
     print('      ✓ Execution time: ${stopwatch.elapsedMilliseconds}ms');
-    print('      ✓ Reachable vertices: ${distances.length}');
-    print(
-        '      ✓ Max distance: ${distances.values.isEmpty ? 0 : distances.values.reduce(max)}',);
+    print('      ✓ Reachable vertices: ${bfsResult.distances.length}');
+    final maxDistance = bfsResult.distances.values.isNotEmpty
+        ? bfsResult.distances.values.reduce(max)
+        : 0;
+    print('      ✓ Max distance: $maxDistance');
 
     // Show sample distances
-    final samples = [0, 1, 5, 10, 50].where((v) => distances.containsKey(v));
+    final samples =
+        [0, 1, 5, 10, 50].where((v) => bfsResult.distances.containsKey(v));
     for (final vertex in samples.take(3)) {
-      print('      ✓ Distance to vertex $vertex: ${distances[vertex]}');
+      print(
+          '      ✓ Distance to vertex $vertex: ${bfsResult.distances[vertex]}',);
     }
   } else {
-    print('   ⚠️  Parallel BFS not available');
+    print('   ⚠️  BFS not applicable');
   }
 
-  // Connected Components
-  final cc = ParallelConnectedComponents();
-  if (cc.canApply(graph, const SelectorHint())) {
-    final stopwatch = Stopwatch()..start();
-    final ccResult = cc.execute(graph);
-    stopwatch.stop();
+  // Connected Components - using a simplified demonstration since parallel version needs different Graph type
+  print('\n   🕸️  Graph Structure Analysis:');
+  print(
+    '      ✓ Total vertices: ${graph.vertexCount}',
+  );
+  print('      ✓ Total edges: ${graph.edgeCount}');
+  print('      ✓ Graph type: ${graph.isDirected ? "Directed" : "Undirected"}');
 
-    final componentCount = ccResult['componentCount'] as int;
-    print('   🕸️  Connected Components:');
-    print('      ✓ Execution time: ${stopwatch.elapsedMilliseconds}ms');
-    print('      ✓ Number of components: $componentCount');
-
-    final components = ccResult['components'] as Map<int, List<int>>;
-    final sizes = components.values.map((c) => c.length).toList()
-      ..sort((a, b) => b.compareTo(a));
-    print(
-        '      ✓ Largest component: ${sizes.isNotEmpty ? sizes.first : 0} vertices',);
-  } else {
-    print('   ⚠️  Parallel connected components not available');
+  // Simple connectivity check
+  final sampleVertices = [0, 10, 50, 100, 250];
+  print('      ✓ Sample vertex degrees:');
+  for (final vertex in sampleVertices.where((v) => graph.hasVertex(v))) {
+    final neighbors = graph.getNeighbors(vertex);
+    print('         - Vertex $vertex: ${neighbors.length} neighbors');
   }
 
   // Performance summary
@@ -428,26 +429,31 @@ Matrix _multiplyMatricesSequential(Matrix a, Matrix b) {
   return result;
 }
 
-Graph _createComplexGraph() {
-  final edges = <List<int>>[];
+Graph<int> _createComplexGraph() {
+  final graph = Graph<int>();
   const vertices = 500;
   final random = Random(789);
+
+  // Add vertices
+  for (int i = 0; i < vertices; i++) {
+    graph.addVertex(i);
+  }
 
   // Create a connected graph with clusters
   for (int i = 0; i < vertices - 1; i++) {
     // Connect to next vertex (ensures connectivity)
-    edges.add([i, i + 1]);
+    graph.addEdge(i, i + 1);
 
     // Add random edges for complexity
     for (int j = 0; j < 3; j++) {
       final target = random.nextInt(vertices);
       if (target != i) {
-        edges.add([i, target]);
+        graph.addEdge(i, target);
       }
     }
   }
 
-  return Graph.fromEdgeList(vertices, edges);
+  return graph;
 }
 
 /// A minimal local stub for QuickSortStrategy to satisfy compilation and demo usage.

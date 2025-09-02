@@ -1,5 +1,5 @@
 import 'dart:isolate';
-import 'dart:io' show Platform;
+import '../platform_cores.dart';
 import 'dart:math' as math;
 import 'dart:async';
 import '../../../domain/entities/strategy.dart';
@@ -54,9 +54,7 @@ class Matrix {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! Matrix) return false;
-    return rows == other.rows &&
-        cols == other.cols &&
-        _listEquals(data, other.data);
+    return rows == other.rows && cols == other.cols && _listEquals(data, other.data);
   }
 
   @override
@@ -88,7 +86,6 @@ class Matrix {
 class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
   static const int _sequentialThreshold = 200; // 200x200 matrix
   static const int _defaultBlockSize = 64; // Cache-friendly block size
-  static const int _maxIsolates = 4;
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
@@ -97,8 +94,7 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
         spaceComplexity: TimeComplexity.o1,
         requiresSorted: false,
         memoryOverheadBytes: 16384, // Block temporary storage
-        description:
-            'Multi-core matrix multiplication using block decomposition',
+        description: 'Multi-core matrix multiplication using block decomposition',
       );
 
   @override
@@ -150,7 +146,7 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
   Matrix _parallelMultiply(Matrix a, Matrix b) {
     final result = Matrix.zero(a.rows, b.cols);
     final blockSize = _optimalBlockSize(a, b);
-    final numCores = _getAvailableCores();
+    final numCores = getNumberOfProcessors();
 
     // Create block multiplication tasks
     final tasks = <BlockMultiplyTask>[];
@@ -181,7 +177,10 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
 
   /// Execute block multiplication tasks in parallel
   void _executeBlockTasks(
-      List<BlockMultiplyTask> tasks, Matrix result, int numCores,) {
+    List<BlockMultiplyTask> tasks,
+    Matrix result,
+    int numCores,
+  ) {
     final taskChunks = _distributeTasksEvenly(tasks, numCores);
     final futures = <Future<List<BlockResult>>>[];
 
@@ -220,7 +219,8 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
 
   /// Compute a chunk of block tasks in an isolate
   Future<List<BlockResult>> _computeBlockChunk(
-      List<BlockMultiplyTask> tasks,) async {
+    List<BlockMultiplyTask> tasks,
+  ) async {
     final completer = Completer<List<BlockResult>>();
 
     try {
@@ -246,13 +246,16 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
     return completer.future.timeout(
       const Duration(seconds: 30),
       onTimeout: () => throw TimeoutException(
-          'Block multiply timeout', const Duration(seconds: 30),),
+        'Block multiply timeout',
+        const Duration(seconds: 30),
+      ),
     );
   }
 
   /// Sequential computation of block chunk (fallback)
   List<BlockResult> _computeBlockChunkSequential(
-      List<BlockMultiplyTask> tasks,) {
+    List<BlockMultiplyTask> tasks,
+  ) {
     final results = <BlockResult>[];
 
     for (final task in tasks) {
@@ -305,7 +308,10 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
 
         if (resultRow < result.rows && resultCol < result.cols) {
           result.set(
-              resultRow, resultCol, result.get(resultRow, resultCol) + value,);
+            resultRow,
+            resultCol,
+            result.get(resultRow, resultCol) + value,
+          );
         }
       }
     }
@@ -313,7 +319,12 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
 
   /// Extract a block from a matrix
   List<int> _extractBlock(
-      Matrix matrix, int startRow, int startCol, int blockRows, int blockCols,) {
+    Matrix matrix,
+    int startRow,
+    int startCol,
+    int blockRows,
+    int blockCols,
+  ) {
     final actualRows = math.min(blockRows, matrix.rows - startRow);
     final actualCols = math.min(blockCols, matrix.cols - startCol);
     final block = <int>[];
@@ -338,7 +349,9 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
 
   /// Distribute tasks evenly across cores
   List<List<BlockMultiplyTask>> _distributeTasksEvenly(
-      List<BlockMultiplyTask> tasks, int numCores,) {
+    List<BlockMultiplyTask> tasks,
+    int numCores,
+  ) {
     final chunks = <List<BlockMultiplyTask>>[];
     final chunkSize = (tasks.length / numCores).ceil();
 
@@ -389,13 +402,7 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
   }
 
   /// Get number of available CPU cores
-  int _getAvailableCores() {
-    try {
-      return math.min(Platform.numberOfProcessors, _maxIsolates);
-    } catch (e) {
-      return 4;
-    }
-  }
+  // Uses getNumberOfProcessors() from platform_cores.dart
 }
 
 /// Task for block matrix multiplication
@@ -419,7 +426,12 @@ class BlockMultiplyTask {
 /// Result of block matrix multiplication
 class BlockResult {
   const BlockResult(
-      this.rowStart, this.colStart, this.rows, this.cols, this.data,);
+    this.rowStart,
+    this.colStart,
+    this.rows,
+    this.cols,
+    this.data,
+  );
 
   final int rowStart, colStart;
   final int rows, cols;
@@ -495,13 +507,11 @@ class ParallelStrassenMultiplication extends Strategy<List<Matrix>, Matrix> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'parallel_strassen_multiply',
-        timeComplexity:
-            TimeComplexity.oN3, // Actually O(n^2.807) but using closest enum
+        timeComplexity: TimeComplexity.oN3, // Actually O(n^2.807) but using closest enum
         spaceComplexity: TimeComplexity.oN2,
         requiresSorted: false,
         memoryOverheadBytes: 32768, // Recursive matrix storage
-        description:
-            'Parallel Strassen matrix multiplication with O(n^2.807) complexity',
+        description: 'Parallel Strassen matrix multiplication with O(n^2.807) complexity',
       );
 
   @override
@@ -634,7 +644,12 @@ class ParallelStrassenMultiplication extends Strategy<List<Matrix>, Matrix> {
 
   /// Compute Strassen M1 in isolate
   Future<Matrix> _computeStrassenM1(
-      Matrix a11, Matrix a22, Matrix b11, Matrix b22, int depth,) async {
+    Matrix a11,
+    Matrix a22,
+    Matrix b11,
+    Matrix b22,
+    int depth,
+  ) async {
     final completer = Completer<Matrix>();
 
     try {
@@ -665,32 +680,58 @@ class ParallelStrassenMultiplication extends Strategy<List<Matrix>, Matrix> {
 
   /// Additional Strassen computation methods...
   Future<Matrix> _computeStrassenM2(
-      Matrix a21, Matrix a22, Matrix b11, int depth,) async {
+    Matrix a21,
+    Matrix a22,
+    Matrix b11,
+    int depth,
+  ) async {
     return _strassenRecursive(_add(a21, a22), b11, depth);
   }
 
   Future<Matrix> _computeStrassenM3(
-      Matrix a11, Matrix b12, Matrix b22, int depth,) async {
+    Matrix a11,
+    Matrix b12,
+    Matrix b22,
+    int depth,
+  ) async {
     return _strassenRecursive(a11, _subtract(b12, b22), depth);
   }
 
   Future<Matrix> _computeStrassenM4(
-      Matrix a22, Matrix b21, Matrix b11, int depth,) async {
+    Matrix a22,
+    Matrix b21,
+    Matrix b11,
+    int depth,
+  ) async {
     return _strassenRecursive(a22, _subtract(b21, b11), depth);
   }
 
   Future<Matrix> _computeStrassenM5(
-      Matrix a11, Matrix a12, Matrix b22, int depth,) async {
+    Matrix a11,
+    Matrix a12,
+    Matrix b22,
+    int depth,
+  ) async {
     return _strassenRecursive(_add(a11, a12), b22, depth);
   }
 
   Future<Matrix> _computeStrassenM6(
-      Matrix a21, Matrix a11, Matrix b11, Matrix b12, int depth,) async {
+    Matrix a21,
+    Matrix a11,
+    Matrix b11,
+    Matrix b12,
+    int depth,
+  ) async {
     return _strassenRecursive(_subtract(a21, a11), _add(b11, b12), depth);
   }
 
   Future<Matrix> _computeStrassenM7(
-      Matrix a12, Matrix a22, Matrix b21, Matrix b22, int depth,) async {
+    Matrix a12,
+    Matrix a22,
+    Matrix b21,
+    Matrix b22,
+    int depth,
+  ) async {
     return _strassenRecursive(_subtract(a12, a22), _add(b21, b22), depth);
   }
 

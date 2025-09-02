@@ -1,5 +1,5 @@
 import 'dart:isolate';
-import 'dart:io' show Platform;
+import '../platform_cores.dart';
 import 'dart:math' as math;
 import 'dart:async';
 import '../../../domain/entities/strategy.dart';
@@ -15,14 +15,19 @@ import '../../../domain/value_objects/time_complexity.dart';
 /// This is a lightweight local implementation so the file compiles and basic
 /// parallel entrypoints used here (entryPoint/send-port protocol) work.
 class IsolateExecutor {
-  Future<R> execute<T, R>(
-      [dynamic fn, dynamic inPos, dynamic entryPoint, T? input,]) async {
+  Future<R> execute<T, R>([
+    dynamic fn,
+    dynamic inPos,
+    dynamic entryPoint,
+    T? input,
+  ]) async {
     final fnToUse = entryPoint ?? fn;
     final inToUse = input ?? inPos;
 
     if (fnToUse == null) {
       return Future<R>.error(
-          ArgumentError('No function provided to IsolateExecutor.execute'),);
+        ArgumentError('No function provided to IsolateExecutor.execute'),
+      );
     }
 
     try {
@@ -32,7 +37,9 @@ class IsolateExecutor {
       if (fnType.contains('SendPort')) {
         final receivePort = ReceivePort();
         await Isolate.spawn(
-            fnToUse as void Function(SendPort), receivePort.sendPort,);
+          fnToUse as void Function(SendPort),
+          receivePort.sendPort,
+        );
 
         // First message from the spawned isolate should be its SendPort.
         final dynamic first = await receivePort.first;
@@ -42,8 +49,7 @@ class IsolateExecutor {
           childSend.send(inToUse);
 
           // Wait for a response message (map with success/error or raw result).
-          final dynamic response =
-              await receivePort.firstWhere((m) => m != null);
+          final dynamic response = await receivePort.firstWhere((m) => m != null);
 
           receivePort.close();
 
@@ -59,12 +65,12 @@ class IsolateExecutor {
         } else {
           receivePort.close();
           return Future<R>.error(
-              Exception('Invalid isolate protocol: expected SendPort'),);
+            Exception('Invalid isolate protocol: expected SendPort'),
+          );
         }
       } else {
         // Direct invocation for plain functions (synchronous or returning value).
-        final result =
-            await Future<R>.microtask(() => (fnToUse as dynamic)(inToUse) as R);
+        final result = await Future<R>.microtask(() => (fnToUse as dynamic)(inToUse) as R);
         return result;
       }
     } catch (e) {
@@ -75,8 +81,7 @@ class IsolateExecutor {
 
 /// Simple top-level adapter used by callers that pass a function named
 /// `_mergeSortFunction` — forwards to the internal _IsolateMergeSort._mergeSort.
-List<int> _mergeSortFunction(List<int> input) =>
-    _IsolateMergeSort._mergeSort(input);
+List<int> _mergeSortFunction(List<int> input) => _IsolateMergeSort._mergeSort(input);
 
 /// Parallel Merge Sort using Isolates for multi-core processing
 ///
@@ -106,8 +111,7 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
         spaceComplexity: TimeComplexity.oN,
         requiresSorted: false,
         memoryOverheadBytes: 8192, // Isolate overhead + temp arrays
-        description:
-            'Multi-core merge sort using isolates for improved performance',
+        description: 'Multi-core merge sort using isolates for improved performance',
       );
 
   @override
@@ -139,7 +143,7 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
 
   /// Parallel merge sort implementation
   List<int> _parallelMergeSort(List<int> input) {
-    final availableCores = _getAvailableCores();
+    final availableCores = getNumberOfProcessors();
     final numIsolates = math.min(availableCores, _maxIsolates);
     final chunkSize = math.max(_minChunkSize, input.length ~/ numIsolates);
 
@@ -262,14 +266,7 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
   }
 
   /// Get number of available CPU cores
-  int _getAvailableCores() {
-    // Platform-specific core detection
-    try {
-      return Platform.numberOfProcessors;
-    } catch (e) {
-      return 4; // Default fallback
-    }
-  }
+  // Uses getNumberOfProcessors() from platform_cores.dart
 }
 
 /// Isolate entry point for merge sort

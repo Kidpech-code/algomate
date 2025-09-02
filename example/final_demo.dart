@@ -99,7 +99,8 @@ Future<void> demonstrateAlgorithmComparison(AlgoSelectorFacade selector) async {
         (result) {
           final timeMs = result.executionTimeMicros! / 1000;
           print(
-              '   🕒 $testName → ${result.selectedStrategy.name}: ${timeMs.toStringAsFixed(2)}ms',);
+            '   🕒 $testName → ${result.selectedStrategy.name}: ${timeMs.toStringAsFixed(2)}ms',
+          );
         },
         (failure) => print('   ❌ $testName failed: ${failure.message}'),
       );
@@ -129,7 +130,8 @@ Future<void> demonstrateParallelAlgorithms(AlgoSelectorFacade selector) async {
       print('   📊 Selected strategy: ${result.selectedStrategy.name}');
       print('   🔧 Cores utilized: ${Platform.numberOfProcessors}');
       print(
-          '   📈 Throughput: ${(largeDataset.length / timeMs * 1000).toStringAsFixed(0)} elements/sec',);
+        '   📈 Throughput: ${(largeDataset.length / timeMs * 1000).toStringAsFixed(0)} elements/sec',
+      );
     },
     (failure) => print('   ❌ Parallel sort failed: ${failure.message}'),
   );
@@ -142,13 +144,16 @@ Future<void> demonstrateParallelAlgorithms(AlgoSelectorFacade selector) async {
     final parallelMergeSort = ParallelMergeSort();
 
     if (parallelMergeSort.canApply(
-        largeDataset, SelectorHint(n: largeDataset.length),)) {
+      largeDataset,
+      SelectorHint(n: largeDataset.length),
+    )) {
       final stopwatch = Stopwatch()..start();
       final directResult = parallelMergeSort.execute(List.from(largeDataset));
       stopwatch.stop();
 
       print(
-          '   ✅ Direct parallel execution: ${stopwatch.elapsedMilliseconds}ms',);
+        '   ✅ Direct parallel execution: ${stopwatch.elapsedMilliseconds}ms',
+      );
       print('   📏 Result length: ${directResult.length}');
       print('   ✓ Is sorted: ${_isSorted(directResult)}');
     } else {
@@ -192,7 +197,8 @@ Future<void> demonstrateAutoSelection(AlgoSelectorFacade selector) async {
         // Calculate efficiency metrics
         final elementsPerMs = size / timeMs;
         print(
-            '   📊 Throughput: ${elementsPerMs.toStringAsFixed(0)} elements/ms',);
+          '   📊 Throughput: ${elementsPerMs.toStringAsFixed(0)} elements/ms',
+        );
       },
       (failure) => print('   ❌ Auto-selection failed: ${failure.message}'),
     );

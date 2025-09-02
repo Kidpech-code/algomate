@@ -150,6 +150,7 @@ class SelectorPolicy {
         TimeComplexity.oLogN => 0.1, // Overhead may not pay off
         TimeComplexity.oNLogN => 0.2, // Overhead definitely not worth it
         TimeComplexity.oN2 => 0.0, // Acceptable for very small n
+        TimeComplexity.oVPlusE => -0.1, // Good for small graphs
         _ => 0.5, // Penalize heavily
       };
     }
@@ -164,6 +165,7 @@ class SelectorPolicy {
         TimeComplexity.oN2 => 1.0, // Bad for large n
         TimeComplexity.oN3 => 2.0, // Very bad
         TimeComplexity.o2N => 3.0, // Terrible
+        TimeComplexity.oVPlusE => 0.1, // OK for large graphs
       };
     }
 

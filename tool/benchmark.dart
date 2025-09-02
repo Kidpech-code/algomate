@@ -19,7 +19,8 @@ class AlgoMateBenchmark {
   Future<void> runAll() async {
     print('🚀 Starting AlgoMate Benchmark Suite');
     print(
-        'Platform: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}',);
+      'Platform: ${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
+    );
     print('Dart: ${Platform.version}');
     print('═' * 60);
 
@@ -126,7 +127,9 @@ class AlgoMateBenchmark {
 
   /// Run benchmark with statistical analysis
   Future<BenchmarkResult> _runBenchmarkWithStats(
-      BenchmarkBase benchmark, String name,) async {
+    BenchmarkBase benchmark,
+    String name,
+  ) async {
     const warmupRuns = 10;
     const measureRuns = 100;
 
@@ -162,7 +165,8 @@ class AlgoMateBenchmark {
     );
 
     print(
-        '${result.name}: ${result.median.toStringAsFixed(2)}μs (±${result.standardDeviation.toStringAsFixed(2)})',);
+      '${result.name}: ${result.median.toStringAsFixed(2)}μs (±${result.standardDeviation.toStringAsFixed(2)})',
+    );
 
     return result;
   }
@@ -219,7 +223,9 @@ class AlgoMateBenchmark {
   }
 
   Map<String, dynamic> _calculateStatistics(
-      List<int> directTimes, List<int> selectorTimes,) {
+    List<int> directTimes,
+    List<int> selectorTimes,
+  ) {
     directTimes.sort();
     selectorTimes.sort();
 
@@ -257,7 +263,8 @@ class AlgoMateBenchmark {
       print('\n🔄 Sorting Performance:');
       for (final result in sortResults) {
         print(
-            '  ${result.name}: ${result.median.toStringAsFixed(2)}μs (P95: ${result.p95.toStringAsFixed(2)}μs)',);
+          '  ${result.name}: ${result.median.toStringAsFixed(2)}μs (P95: ${result.p95.toStringAsFixed(2)}μs)',
+        );
       }
     }
 
@@ -265,7 +272,8 @@ class AlgoMateBenchmark {
       print('\n🔍 Searching Performance:');
       for (final result in searchResults) {
         print(
-            '  ${result.name}: ${result.median.toStringAsFixed(2)}μs (P95: ${result.p95.toStringAsFixed(2)}μs)',);
+          '  ${result.name}: ${result.median.toStringAsFixed(2)}μs (P95: ${result.p95.toStringAsFixed(2)}μs)',
+        );
       }
     }
 
@@ -460,7 +468,9 @@ class AlgoSelectorBuilder {
 
   AlgoSelector build() {
     return AlgoSelector(
-        consoleLogging: _consoleLogging, timingEnabled: _timing,);
+      consoleLogging: _consoleLogging,
+      timingEnabled: _timing,
+    );
   }
 }
 

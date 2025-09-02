@@ -1,5 +1,6 @@
+import 'dart:io';
 import 'dart:isolate';
-import 'dart:io' show Platform;
+import '../platform_cores.dart';
 import 'dart:math' as math;
 import 'dart:async';
 import '../../../domain/entities/strategy.dart';
@@ -32,8 +33,7 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
         spaceComplexity: TimeComplexity.oN,
         requiresSorted: false,
         memoryOverheadBytes: 8192, // Isolate overhead + temp arrays
-        description:
-            'Multi-core merge sort using isolates for improved performance',
+        description: 'Multi-core merge sort using isolates for improved performance',
       );
 
   @override
@@ -69,7 +69,7 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
 
   /// Parallel merge sort implementation
   List<int> _parallelMergeSort(List<int> input) {
-    final availableCores = _getAvailableCores();
+    final availableCores = getNumberOfProcessors();
     final numChunks = math.min(availableCores, _maxIsolates);
     final chunkSize = math.max(_minChunkSize, input.length ~/ numChunks);
 
@@ -147,8 +147,7 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
 
     return completer.future.timeout(
       const Duration(seconds: 30),
-      onTimeout: () =>
-          throw TimeoutException('Sort timeout', const Duration(seconds: 30)),
+      onTimeout: () => throw TimeoutException('Sort timeout', const Duration(seconds: 30)),
     );
   }
 
@@ -215,13 +214,7 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
   }
 
   /// Get number of available CPU cores
-  int _getAvailableCores() {
-    try {
-      return Platform.numberOfProcessors;
-    } catch (e) {
-      return 4; // Default fallback
-    }
-  }
+  // Uses getNumberOfProcessors() from platform_cores.dart
 }
 
 /// Isolate entry point for merge sort
@@ -287,8 +280,7 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
         spaceComplexity: TimeComplexity.oLogN,
         requiresSorted: false,
         memoryOverheadBytes: 4096,
-        description:
-            'Multi-core quick sort with work-stealing and hybrid optimization',
+        description: 'Multi-core quick sort with work-stealing and hybrid optimization',
       );
 
   @override
@@ -328,7 +320,11 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
 
   /// Recursive parallel quick sort
   List<int> _parallelQuickSortRecursive(
-      List<int> arr, int low, int high, int depth,) {
+    List<int> arr,
+    int low,
+    int high,
+    int depth,
+  ) {
     if (low < high) {
       // Use insertion sort for small subarrays
       if (high - low < _insertionThreshold) {
@@ -359,8 +355,7 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
         try {
           List<int>? leftResult;
           leftFuture.then((result) => leftResult = result).catchError((e) {
-            leftResult =
-                _sequentialQuickSort(List.from(arr), low, pivotIndex - 1);
+            leftResult = _sequentialQuickSort(List.from(arr), low, pivotIndex - 1);
             return leftResult!;
           });
 
@@ -414,7 +409,9 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
     return completer.future.timeout(
       const Duration(seconds: 15),
       onTimeout: () => throw TimeoutException(
-          'QuickSort timeout', const Duration(seconds: 15),),
+        'QuickSort timeout',
+        const Duration(seconds: 15),
+      ),
     );
   }
 

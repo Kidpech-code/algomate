@@ -10,12 +10,17 @@ final class SelectorHint {
     this.memoryBudgetBytes,
     this.preferStable,
     this.maxTimeComplexity,
+    this.nearlySorted,
+    this.preferSimple,
   });
 
   /// Creates a hint for small datasets (typically < 100 elements)
-  factory SelectorHint.small({bool? sorted}) => SelectorHint(
+  factory SelectorHint.small({bool? sorted, bool? nearlySorted}) =>
+      SelectorHint(
         n: 32, // Threshold where simple algorithms often outperform complex ones
         sorted: sorted,
+        nearlySorted: nearlySorted,
+        preferSimple: true,
       );
 
   /// Creates a hint for large datasets (> 1000 elements)
@@ -36,11 +41,17 @@ final class SelectorHint {
   /// WARNING: Providing incorrect sorted hint may lead to incorrect results
   final bool? sorted;
 
+  /// Whether input is nearly sorted (most elements are in correct position)
+  final bool? nearlySorted;
+
   /// Available memory budget in bytes (null for unlimited)
   final int? memoryBudgetBytes;
 
   /// Whether to prefer stable algorithms (maintains relative order of equal elements)
   final bool? preferStable;
+
+  /// Whether to prefer simple algorithms (lower code complexity)
+  final bool? preferSimple;
 
   /// Maximum acceptable time complexity (null for no limit)
   final String? maxTimeComplexity;
@@ -51,16 +62,20 @@ final class SelectorHint {
       (other is SelectorHint &&
           other.n == n &&
           other.sorted == sorted &&
+          other.nearlySorted == nearlySorted &&
           other.memoryBudgetBytes == memoryBudgetBytes &&
           other.preferStable == preferStable &&
+          other.preferSimple == preferSimple &&
           other.maxTimeComplexity == maxTimeComplexity);
 
   @override
   int get hashCode => Object.hash(
         n,
         sorted,
+        nearlySorted,
         memoryBudgetBytes,
         preferStable,
+        preferSimple,
         maxTimeComplexity,
       );
 
@@ -68,8 +83,10 @@ final class SelectorHint {
   String toString() => 'SelectorHint('
       'n: $n, '
       'sorted: $sorted, '
+      'nearlySorted: $nearlySorted, '
       'memoryBudget: ${memoryBudgetBytes != null ? "${memoryBudgetBytes! ~/ 1024}KB" : "unlimited"}, '
       'preferStable: $preferStable, '
+      'preferSimple: $preferSimple, '
       'maxComplexity: $maxTimeComplexity'
       ')';
 
@@ -77,15 +94,19 @@ final class SelectorHint {
   SelectorHint copyWith({
     int? n,
     bool? sorted,
+    bool? nearlySorted,
     int? memoryBudgetBytes,
     bool? preferStable,
+    bool? preferSimple,
     String? maxTimeComplexity,
   }) =>
       SelectorHint(
         n: n ?? this.n,
         sorted: sorted ?? this.sorted,
+        nearlySorted: nearlySorted ?? this.nearlySorted,
         memoryBudgetBytes: memoryBudgetBytes ?? this.memoryBudgetBytes,
         preferStable: preferStable ?? this.preferStable,
+        preferSimple: preferSimple ?? this.preferSimple,
         maxTimeComplexity: maxTimeComplexity ?? this.maxTimeComplexity,
       );
 }

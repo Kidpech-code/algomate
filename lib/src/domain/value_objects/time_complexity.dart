@@ -10,6 +10,9 @@ enum TimeComplexity {
   /// Linear time - O(n)
   oN('O(n)', 2),
 
+  /// Graph traversal time - O(V + E)
+  oVPlusE('O(V + E)', 2),
+
   /// Linearithmic time - O(n log n)
   oNLogN('O(n log n)', 3),
 
