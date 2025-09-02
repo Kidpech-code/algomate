@@ -33,7 +33,8 @@ import '../../../domain/value_objects/time_complexity.dart';
 /// final products = [Product('A', 50), Product('B', 100), Product('C', 150)];
 /// final index = strategy.execute(products); // Returns index or null
 /// ```
-class GenericBinarySearch<T extends Comparable<dynamic>> extends Strategy<List<T>, int?> {
+class GenericBinarySearch<T extends Comparable<dynamic>>
+    extends Strategy<List<T>, int?> {
   /// Creates a generic binary search strategy for type T.
   GenericBinarySearch(this.target);
 
@@ -82,7 +83,9 @@ class GenericBinarySearch<T extends Comparable<dynamic>> extends Strategy<List<T
   }
 
   @override
-  bool operator ==(Object other) => identical(this, other) || (other is GenericBinarySearch<T> && other.target == target);
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GenericBinarySearch<T> && other.target == target);
 
   @override
   int get hashCode => Object.hash(meta.name, target);
@@ -160,7 +163,9 @@ class GenericLinearSearch<T> extends Strategy<List<T>, int?> {
   }
 
   @override
-  bool operator ==(Object other) => identical(this, other) || (other is GenericLinearSearch<T> && other.target == target);
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GenericLinearSearch<T> && other.target == target);
 
   @override
   int get hashCode => Object.hash(meta.name, target);
@@ -184,7 +189,8 @@ class GenericLinearSearch<T> extends Strategy<List<T>, int?> {
 /// final insertAt = strategy.execute(sorted); // Returns 2
 /// // Insert 25 at index 2 to keep array sorted
 /// ```
-class GenericBinarySearchInsertion<T extends Comparable<dynamic>> extends Strategy<List<T>, int> {
+class GenericBinarySearchInsertion<T extends Comparable<dynamic>>
+    extends Strategy<List<T>, int> {
   /// Creates a generic binary search insertion strategy for type T.
   GenericBinarySearchInsertion(this.target);
 
@@ -226,7 +232,9 @@ class GenericBinarySearchInsertion<T extends Comparable<dynamic>> extends Strate
   }
 
   @override
-  bool operator ==(Object other) => identical(this, other) || (other is GenericBinarySearchInsertion<T> && other.target == target);
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GenericBinarySearchInsertion<T> && other.target == target);
 
   @override
   int get hashCode => Object.hash(meta.name, target);
@@ -287,7 +295,9 @@ class GenericLinearSearchAll<T> extends Strategy<List<T>, List<int>> {
   }
 
   @override
-  bool operator ==(Object other) => identical(this, other) || (other is GenericLinearSearchAll<T> && other.target == target);
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is GenericLinearSearchAll<T> && other.target == target);
 
   @override
   int get hashCode => Object.hash(meta.name, target);

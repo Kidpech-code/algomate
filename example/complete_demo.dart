@@ -134,11 +134,14 @@ Future<void> demonstrateParallelAlgorithms() async {
 
   // Parallel merge sort - disabled due to isolate issues on some platforms
   print(
-      '   ⚠️  Parallel algorithms disabled to prevent hanging on some platforms',);
+    '   ⚠️  Parallel algorithms disabled to prevent hanging on some platforms',
+  );
   print(
-      '   ℹ️  On production systems with proper isolate support, parallel algorithms',);
+    '   ℹ️  On production systems with proper isolate support, parallel algorithms',
+  );
   print(
-      '       would show significant performance improvements for large datasets',);
+    '       would show significant performance improvements for large datasets',
+  );
 
   // Binary search demonstration using regular binary search
   print('\n2. Binary Search Performance:');
@@ -147,7 +150,9 @@ Future<void> demonstrateParallelAlgorithms() async {
 
   final binarySearch = BinarySearchStrategy(searchTarget);
   if (binarySearch.canApply(
-      hugeSortedArray, SelectorHint(n: hugeSortedArray.length),)) {
+    hugeSortedArray,
+    SelectorHint(n: hugeSortedArray.length),
+  )) {
     final stopwatch3 = Stopwatch()..start();
     final searchIndex = binarySearch.execute(hugeSortedArray);
     stopwatch3.stop();
@@ -366,7 +371,8 @@ Future<void> demonstrateAdvancedOperations() async {
         [0, 1, 5, 10, 50].where((v) => bfsResult.distances.containsKey(v));
     for (final vertex in samples.take(3)) {
       print(
-          '      ✓ Distance to vertex $vertex: ${bfsResult.distances[vertex]}',);
+        '      ✓ Distance to vertex $vertex: ${bfsResult.distances[vertex]}',
+      );
     }
   } else {
     print('   ⚠️  BFS not applicable');

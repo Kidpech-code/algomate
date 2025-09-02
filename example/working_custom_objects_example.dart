@@ -40,10 +40,12 @@ Future<void> demonstrateBasicSorting() async {
         print('⏱️ Time taken: ${success.executionTimeMicros}μs');
         final timeSeconds = (success.executionTimeMicros ?? 1) / 1000000;
         print(
-            '📊 Performance: ${(data.length / timeSeconds).toStringAsFixed(0)} elements/sec',);
+          '📊 Performance: ${(data.length / timeSeconds).toStringAsFixed(0)} elements/sec',
+        );
         final sortedSample = success.output.take(10).toList();
         print(
-            'Result sample: $sortedSample${success.output.length > 10 ? '...' : ''}',);
+          'Result sample: $sortedSample${success.output.length > 10 ? '...' : ''}',
+        );
       },
       (failure) => print('❌ Error: ${failure.message}'),
     );
@@ -81,7 +83,8 @@ Future<void> demonstrateCustomObjects() async {
     print('  $person');
   }
   print(
-      '⏱️ Sorted ${people.length} people in ${stopwatch.elapsedMicroseconds}μs',);
+    '⏱️ Sorted ${people.length} people in ${stopwatch.elapsedMicroseconds}μs',
+  );
 
   // Demonstrate searching
   print('\n🔍 Searching for specific person:');
@@ -153,7 +156,8 @@ Future<void> demonstrateAdvancedFeatures() async {
       (success) {
         final found = success.output != null;
         print(
-            '  Target $target: ${found ? 'Found at index ${success.output}' : 'Not found'}',);
+          '  Target $target: ${found ? 'Found at index ${success.output}' : 'Not found'}',
+        );
         print('    Algorithm: ${success.selectedStrategy.name}');
         print('    Time: ${success.executionTimeMicros}μs');
       },

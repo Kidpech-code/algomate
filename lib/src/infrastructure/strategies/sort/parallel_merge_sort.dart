@@ -49,7 +49,8 @@ class IsolateExecutor {
           childSend.send(inToUse);
 
           // Wait for a response message (map with success/error or raw result).
-          final dynamic response = await receivePort.firstWhere((m) => m != null);
+          final dynamic response =
+              await receivePort.firstWhere((m) => m != null);
 
           receivePort.close();
 
@@ -70,7 +71,8 @@ class IsolateExecutor {
         }
       } else {
         // Direct invocation for plain functions (synchronous or returning value).
-        final result = await Future<R>.microtask(() => (fnToUse as dynamic)(inToUse) as R);
+        final result =
+            await Future<R>.microtask(() => (fnToUse as dynamic)(inToUse) as R);
         return result;
       }
     } catch (e) {
@@ -81,7 +83,8 @@ class IsolateExecutor {
 
 /// Simple top-level adapter used by callers that pass a function named
 /// `_mergeSortFunction` — forwards to the internal _IsolateMergeSort._mergeSort.
-List<int> _mergeSortFunction(List<int> input) => _IsolateMergeSort._mergeSort(input);
+List<int> _mergeSortFunction(List<int> input) =>
+    _IsolateMergeSort._mergeSort(input);
 
 /// Parallel Merge Sort using Isolates for multi-core processing
 ///
@@ -111,7 +114,8 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
         spaceComplexity: TimeComplexity.oN,
         requiresSorted: false,
         memoryOverheadBytes: 8192, // Isolate overhead + temp arrays
-        description: 'Multi-core merge sort using isolates for improved performance',
+        description:
+            'Multi-core merge sort using isolates for improved performance',
       );
 
   @override

@@ -33,7 +33,8 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
         spaceComplexity: TimeComplexity.oN,
         requiresSorted: false,
         memoryOverheadBytes: 8192, // Isolate overhead + temp arrays
-        description: 'Multi-core merge sort using isolates for improved performance',
+        description:
+            'Multi-core merge sort using isolates for improved performance',
       );
 
   @override
@@ -147,7 +148,8 @@ class ParallelMergeSort extends Strategy<List<int>, List<int>> {
 
     return completer.future.timeout(
       const Duration(seconds: 30),
-      onTimeout: () => throw TimeoutException('Sort timeout', const Duration(seconds: 30)),
+      onTimeout: () =>
+          throw TimeoutException('Sort timeout', const Duration(seconds: 30)),
     );
   }
 
@@ -280,7 +282,8 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
         spaceComplexity: TimeComplexity.oLogN,
         requiresSorted: false,
         memoryOverheadBytes: 4096,
-        description: 'Multi-core quick sort with work-stealing and hybrid optimization',
+        description:
+            'Multi-core quick sort with work-stealing and hybrid optimization',
       );
 
   @override
@@ -355,7 +358,8 @@ class ParallelQuickSort extends Strategy<List<int>, List<int>> {
         try {
           List<int>? leftResult;
           leftFuture.then((result) => leftResult = result).catchError((e) {
-            leftResult = _sequentialQuickSort(List.from(arr), low, pivotIndex - 1);
+            leftResult =
+                _sequentialQuickSort(List.from(arr), low, pivotIndex - 1);
             return leftResult!;
           });
 

@@ -54,7 +54,9 @@ class Matrix {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! Matrix) return false;
-    return rows == other.rows && cols == other.cols && _listEquals(data, other.data);
+    return rows == other.rows &&
+        cols == other.cols &&
+        _listEquals(data, other.data);
   }
 
   @override
@@ -94,7 +96,8 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
         spaceComplexity: TimeComplexity.o1,
         requiresSorted: false,
         memoryOverheadBytes: 16384, // Block temporary storage
-        description: 'Multi-core matrix multiplication using block decomposition',
+        description:
+            'Multi-core matrix multiplication using block decomposition',
       );
 
   @override
@@ -507,11 +510,13 @@ class ParallelStrassenMultiplication extends Strategy<List<Matrix>, Matrix> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'parallel_strassen_multiply',
-        timeComplexity: TimeComplexity.oN3, // Actually O(n^2.807) but using closest enum
+        timeComplexity:
+            TimeComplexity.oN3, // Actually O(n^2.807) but using closest enum
         spaceComplexity: TimeComplexity.oN2,
         requiresSorted: false,
         memoryOverheadBytes: 32768, // Recursive matrix storage
-        description: 'Parallel Strassen matrix multiplication with O(n^2.807) complexity',
+        description:
+            'Parallel Strassen matrix multiplication with O(n^2.807) complexity',
       );
 
   @override

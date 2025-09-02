@@ -126,7 +126,8 @@ class Graph<T> {
   String toString() {
     final buffer = StringBuffer();
     buffer.writeln(
-        'Graph (${_isDirected ? "Directed" : "Undirected"}, ${_isWeighted ? "Weighted" : "Unweighted"})',);
+      'Graph (${_isDirected ? "Directed" : "Undirected"}, ${_isWeighted ? "Weighted" : "Unweighted"})',
+    );
     buffer.writeln('Vertices: $vertexCount, Edges: $edgeCount');
 
     for (final vertex in vertices) {
@@ -135,11 +136,15 @@ class Graph<T> {
       if (edges.isEmpty) {
         buffer.writeln('[]');
       } else {
-        buffer.writeln(edges
-            .map((e) => _isWeighted
-                ? '${e.destination}(${e.weight})'
-                : '${e.destination}',)
-            .join(', '),);
+        buffer.writeln(
+          edges
+              .map(
+                (e) => _isWeighted
+                    ? '${e.destination}(${e.weight})'
+                    : '${e.destination}',
+              )
+              .join(', '),
+        );
       }
     }
 
@@ -304,8 +309,9 @@ class StronglyConnectedComponentsResult<T> {
 
   /// Check if two vertices are in the same component
   bool areInSameComponent(T vertex1, T vertex2) {
-    return components.any((component) =>
-        component.contains(vertex1) && component.contains(vertex2),);
+    return components.any(
+      (component) => component.contains(vertex1) && component.contains(vertex2),
+    );
   }
 
   /// Get component containing a vertex

@@ -27,19 +27,22 @@ class KMPResult {
   int get count => occurrences.length;
 
   @override
-  String toString() => 'KMPResult(found: $found, occurrences: $occurrences, count: $count)';
+  String toString() =>
+      'KMPResult(found: $found, occurrences: $occurrences, count: $count)';
 }
 
 // Rabin-Karp Algorithm
 class RabinKarpInput {
-  const RabinKarpInput(this.text, this.pattern, {this.base = 256, this.prime = 101});
+  const RabinKarpInput(this.text, this.pattern,
+      {this.base = 256, this.prime = 101,});
   final String text;
   final String pattern;
   final int base;
   final int prime;
 
   @override
-  String toString() => 'RabinKarpInput(text: "$text", pattern: "$pattern", base: $base, prime: $prime)';
+  String toString() =>
+      'RabinKarpInput(text: "$text", pattern: "$pattern", base: $base, prime: $prime)';
 }
 
 class RabinKarpResult {
@@ -52,7 +55,8 @@ class RabinKarpResult {
   int get count => occurrences.length;
 
   @override
-  String toString() => 'RabinKarpResult(found: $found, occurrences: $occurrences, collisions: $hashCollisions)';
+  String toString() =>
+      'RabinKarpResult(found: $found, occurrences: $occurrences, collisions: $hashCollisions)';
 }
 
 // Z-Algorithm
@@ -123,7 +127,8 @@ class LongestPalindromicSubstringInput {
 }
 
 class LongestPalindromicSubstringResult {
-  const LongestPalindromicSubstringResult(this.palindrome, this.startIndex, this.length);
+  const LongestPalindromicSubstringResult(
+      this.palindrome, this.startIndex, this.length,);
   final String palindrome;
   final int startIndex;
   final int length;
@@ -131,7 +136,8 @@ class LongestPalindromicSubstringResult {
   int get endIndex => startIndex + length - 1;
 
   @override
-  String toString() => 'LongestPalindromicSubstringResult(palindrome: "$palindrome", start: $startIndex, length: $length)';
+  String toString() =>
+      'LongestPalindromicSubstringResult(palindrome: "$palindrome", start: $startIndex, length: $length)';
 }
 
 // Manacher's Algorithm
@@ -144,7 +150,8 @@ class ManacherInput {
 }
 
 class ManacherResult {
-  const ManacherResult(this.longestPalindrome, this.startIndex, this.length, this.palindromeLengths);
+  const ManacherResult(this.longestPalindrome, this.startIndex, this.length,
+      this.palindromeLengths,);
   final String longestPalindrome;
   final int startIndex;
   final int length;
@@ -180,7 +187,8 @@ class ManacherResult {
   }
 
   @override
-  String toString() => 'ManacherResult(palindrome: "$longestPalindrome", start: $startIndex, length: $length)';
+  String toString() =>
+      'ManacherResult(palindrome: "$longestPalindrome", start: $startIndex, length: $length)';
 }
 
 // Suffix Array
@@ -255,7 +263,8 @@ class SuffixArrayResult {
   }
 
   @override
-  String toString() => 'SuffixArrayResult(suffixArray: $suffixArray, hasLCP: ${lcp != null})';
+  String toString() =>
+      'SuffixArrayResult(suffixArray: $suffixArray, hasLCP: ${lcp != null})';
 }
 
 // Trie (Prefix Tree)
@@ -328,7 +337,8 @@ class TrieResult {
   }
 
   @override
-  String toString() => 'TrieResult(wordCount: ${words.length}, rootChildren: ${root.children.length})';
+  String toString() =>
+      'TrieResult(wordCount: ${words.length}, rootChildren: ${root.children.length})';
 }
 
 // Aho-Corasick Algorithm
@@ -346,16 +356,21 @@ class AhoCorasickResult {
   final Map<String, List<int>> patternOccurrences;
   final String text;
 
-  int get totalMatches => patternOccurrences.values.fold(0, (sum, list) => sum + list.length);
-  List<String> get foundPatterns => patternOccurrences.keys.where((p) => patternOccurrences[p]!.isNotEmpty).toList();
+  int get totalMatches =>
+      patternOccurrences.values.fold(0, (sum, list) => sum + list.length);
+  List<String> get foundPatterns => patternOccurrences.keys
+      .where((p) => patternOccurrences[p]!.isNotEmpty)
+      .toList();
 
   @override
-  String toString() => 'AhoCorasickResult(totalMatches: $totalMatches, foundPatterns: ${foundPatterns.length})';
+  String toString() =>
+      'AhoCorasickResult(totalMatches: $totalMatches, foundPatterns: ${foundPatterns.length})';
 }
 
 // String Compression
 class StringCompressionInput {
-  const StringCompressionInput(this.text, {this.type = CompressionType.runLength});
+  const StringCompressionInput(this.text,
+      {this.type = CompressionType.runLength,});
   final String text;
   final CompressionType type;
 
@@ -370,7 +385,9 @@ enum CompressionType {
 }
 
 class StringCompressionResult {
-  const StringCompressionResult(this.compressedText, this.originalText, this.compressionRatio, this.type, [this.metadata]);
+  const StringCompressionResult(
+      this.compressedText, this.originalText, this.compressionRatio, this.type,
+      [this.metadata,]);
   final String compressedText;
   final String originalText;
   final double compressionRatio;
@@ -380,7 +397,8 @@ class StringCompressionResult {
   double get spaceSavings => (1 - compressionRatio) * 100;
 
   @override
-  String toString() => 'StringCompressionResult(ratio: ${compressionRatio.toStringAsFixed(3)}, savings: ${spaceSavings.toStringAsFixed(1)}%)';
+  String toString() =>
+      'StringCompressionResult(ratio: ${compressionRatio.toStringAsFixed(3)}, savings: ${spaceSavings.toStringAsFixed(1)}%)';
 }
 
 // =====================================================================
@@ -517,7 +535,9 @@ class RabinKarpAlgorithm extends Strategy<RabinKarpInput, RabinKarpResult> {
 
       // Calculate hash for next window
       if (i < n - m) {
-        windowHash = (base * (windowHash - text.codeUnitAt(i) * h) + text.codeUnitAt(i + m)) % prime;
+        windowHash = (base * (windowHash - text.codeUnitAt(i) * h) +
+                text.codeUnitAt(i + m)) %
+            prime;
         if (windowHash < 0) windowHash += prime;
       }
     }
@@ -580,11 +600,13 @@ class ZAlgorithm extends Strategy<ZAlgorithmInput, ZAlgorithmResult> {
 }
 
 // Longest Palindromic Substring (Expand Around Centers)
-class LongestPalindromicSubstringAlgorithm extends Strategy<LongestPalindromicSubstringInput, LongestPalindromicSubstringResult> {
+class LongestPalindromicSubstringAlgorithm extends Strategy<
+    LongestPalindromicSubstringInput, LongestPalindromicSubstringResult> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'longest_palindromic_substring',
-        description: 'Find longest palindromic substring using expand around centers',
+        description:
+            'Find longest palindromic substring using expand around centers',
         timeComplexity: TimeComplexity.oN2, // O(n²)
         spaceComplexity: TimeComplexity.o1, // O(1),
       );
@@ -595,7 +617,8 @@ class LongestPalindromicSubstringAlgorithm extends Strategy<LongestPalindromicSu
   }
 
   @override
-  LongestPalindromicSubstringResult execute(LongestPalindromicSubstringInput input) {
+  LongestPalindromicSubstringResult execute(
+      LongestPalindromicSubstringInput input,) {
     final text = input.text;
     if (text.isEmpty) return const LongestPalindromicSubstringResult('', 0, 0);
 
@@ -635,7 +658,8 @@ class ManacherAlgorithm extends Strategy<ManacherInput, ManacherResult> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'manacher_algorithm',
-        description: 'Manacher\'s algorithm for finding all palindromic substrings',
+        description:
+            'Manacher\'s algorithm for finding all palindromic substrings',
         timeComplexity: TimeComplexity.oN, // O(n)
         spaceComplexity: TimeComplexity.oN, // O(n),
       );
@@ -664,11 +688,13 @@ class ManacherAlgorithm extends Strategy<ManacherInput, ManacherResult> {
       final mirror = 2 * center - i;
 
       if (i < rightBoundary) {
-        palindromeLengths[i] = min(rightBoundary - i, palindromeLengths[mirror]);
+        palindromeLengths[i] =
+            min(rightBoundary - i, palindromeLengths[mirror]);
       }
 
       // Try to expand palindrome centered at i
-      while (text[i + palindromeLengths[i] + 1] == text[i - palindromeLengths[i] - 1]) {
+      while (text[i + palindromeLengths[i] + 1] ==
+          text[i - palindromeLengths[i] - 1]) {
         palindromeLengths[i]++;
       }
 
@@ -694,7 +720,8 @@ class ManacherAlgorithm extends Strategy<ManacherInput, ManacherResult> {
 }
 
 // Suffix Array Construction
-class SuffixArrayAlgorithm extends Strategy<SuffixArrayInput, SuffixArrayResult> {
+class SuffixArrayAlgorithm
+    extends Strategy<SuffixArrayInput, SuffixArrayResult> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'suffix_array',
@@ -804,12 +831,14 @@ class TrieAlgorithm extends Strategy<TrieInput, TrieResult> {
 }
 
 // Aho-Corasick Algorithm
-class AhoCorasickAlgorithm extends Strategy<AhoCorasickInput, AhoCorasickResult> {
+class AhoCorasickAlgorithm
+    extends Strategy<AhoCorasickInput, AhoCorasickResult> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'aho_corasick',
         description: 'Aho-Corasick algorithm for multiple pattern matching',
-        timeComplexity: TimeComplexity.oN, // O(n + m + z) where z is number of matches
+        timeComplexity:
+            TimeComplexity.oN, // O(n + m + z) where z is number of matches
         spaceComplexity: TimeComplexity.oN, // O(sum of pattern lengths),
       );
 
@@ -912,7 +941,8 @@ class AhoCorasickAlgorithm extends Strategy<AhoCorasickInput, AhoCorasickResult>
           failure = failure.children['failure'] ?? root;
         }
 
-        if (failure.children.containsKey(char) && failure.children[char] != child) {
+        if (failure.children.containsKey(char) &&
+            failure.children[char] != child) {
           child.children['failure'] = failure.children[char]!;
         } else {
           child.children['failure'] = root;
@@ -923,7 +953,8 @@ class AhoCorasickAlgorithm extends Strategy<AhoCorasickInput, AhoCorasickResult>
 }
 
 // String Compression (Run Length Encoding)
-class StringCompressionAlgorithm extends Strategy<StringCompressionInput, StringCompressionResult> {
+class StringCompressionAlgorithm
+    extends Strategy<StringCompressionInput, StringCompressionResult> {
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'string_compression',
@@ -973,7 +1004,8 @@ class StringCompressionAlgorithm extends Strategy<StringCompressionInput, String
     final compressed = result.toString();
     final ratio = compressed.length / text.length;
 
-    return StringCompressionResult(compressed, text, ratio, CompressionType.runLength);
+    return StringCompressionResult(
+        compressed, text, ratio, CompressionType.runLength,);
   }
 
   StringCompressionResult _lz77Compression(String text) {
@@ -996,7 +1028,8 @@ class StringCompressionAlgorithm extends Strategy<StringCompressionInput, String
     final compressed = result.join('');
     final ratio = compressed.length / text.length;
 
-    return StringCompressionResult(compressed, text, ratio, CompressionType.lz77, {'tokens': result.length});
+    return StringCompressionResult(compressed, text, ratio,
+        CompressionType.lz77, {'tokens': result.length},);
   }
 
   (int, int, String?) _findLongestMatch(String text, int current) {
@@ -1009,14 +1042,17 @@ class StringCompressionAlgorithm extends Strategy<StringCompressionInput, String
     for (int i = windowStart; i < current; i++) {
       int length = 0;
 
-      while (current + length < text.length && i + length < current && text[i + length] == text[current + length]) {
+      while (current + length < text.length &&
+          i + length < current &&
+          text[i + length] == text[current + length]) {
         length++;
       }
 
       if (length > maxLength) {
         maxLength = length;
         bestOffset = current - i;
-        nextChar = current + length < text.length ? text[current + length] : null;
+        nextChar =
+            current + length < text.length ? text[current + length] : null;
       }
     }
 
@@ -1040,7 +1076,12 @@ class StringCompressionAlgorithm extends Strategy<StringCompressionInput, String
     final ratio = estimatedBits / originalBits;
     final compressed = 'HUFFMAN_COMPRESSED_${text.length}_CHARS';
 
-    return StringCompressionResult(compressed, text, ratio, CompressionType.huffman, {'entropy': entropy, 'uniqueChars': frequency.length});
+    return StringCompressionResult(
+        compressed,
+        text,
+        ratio,
+        CompressionType.huffman,
+        {'entropy': entropy, 'uniqueChars': frequency.length},);
   }
 
   double _calculateEntropy(Map<String, int> frequency, int total) {

@@ -39,7 +39,9 @@ class Graph {
   List<int> getNeighbors(int vertex) => adjacencyList[vertex] ?? [];
 
   int get edgeCount {
-    return adjacencyList.values.fold(0, (sum, neighbors) => sum + neighbors.length) ~/ 2;
+    return adjacencyList.values
+            .fold(0, (sum, neighbors) => sum + neighbors.length) ~/
+        2;
   }
 
   @override
@@ -62,18 +64,21 @@ class Graph {
 class ParallelBFS extends Strategy<Graph, Map<int, int>> {
   ParallelBFS(this._startVertex);
   static const int _sequentialThreshold = 10000; // vertices
-  static const int _minFrontierSize = 100; // minimum frontier size for parallelism
+  static const int _minFrontierSize =
+      100; // minimum frontier size for parallelism
 
   final int _startVertex;
 
   @override
   AlgoMetadata get meta => const AlgoMetadata(
         name: 'parallel_bfs',
-        timeComplexity: TimeComplexity.oN, // Actually O(V + E) but using closest enum
+        timeComplexity:
+            TimeComplexity.oN, // Actually O(V + E) but using closest enum
         spaceComplexity: TimeComplexity.oN,
         requiresSorted: false,
         memoryOverheadBytes: 8192, // Frontier and synchronization overhead
-        description: 'Multi-core breadth-first search with level synchronization',
+        description:
+            'Multi-core breadth-first search with level synchronization',
       );
 
   @override
@@ -546,7 +551,8 @@ void _isolateDFSWorker(List<dynamic> args) {
 ///
 /// Performance: O((V + E) * α(V)) where α is inverse Ackermann function
 /// Space: O(V) for Union-Find structure
-class ParallelConnectedComponents extends Strategy<Graph, Map<String, dynamic>> {
+class ParallelConnectedComponents
+    extends Strategy<Graph, Map<String, dynamic>> {
   static const int _sequentialThreshold = 8000;
   static const int _minEdgesPerWorker = 1000;
   static const int _maxIsolates = 6;
@@ -558,7 +564,8 @@ class ParallelConnectedComponents extends Strategy<Graph, Map<String, dynamic>> 
         spaceComplexity: TimeComplexity.oN,
         requiresSorted: false,
         memoryOverheadBytes: 4096,
-        description: 'Multi-core connected components using parallel Union-Find',
+        description:
+            'Multi-core connected components using parallel Union-Find',
       );
 
   @override

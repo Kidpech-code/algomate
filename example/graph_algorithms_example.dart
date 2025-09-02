@@ -121,7 +121,8 @@ Future<void> demonstrateShortestPath() async {
     } else {
       print('No negative cycles found.');
       print(
-          'Distance to Phuket: ${bellmanFordResult.getDistance('Phuket')?.toStringAsFixed(0)}km',);
+        'Distance to Phuket: ${bellmanFordResult.getDistance('Phuket')?.toStringAsFixed(0)}km',
+      );
     }
   }
 
@@ -131,7 +132,9 @@ Future<void> demonstrateShortestPath() async {
   final floydWarshallInput = FloydWarshallInput(roadNetwork);
 
   if (floydWarshallStrategy.canApply(
-      floydWarshallInput, const SelectorHint(),)) {
+    floydWarshallInput,
+    const SelectorHint(),
+  )) {
     final floydWarshallResult =
         floydWarshallStrategy.execute(floydWarshallInput);
 
@@ -189,7 +192,8 @@ Future<void> demonstrateMinimumSpanningTree() async {
     print('Connections needed:');
     for (final edge in primResult.edges) {
       print(
-          '  ${edge.source} ↔ ${edge.destination} (\$${edge.weight.toStringAsFixed(0)})',);
+        '  ${edge.source} ↔ ${edge.destination} (\$${edge.weight.toStringAsFixed(0)})',
+      );
     }
   }
 
@@ -205,7 +209,8 @@ Future<void> demonstrateMinimumSpanningTree() async {
     print('Connections needed:');
     for (final edge in kruskalResult.edges) {
       print(
-          '  ${edge.source} ↔ ${edge.destination} (\$${edge.weight.toStringAsFixed(0)})',);
+        '  ${edge.source} ↔ ${edge.destination} (\$${edge.weight.toStringAsFixed(0)})',
+      );
     }
   }
 }
@@ -290,7 +295,8 @@ Future<void> demonstrateAdvancedAlgorithms() async {
     print('Strongly Connected Components (${kosarajuResult.componentCount}):');
     for (int i = 0; i < kosarajuResult.components.length; i++) {
       print(
-          '  Component ${i + 1}: {${kosarajuResult.components[i].join(', ')}}',);
+        '  Component ${i + 1}: {${kosarajuResult.components[i].join(', ')}}',
+      );
     }
   }
 
@@ -331,7 +337,8 @@ Future<void> compareAlgorithmPerformance() async {
     stopwatch.stop();
 
     print(
-        '  BFS: ${stopwatch.elapsedMicroseconds}μs, visited: ${bfsResult.visited.length}',);
+      '  BFS: ${stopwatch.elapsedMicroseconds}μs, visited: ${bfsResult.visited.length}',
+    );
 
     // Test DFS
     final dfsStrategy = DepthFirstSearchStrategy<int>();
@@ -343,7 +350,8 @@ Future<void> compareAlgorithmPerformance() async {
     stopwatch.stop();
 
     print(
-        '  DFS: ${stopwatch.elapsedMicroseconds}μs, visited: ${dfsResult.visited.length}',);
+      '  DFS: ${stopwatch.elapsedMicroseconds}μs, visited: ${dfsResult.visited.length}',
+    );
   }
 }
 

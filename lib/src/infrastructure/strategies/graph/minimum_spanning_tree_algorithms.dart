@@ -67,7 +67,8 @@ class PrimAlgorithmStrategy<T>
       // Add edge to MST (except for start vertex)
       if (parents[minVertex] != null) {
         mstEdges.add(
-            GraphEdge(parents[minVertex] as T, minVertex, keys[minVertex]!),);
+          GraphEdge(parents[minVertex] as T, minVertex, keys[minVertex]!),
+        );
       }
 
       // Update keys of adjacent vertices

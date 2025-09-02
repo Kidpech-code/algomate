@@ -115,7 +115,8 @@ class _MainScreenState extends State<MainScreen> {
             Text('AlgoMate v0.1.6'),
             SizedBox(height: 8),
             Text(
-                'Intelligent algorithm selection library with full Flutter Web support',),
+              'Intelligent algorithm selection library with full Flutter Web support',
+            ),
             SizedBox(height: 8),
             Text('Platform: Flutter Web'),
             Text('Compatibility: Chrome, Firefox, Safari, Edge'),

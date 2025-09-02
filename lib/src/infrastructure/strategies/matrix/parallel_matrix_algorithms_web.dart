@@ -63,7 +63,8 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
 
     if (a.cols != b.rows) {
       throw ArgumentError(
-          'Matrix dimensions incompatible: ${a.rows}x${a.cols} * ${b.rows}x${b.cols}',);
+        'Matrix dimensions incompatible: ${a.rows}x${a.cols} * ${b.rows}x${b.cols}',
+      );
     }
 
     final result = Matrix(a.rows, b.cols);
@@ -90,8 +91,17 @@ class ParallelMatrixMultiplication extends Strategy<List<Matrix>, Matrix> {
     return result;
   }
 
-  void _multiplyBlock(Matrix a, Matrix b, Matrix result, int startI, int startJ,
-      int startK, int endI, int endJ, int endK,) {
+  void _multiplyBlock(
+    Matrix a,
+    Matrix b,
+    Matrix result,
+    int startI,
+    int startJ,
+    int startK,
+    int endI,
+    int endJ,
+    int endK,
+  ) {
     for (int i = startI; i < endI; i++) {
       for (int j = startJ; j < endJ; j++) {
         double sum = result.get(i, j);
@@ -147,7 +157,8 @@ class ParallelStrassenMultiplication extends Strategy<List<Matrix>, Matrix> {
 
     if (a.cols != b.rows) {
       throw ArgumentError(
-          'Matrix dimensions incompatible: ${a.rows}x${a.cols} * ${b.rows}x${b.cols}',);
+        'Matrix dimensions incompatible: ${a.rows}x${a.cols} * ${b.rows}x${b.cols}',
+      );
     }
 
     return _strassenMultiply(a, b);
@@ -207,7 +218,12 @@ class ParallelStrassenMultiplication extends Strategy<List<Matrix>, Matrix> {
   }
 
   Matrix _subMatrix(
-      Matrix matrix, int startRow, int startCol, int endRow, int endCol,) {
+    Matrix matrix,
+    int startRow,
+    int startCol,
+    int endRow,
+    int endCol,
+  ) {
     final result = Matrix(endRow - startRow, endCol - startCol);
     for (int i = 0; i < result.rows; i++) {
       for (int j = 0; j < result.cols; j++) {

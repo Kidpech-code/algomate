@@ -31,20 +31,23 @@ void testSortingAlgorithms() {
   final mergeSort = MergeSortStrategy();
   final mergeSorted = mergeSort.execute(data);
   print(
-      '  ✅ MergeSort: ${mergeSorted.take(5).toList()}... (${mergeSorted.length} elements)',);
+    '  ✅ MergeSort: ${mergeSorted.take(5).toList()}... (${mergeSorted.length} elements)',
+  );
 
   // Test quick sort
   final quickSort = QuickSort();
   final quickSorted = quickSort.execute(data);
   print(
-      '  ✅ QuickSort: ${quickSorted.take(5).toList()}... (${quickSorted.length} elements)',);
+    '  ✅ QuickSort: ${quickSorted.take(5).toList()}... (${quickSorted.length} elements)',
+  );
 
   // Test insertion sort (small data)
   final smallData = data.take(50).toList();
   final insertionSort = InsertionSortStrategy();
   final insertionSorted = insertionSort.execute(smallData);
   print(
-      '  ✅ InsertionSort: ${insertionSorted.take(5).toList()}... (${insertionSorted.length} elements)',);
+    '  ✅ InsertionSort: ${insertionSorted.take(5).toList()}... (${insertionSorted.length} elements)',
+  );
 }
 
 void testSearchAlgorithms() {
@@ -77,7 +80,8 @@ void testDynamicProgramming() {
   final lcs = LongestCommonSubsequenceDP();
   final lcsResult = lcs.execute(const LCSInput('ABCDGH', 'AEDFHR'));
   print(
-      '  ✅ LCS of "ABCDGH" and "AEDFHR": "${lcsResult.subsequence}" (length ${lcsResult.length})',);
+    '  ✅ LCS of "ABCDGH" and "AEDFHR": "${lcsResult.subsequence}" (length ${lcsResult.length})',
+  );
 }
 
 void testStringProcessing() {
@@ -85,7 +89,8 @@ void testStringProcessing() {
   final kmp = KnuthMorrisPrattAlgorithm();
   final kmpResult = kmp.execute(const KMPInput('ABABCABABA', 'ABAB'));
   print(
-      '  ✅ KMP pattern matching: found at positions ${kmpResult.occurrences}',);
+    '  ✅ KMP pattern matching: found at positions ${kmpResult.occurrences}',
+  );
 
   // Test Rabin-Karp
   final rabinKarp = RabinKarpAlgorithm();
@@ -97,7 +102,8 @@ void testStringProcessing() {
   final manacher = ManacherAlgorithm();
   final palindrome = manacher.execute(const ManacherInput('racecar'));
   print(
-      '  ✅ Longest palindrome in "racecar": "${palindrome.longestPalindrome}"',);
+    '  ✅ Longest palindrome in "racecar": "${palindrome.longestPalindrome}"',
+  );
 }
 
 void testCustomDataStructures() {

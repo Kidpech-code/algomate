@@ -173,9 +173,13 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
 
     // Create matrix data using integer lists (compatible with Matrix.fromLists)
     final data1 = List.generate(
-        size, (_) => List.generate(size, (_) => random.nextInt(100)),);
+      size,
+      (_) => List.generate(size, (_) => random.nextInt(100)),
+    );
     final data2 = List.generate(
-        size, (_) => List.generate(size, (_) => random.nextInt(100)),);
+      size,
+      (_) => List.generate(size, (_) => random.nextInt(100)),
+    );
 
     final matrix1 = Matrix.fromLists(data1);
     final matrix2 = Matrix.fromLists(data2);

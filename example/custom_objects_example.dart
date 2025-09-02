@@ -39,7 +39,13 @@ class Person implements Comparable<Person> {
 /// Example: Product class for e-commerce
 class Product implements Comparable<Product> {
   Product(
-      this.id, this.name, this.price, this.category, this.stock, this.rating,);
+    this.id,
+    this.name,
+    this.price,
+    this.category,
+    this.stock,
+    this.rating,
+  );
   final String id;
   final String name;
   final double price;
@@ -70,7 +76,12 @@ class Product implements Comparable<Product> {
 /// Example: Transaction class for financial data
 class Transaction implements Comparable<Transaction> {
   Transaction(
-      this.id, this.timestamp, this.amount, this.type, this.description,);
+    this.id,
+    this.timestamp,
+    this.amount,
+    this.type,
+    this.description,
+  );
   final String id;
   final DateTime timestamp;
   final double amount;
@@ -170,7 +181,8 @@ Future<void> demonstrateCustomObjects() async {
       await _searchCustomObject(sortedProducts, targetProduct, 'iPad Air');
   if (productIndex != null) {
     print(
-        'Found iPad Air at index $productIndex: ${sortedProducts[productIndex]}',);
+      'Found iPad Air at index $productIndex: ${sortedProducts[productIndex]}',
+    );
   }
 }
 
@@ -271,14 +283,16 @@ Future<void> _demonstrateCircularBuffer() async {
   for (final element in elements) {
     buffer.add(element);
     print(
-        '  Added: $element, Buffer: ${buffer.toList()}, Size: ${buffer.length}',);
+      '  Added: $element, Buffer: ${buffer.toList()}, Size: ${buffer.length}',
+    );
   }
 
   print('\nRemoving elements:');
   while (!buffer.isEmpty) {
     final element = buffer.removeFirst();
     print(
-        '  Removed: $element, Buffer: ${buffer.toList()}, Size: ${buffer.length}',);
+      '  Removed: $element, Buffer: ${buffer.toList()}, Size: ${buffer.length}',
+    );
   }
 
   // Demonstrate streaming data scenario
@@ -294,7 +308,8 @@ Future<void> _demonstrateCircularBuffer() async {
         ? current.reduce((a, b) => a + b) / current.length
         : 0.0;
     print(
-        '  New value: $value, Last 3: $current, Average: ${average.toStringAsFixed(2)}',);
+      '  New value: $value, Last 3: $current, Average: ${average.toStringAsFixed(2)}',
+    );
   }
 }
 
@@ -317,7 +332,11 @@ Future<void> _demonstrateComplexSearching() async {
     Employee('Bob', 'Marketing', 75000, ['SEO', 'Analytics', 'Content']),
     Employee('Carol', 'Engineering', 105000, ['Java', 'Kotlin', 'Android']),
     Employee(
-        'David', 'Management', 150000, ['Leadership', 'Strategy', 'Planning'],),
+      'David',
+      'Management',
+      150000,
+      ['Leadership', 'Strategy', 'Planning'],
+    ),
     Employee('Eve', 'Design', 65000, ['UI/UX', 'Figma', 'Adobe']),
   ];
 
@@ -328,8 +347,10 @@ Future<void> _demonstrateComplexSearching() async {
 
   // Search with custom criteria
   print('\n🎯 SEARCH: Engineers with salary > 100k');
-  final richEngineers = _findEmployeesBy(employees,
-      (emp) => emp.department == 'Engineering' && emp.salary > 100000,);
+  final richEngineers = _findEmployeesBy(
+    employees,
+    (emp) => emp.department == 'Engineering' && emp.salary > 100000,
+  );
   for (final emp in richEngineers) {
     print('  Found: $emp');
   }
@@ -410,20 +431,26 @@ Future<void> _demonstratePerformanceComparison() async {
 
 /// Generic function to sort custom objects
 Future<List<T>> _sortCustomObjects<T extends Comparable<T>>(
-    List<T> data, String description,) async {
+  List<T> data,
+  String description,
+) async {
   final sorter = GenericMergeSort<T>();
   final stopwatch = Stopwatch()..start();
   final result = sorter.execute(data);
   stopwatch.stop();
 
   print(
-      '✅ Sorted $description in ${stopwatch.elapsedMicroseconds}μs using ${sorter.meta.name}',);
+    '✅ Sorted $description in ${stopwatch.elapsedMicroseconds}μs using ${sorter.meta.name}',
+  );
   return result;
 }
 
 /// Generic function to search for custom objects
 Future<int?> _searchCustomObject<T extends Comparable<T>>(
-    List<T> data, T target, String description,) async {
+  List<T> data,
+  T target,
+  String description,
+) async {
   final searcher = GenericBinarySearch<T>(target);
   final hint = SelectorHint(n: data.length, sorted: true);
 
@@ -433,7 +460,8 @@ Future<int?> _searchCustomObject<T extends Comparable<T>>(
     stopwatch.stop();
 
     print(
-        '🔍 Searched for $description in ${stopwatch.elapsedMicroseconds}μs using ${searcher.meta.name}',);
+      '🔍 Searched for $description in ${stopwatch.elapsedMicroseconds}μs using ${searcher.meta.name}',
+    );
     return result;
   } else {
     // Fall back to linear search
@@ -443,14 +471,17 @@ Future<int?> _searchCustomObject<T extends Comparable<T>>(
     stopwatch.stop();
 
     print(
-        '🔍 Searched for $description in ${stopwatch.elapsedMicroseconds}μs using ${linearSearcher.meta.name}',);
+      '🔍 Searched for $description in ${stopwatch.elapsedMicroseconds}μs using ${linearSearcher.meta.name}',
+    );
     return result;
   }
 }
 
 /// Find employees matching criteria
 List<Employee> _findEmployeesBy(
-    List<Employee> employees, bool Function(Employee) predicate,) {
+  List<Employee> employees,
+  bool Function(Employee) predicate,
+) {
   return employees.where(predicate).toList();
 }
 

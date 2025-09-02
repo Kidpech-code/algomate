@@ -59,8 +59,10 @@ class KnapsackDP extends Strategy<KnapsackInput, KnapsackResult> {
     for (int i = 1; i <= n; i++) {
       for (int w = 1; w <= W; w++) {
         if (input.weights[i - 1] <= w) {
-          dp[i][w] = max(dp[i - 1][w],
-              dp[i - 1][w - input.weights[i - 1]] + input.values[i - 1],);
+          dp[i][w] = max(
+            dp[i - 1][w],
+            dp[i - 1][w - input.weights[i - 1]] + input.values[i - 1],
+          );
         } else {
           dp[i][w] = dp[i - 1][w];
         }

@@ -280,6 +280,7 @@ void demonstrateFibonacci() {
   }
 
   print(
-      '\n💡 Note: All three approaches give the same result but with different',);
+    '\n💡 Note: All three approaches give the same result but with different',
+  );
   print('   time and space trade-offs. The optimized version uses O(1) space.');
 }

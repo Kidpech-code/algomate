@@ -319,9 +319,11 @@ void demonstrateStringCompression() {
       print('  📦 Run Length Encoding:');
       print('     Compressed: "${rleResult.compressedText}"');
       print(
-          '     Ratio: ${(rleResult.compressionRatio * 100).toStringAsFixed(1)}%',);
+        '     Ratio: ${(rleResult.compressionRatio * 100).toStringAsFixed(1)}%',
+      );
       print(
-          '     Space savings: ${rleResult.spaceSavings.toStringAsFixed(1)}%',);
+        '     Space savings: ${rleResult.spaceSavings.toStringAsFixed(1)}%',
+      );
       print('     Time: ${stopwatch.elapsedMicroseconds}μs');
     }
 
@@ -335,9 +337,11 @@ void demonstrateStringCompression() {
       print('  🔧 LZ77 Compression:');
       print('     Tokens: ${lz77Result.metadata?['tokens'] ?? 'N/A'}');
       print(
-          '     Ratio: ${(lz77Result.compressionRatio * 100).toStringAsFixed(1)}%',);
+        '     Ratio: ${(lz77Result.compressionRatio * 100).toStringAsFixed(1)}%',
+      );
       print(
-          '     Space savings: ${lz77Result.spaceSavings.toStringAsFixed(1)}%',);
+        '     Space savings: ${lz77Result.spaceSavings.toStringAsFixed(1)}%',
+      );
       print('     Time: ${stopwatch.elapsedMicroseconds}μs');
     }
 
@@ -351,21 +355,27 @@ void demonstrateStringCompression() {
 
       print('  🌳 Huffman Compression (estimated):');
       print(
-          '     Entropy: ${huffmanResult.metadata?['entropy']?.toStringAsFixed(2) ?? 'N/A'} bits/char',);
+        '     Entropy: ${huffmanResult.metadata?['entropy']?.toStringAsFixed(2) ?? 'N/A'} bits/char',
+      );
       print(
-          '     Unique chars: ${huffmanResult.metadata?['uniqueChars'] ?? 'N/A'}',);
+        '     Unique chars: ${huffmanResult.metadata?['uniqueChars'] ?? 'N/A'}',
+      );
       print(
-          '     Ratio: ${(huffmanResult.compressionRatio * 100).toStringAsFixed(1)}%',);
+        '     Ratio: ${(huffmanResult.compressionRatio * 100).toStringAsFixed(1)}%',
+      );
       print(
-          '     Space savings: ${huffmanResult.spaceSavings.toStringAsFixed(1)}%',);
+        '     Space savings: ${huffmanResult.spaceSavings.toStringAsFixed(1)}%',
+      );
       print('     Time: ${stopwatch.elapsedMicroseconds}μs');
     }
   }
 
   print(
-      '\\n💡 Note: Different compression algorithms work better on different types of text.',);
+    '\\n💡 Note: Different compression algorithms work better on different types of text.',
+  );
   print('   Run Length Encoding excels with repeated characters.');
   print('   LZ77 works well with repeated patterns.');
   print(
-      '   Huffman coding is effective for texts with non-uniform character frequency.',);
+    '   Huffman coding is effective for texts with non-uniform character frequency.',
+  );
 }

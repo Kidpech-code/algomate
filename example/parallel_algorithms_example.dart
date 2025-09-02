@@ -34,7 +34,8 @@ Future<void> demonstrateParallelSorting() async {
   // Parallel Merge Sort (using regular merge sort as fallback)
   print('\n1. Parallel Merge Sort:');
   print(
-      '   ⚠️  Using sequential merge sort (parallel not available in this environment)',);
+    '   ⚠️  Using sequential merge sort (parallel not available in this environment)',
+  );
 
   final mergeSort = MergeSortStrategy();
   if (mergeSort.canApply(largeData, SelectorHint(n: largeData.length))) {
@@ -60,7 +61,8 @@ Future<void> demonstrateParallelSorting() async {
   // Parallel Quick Sort (using regular quick sort as fallback)
   print('\n2. Parallel Quick Sort:');
   print(
-      '   ⚠️  Using insertion sort (quick sort and parallel not available in this environment)',);
+    '   ⚠️  Using insertion sort (quick sort and parallel not available in this environment)',
+  );
 
   final insertionSort = InsertionSortStrategy();
   if (insertionSort.canApply(largeData, SelectorHint(n: largeData.length))) {
@@ -108,7 +110,8 @@ Future<void> demonstrateParallelSearch() async {
   // Parallel Binary Search (using regular binary search as fallback)
   print('\n1. Parallel Binary Search:');
   print(
-      '   ⚠️  Using sequential binary search (parallel not available in this environment)',);
+    '   ⚠️  Using sequential binary search (parallel not available in this environment)',
+  );
 
   final binarySearch = BinarySearchStrategy(searchTarget);
   if (binarySearch.canApply(largeArray, SelectorHint(n: largeArray.length))) {
@@ -151,12 +154,14 @@ Future<void> demonstrateMatrixOperations() async {
   const size = 100; // 100x100 matrices
 
   print(
-      'Matrix dimensions: ${size}x$size (demonstrating with smaller matrices)',);
+    'Matrix dimensions: ${size}x$size (demonstrating with smaller matrices)',
+  );
 
   // Parallel Matrix Multiplication (using regular matrix multiplication as fallback)
   print('\n1. Parallel Matrix Multiplication:');
   print(
-      '   ⚠️  Using sequential matrix multiplication (parallel not available in this environment)',);
+    '   ⚠️  Using sequential matrix multiplication (parallel not available in this environment)',
+  );
 
   // Create simple 3x3 matrices for demonstration
   final simpleA = Matrix(3, 3, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
@@ -169,7 +174,8 @@ Future<void> demonstrateMatrixOperations() async {
   print('   ✓ Result A×B: ${_matrixToString(result)}');
 
   print(
-      '\n   💡 Note: For large matrices, parallel algorithms would provide significant performance benefits',);
+    '\n   💡 Note: For large matrices, parallel algorithms would provide significant performance benefits',
+  );
 }
 
 /// Demonstrate parallel graph algorithms
@@ -186,7 +192,8 @@ Future<void> demonstrateGraphAlgorithms() async {
   // Parallel BFS (using regular BFS as fallback)
   print('\n1. Parallel Breadth-First Search:');
   print(
-      '   ⚠️  Using sequential BFS (parallel not available in this environment)',);
+    '   ⚠️  Using sequential BFS (parallel not available in this environment)',
+  );
 
   const startVertex = 0;
 
@@ -212,7 +219,8 @@ Future<void> demonstrateGraphAlgorithms() async {
     stopwatch.stop();
 
     print(
-        '   ✓ BFS from vertex $startVertex completed in ${stopwatch.elapsedMicroseconds}μs',);
+      '   ✓ BFS from vertex $startVertex completed in ${stopwatch.elapsedMicroseconds}μs',
+    );
     print('   ✓ Reached ${result.distances.length} vertices');
 
     // Show some sample distances
@@ -230,12 +238,15 @@ Future<void> demonstrateGraphAlgorithms() async {
   print('\n2. Other Parallel Graph Algorithms:');
   print('   ⚠️  Parallel DFS: Not available (requires isolate support)');
   print(
-      '   ⚠️  Parallel Connected Components: Not available (requires isolate support)',);
+    '   ⚠️  Parallel Connected Components: Not available (requires isolate support)',
+  );
 
   print(
-      '\n   💡 Note: In environments with full isolate support, these algorithms would provide',);
+    '\n   💡 Note: In environments with full isolate support, these algorithms would provide',
+  );
   print(
-      '      significant performance benefits on multi-core systems for large graphs.',);
+    '      significant performance benefits on multi-core systems for large graphs.',
+  );
 }
 
 /// Helper function to check if array is sorted
