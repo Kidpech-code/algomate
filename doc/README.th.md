@@ -7,17 +7,63 @@
 
 **ระบบเลือกอัลกอริทึมอัตโนมัติระดับ Production สำหรับ Dart และ Flutter**
 
-## 🎉 ใหม่ใน v0.1.7+: รองรับ Custom Objects และ Generic Algorithms!
+## 🎉 ใหม่ใน v0.1.8+: คอลเลกชันอัลกอริทึมที่สมบูรณ์ (54+ อัลกอริทึม)!
 
 ### 🧬 สิ่งที่เพิ่มเข้ามาใหม่:
 
-- **✅ Custom Objects**: ใช้ได้กับ object ใดก็ได้ที่ implement `Comparable<T>`
-- **✅ Generic Algorithms**: 8+ algorithms ที่ใช้ได้กับทุกประเภทข้อมูล
-- **✅ Custom Data Structures**: PriorityQueue, BinarySearchTree, CircularBuffer
-- **✅ Graph Algorithms**: 10+ อัลกอริทึมสำหรับ Graph processing และ analysis
-- **✅ Dynamic Programming**: 8+ DP algorithms สำหรับปัญหาการหาค่าเหมาะสมที่สุด (optimization)
-- **✅ String Processing**: 9+ String algorithms สำหรับการประมวลผลข้อความขั้นสูง
-- **✅ Working Examples**: ตัวอย่างการใช้งานจริงกับ Person, Product, Transaction objects
+#### **🔄 Sorting Algorithms (8 strategies)**
+
+- ✅ **InsertionSort**: O(n²) - เหมาะกับข้อมูลเล็ก < 50 ตัว
+- ✅ **InPlaceInsertionSort**: O(n²) - ประหยัด memory สำหรับข้อมูลที่เรียงแล้วบางส่วน
+- ✅ **BinaryInsertionSort**: O(n log n) - เร็วกว่า insertion sort ปกติ
+- ✅ **MergeSort**: O(n log n) - เสถียร สำหรับข้อมูลปานกลาง-ใหญ่
+- ✅ **IterativeMergeSort**: O(n log n) - ไม่ recursive ประหยัด call stack
+- ✅ **HybridMergeSort**: O(n log n) - ผสม insertion + merge สำหรับประสิทธิภาพสูง
+- ✅ **ParallelMergeSort**: O(n log n) - ใช้ multi-core สำหรับข้อมูลใหญ่
+- ✅ **ParallelQuickSort**: O(n log n) - parallel quicksort สำหรับประสิทธิภาพสูงสุด
+
+#### **🔍 Search Algorithms (3 strategies)**
+
+- ✅ **LinearSearch**: O(n) - สำหรับข้อมูลที่ไม่เรียง
+- ✅ **BinarySearch**: O(log n) - สำหรับข้อมูลที่เรียงแล้ว
+- ✅ **ParallelBinarySearch**: O(log n) - binary search แบบ parallel
+
+#### **🌐 Graph Algorithms (15+ strategies)**
+
+- ✅ **การท่องเที่ยว**: BFS, DFS, Bidirectional Search
+- ✅ **เส้นทางสั้นสุด**: Dijkstra, Bellman-Ford, Floyd-Warshall, SPFA
+- ✅ **Minimum Spanning Tree**: Kruskal, Prim algorithms
+- ✅ **การวิเคราะห์เครือข่าย**: Tarjan's SCC, Kosaraju's SCC, Articulation Points
+- ✅ **Topological**: Topological Sort, DAG Shortest Path
+- ✅ **ความเชื่อมต่อ**: Connected Components, Bridge Finding
+
+#### **🧮 Dynamic Programming (10+ strategies)**
+
+- ✅ **Classic DP**: Fibonacci (3 variants), Knapsack, Coin Change
+- ✅ **String DP**: Longest Common Subsequence, Edit Distance, Longest Increasing Subsequence
+- ✅ **Advanced DP**: Matrix Chain Multiplication, Subset Sum, Palindrome Partitioning
+
+#### **🔤 String Processing (12+ strategies)**
+
+- ✅ **Pattern Matching**: KMP, Rabin-Karp, Z-Algorithm, Boyer-Moore
+- ✅ **การค้นหาขั้นสูง**: Aho-Corasick (multi-pattern), Suffix Array
+- ✅ **โครงสร้างข้อความ**: Trie construction and search, Suffix Tree
+- ✅ **Palindromes**: Manacher's Algorithm, Palindrome detection
+- ✅ **การบีบอัด**: Run Length Encoding, LZ77, Huffman Coding
+
+#### **🧮 Matrix Operations (5+ strategies)**
+
+- ✅ Standard Matrix Multiplication, Parallel Matrix Multiplication
+- ✅ Strassen's Algorithm, Block Matrix Multiplication
+- ✅ Parallel Strassen's Algorithm
+
+- ✅ **Custom Objects**: ใช้ได้กับ object ใดก็ได้ที่ implement `Comparable<T>`
+- ✅ **Generic Algorithms**: 8+ algorithms ที่ใช้ได้กับทุกประเภทข้อมูล
+- ✅ **Custom Data Structures**: PriorityQueue, BinarySearchTree, CircularBuffer
+- ✅ **Graph Algorithms**: 10+ อัลกอริทึมสำหรับ Graph processing และ analysis
+- ✅ **Dynamic Programming**: 8+ DP algorithms สำหรับปัญหาการหาค่าเหมาะสมที่สุด (optimization)
+- ✅ **String Processing**: 9+ String algorithms สำหรับการประมวลผลข้อความขั้นสูง
+- ✅ **Working Examples**: ตัวอย่างการใช้งานจริงกับ Person, Product, Transaction objects
 
 ### 🚀 ตัวอย่างการใช้งาน Custom Objects:
 
@@ -251,7 +297,7 @@ Optimized: 832040 (ใช้ RAM น้อย)
 
 ```yaml
 dependencies:
-  algomate: ^0.1.7
+  algomate: ^0.1.8
 ```
 
 จากนั้นรันคำสั่ง:

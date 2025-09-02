@@ -7,21 +7,21 @@
 /// - `ParallelQuickSort` - O(n log n) - Multi-core quick sort with work-stealing
 ///
 /// **Generic Algorithms (for Custom Types):**
-/// - `GenericMergeSort<T>` - O(n log n) - Stable sort for any Comparable<T>
-/// - `GenericQuickSort<T>` - O(n log n) - Fast sort for any Comparable<T>
-/// - `GenericInsertionSort<T>` - O(n²) - Simple sort for any Comparable<T>
-/// - `GenericHeapSort<T>` - O(n log n) - In-place sort for any Comparable<T>
+/// - `GenericMergeSort<T>` - O(n log n) - Stable sort for any Comparable&lt;T&gt;
+/// - `GenericQuickSort<T>` - O(n log n) - Fast sort for any Comparable&lt;T&gt;
+/// - `GenericInsertionSort<T>` - O(n²) - Simple sort for any Comparable&lt;T&gt;
+/// - `GenericHeapSort<T>` - O(n log n) - In-place sort for any Comparable&lt;T&gt;
 ///
 /// **Search Strategies:**
 /// - `LinearSearch` - O(n) - Works on unsorted data
 /// - `BinarySearch` - O(log n) - Requires sorted data
 /// - `ParallelBinarySearch` - O(log n) - Multi-core binary search for very large arrays
-/// - `GenericBinarySearch<T>` - O(log n) - Binary search for any Comparable<T>
+/// - `GenericBinarySearch<T>` - O(log n) - Binary search for any Comparable&lt;T&gt;
 /// - `GenericLinearSearch<T>` - O(n) - Linear search with custom equality
 ///
 /// **Custom Data Structures:**
-/// - `PriorityQueue<T>` - Min-heap priority queue for any Comparable<T>
-/// - `BinarySearchTree<T>` - BST for any Comparable<T>
+/// - `PriorityQueue<T>` - Min-heap priority queue for any Comparable&lt;T&gt;
+/// - `BinarySearchTree<T>` - BST for any Comparable&lt;T&gt;
 /// - `CircularBuffer<T>` - Fixed-size ring buffer for any type T
 ///
 /// **Matrix Operations:**

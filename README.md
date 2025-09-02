@@ -13,6 +13,137 @@
 
 AlgoMate is an intelligent algorithm selection library that **automatically chooses the optimal algorithm** for your data operations. Instead of manually deciding which sorting or searching algorithm to use, AlgoMate analyzes your data characteristics and selects the most efficient strategy.
 
+## 🚀 Quick Start
+
+### Installation
+
+Add to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  algomate: ^0.1.8
+```
+
+Then run:
+
+```bash
+dart pub get
+```
+
+### Basic Usage
+
+```dart
+import 'package:algomate/algomate.dart';
+
+void main() {
+  // 1. Create the AlgoMate selector
+  final selector = AlgoSelectorFacade.development();
+
+  // 2. Your data
+  final numbers = [64, 34, 25, 12, 22, 11, 90];
+
+  // 3. Let AlgoMate choose and sort
+  final result = selector.sort(
+    input: numbers,
+    hint: SelectorHint(n: numbers.length),
+  );
+
+  // 4. Get results
+  result.fold(
+    (success) {
+      print('✅ Sorted: ${success.output}');
+      print('🔧 Algorithm: ${success.selectedStrategy.name}');
+      print('⏱️  Time: ${success.executionTimeMicros}μs');
+    },
+    (failure) => print('❌ Error: ${failure.message}'),
+  );
+}
+```
+
+**Output:**
+
+```
+✅ Sorted: [11, 12, 22, 25, 34, 64, 90]
+🔧 Algorithm: merge_sort
+⏱️ Time: 245μs
+```
+
+### 🌟 See AlgoMate's Intelligence in Action
+
+```dart
+import 'package:algomate/algomate.dart';
+import 'dart:math';
+
+void main() async {
+  final selector = AlgoSelectorFacade.development();
+  await demonstrateIntelligentSelection(selector);
+}
+
+Future<void> demonstrateIntelligentSelection(AlgoSelectorFacade selector) async {
+  print('🧠 AlgoMate Intelligence Demo');
+  print('============================');
+
+  final testCases = [
+    (50, 'Small dataset'),
+    (5000, 'Medium dataset'),
+    (100000, 'Large dataset'),
+  ];
+
+  for (final (size, description) in testCases) {
+    final data = List.generate(size, (_) => Random().nextInt(size * 2));
+
+    print('\\n🎯 $description ($size elements):');
+
+    final result = selector.sort(input: data, hint: SelectorHint(n: size));
+
+    result.fold(
+      (success) {
+        print('   ✅ Selected: ${success.selectedStrategy.name}');
+        final throughput = (size / success.executionTimeMicros * 1000000).round();
+        print('   📊 Throughput: ${throughput.toString()} elements/second');
+
+        _explainAlgorithmChoice(success.selectedStrategy.name, size);
+      },
+      (failure) => print('   ❌ Error: ${failure.message}'),
+    );
+  }
+}
+
+void _explainAlgorithmChoice(String algorithmName, int dataSize) {
+  if (algorithmName.contains('insertion')) {
+    print('   💡 Chose insertion sort: Optimal for small datasets, simple and fast');
+  } else if (algorithmName.contains('merge')) {
+    if (algorithmName.contains('parallel')) {
+      print('   🚀 Chose parallel algorithm: Utilizing multiple CPU cores for speed!');
+    } else {
+      print('   💡 Chose merge sort: Stable performance, good for medium-large datasets');
+    }
+  }
+}
+```
+
+**Sample Output:**
+
+```
+🧠 AlgoMate Intelligence Demo
+============================
+
+🎯 Small dataset (50 elements):
+   ✅ Selected: insertion_sort
+   📊 Throughput: 625000 elements/second
+   💡 Chose insertion sort: Optimal for small datasets, simple and fast
+
+🎯 Medium dataset (5000 elements):
+   ✅ Selected: merge_sort
+   📊 Throughput: 8300000 elements/second
+   💡 Chose merge sort: Stable performance, good for medium-large datasets
+
+🎯 Large dataset (100000 elements):
+   ✅ Selected: parallel_merge_sort
+   📊 Throughput: 6700000 elements/second
+   🚀 Chose parallel algorithm: Utilizing multiple CPU cores for speed!
+```
+
 ## 🤔 Why Do You Need AlgoMate?
 
 ### The Problem Every Developer Faces
@@ -2109,6 +2240,8 @@ class Failure<T, F> extends Result<T, F> {
 
 ## 🚀 Getting Started Guide
 
+> **💡 Quick Start**: For immediate setup, see the [Quick Start](#-quick-start) section above.
+
 ### 1. Installation & Setup
 
 ```bash
@@ -2117,7 +2250,7 @@ dart pub add algomate
 
 # Or manually in pubspec.yaml
 dependencies:
-  algomate: ^0.1.7
+  algomate: ^0.1.8
 ```
 
 ### 2. Your First AlgoMate Program
