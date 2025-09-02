@@ -21,7 +21,7 @@ Add to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  algomate: ^0.1.8
+  algomate: ^0.1.9
 ```
 
 Then run:
@@ -2250,7 +2250,7 @@ dart pub add algomate
 
 # Or manually in pubspec.yaml
 dependencies:
-  algomate: ^0.1.8
+  algomate: ^0.1.9
 ```
 
 ### 2. Your First AlgoMate Program
