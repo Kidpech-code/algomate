@@ -297,7 +297,7 @@ Optimized: 832040 (ใช้ RAM น้อย)
 
 ```yaml
 dependencies:
-  algomate: ^0.2.2
+  algomate: ^0.2.3
 ```
 
 จากนั้นรันคำสั่ง:
