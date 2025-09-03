@@ -129,7 +129,8 @@ class MicrobenchResult {
 
 // Benchmarks built on benchmark_harness
 class SortingBenchmark extends BenchmarkBase {
-  SortingBenchmark(this.selector, this.originalData, this.scenario) : super('Sort_${originalData.length}_$scenario');
+  SortingBenchmark(this.selector, this.originalData, this.scenario)
+      : super('Sort_${originalData.length}_$scenario');
   final AlgoSelector selector;
   final List<int> originalData;
   final String scenario;
@@ -152,7 +153,8 @@ class SortingBenchmark extends BenchmarkBase {
 }
 
 class SearchingBenchmark extends BenchmarkBase {
-  SearchingBenchmark(this.selector, this.data, this.target) : super('Search_${data.length}');
+  SearchingBenchmark(this.selector, this.data, this.target)
+      : super('Search_${data.length}');
   final AlgoSelector selector;
   final List<int> data;
   final int target;
@@ -254,7 +256,8 @@ class AlgoMateBenchmark {
 
   Future<void> _benchmarkSort(int size, String scenario, List<int> data) async {
     final benchmark = SortingBenchmark(_selector, data, scenario);
-    final result = await _runBenchmarkWithStats(benchmark, 'sort_${size}_$scenario');
+    final result =
+        await _runBenchmarkWithStats(benchmark, 'sort_${size}_$scenario');
     _results.add(result);
   }
 
@@ -444,7 +447,8 @@ class AlgoMateBenchmark {
     final overheadPercent = (overhead / directMedian * 100);
 
     final directP95 = directTimes[(directTimes.length * 0.95).round() - 1];
-    final selectorP95 = selectorTimes[(selectorTimes.length * 0.95).round() - 1];
+    final selectorP95 =
+        selectorTimes[(selectorTimes.length * 0.95).round() - 1];
     final p95Overhead = selectorP95 - directP95;
 
     return {
@@ -461,8 +465,10 @@ class AlgoMateBenchmark {
     print('\n📈 Benchmark Report Summary');
     print('═' * 60);
 
-    final sortResults = _results.where((r) => r.name.startsWith('sort_')).toList();
-    final searchResults = _results.where((r) => r.name.startsWith('search_')).toList();
+    final sortResults =
+        _results.where((r) => r.name.startsWith('sort_')).toList();
+    final searchResults =
+        _results.where((r) => r.name.startsWith('search_')).toList();
 
     if (sortResults.isNotEmpty) {
       print('\n🔄 Sorting Performance:');

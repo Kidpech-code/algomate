@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
@@ -23,15 +26,18 @@ jobs:
           dart pub global run coverage:format_coverage \
             --lcov --in coverage --out coverage/lcov.info --report-on=lib
       - name: Upload coverage to codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           files: coverage/lcov.info
-          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
           verbose: true
 
   benchmark:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: dart-lang/setup-dart@v1
@@ -47,4 +53,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: benchmark-results
-          path: benchmarks/out/*
+          path: benchmark/out/*

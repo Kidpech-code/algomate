@@ -100,7 +100,8 @@ class ExecuteStrategyUseCase {
       if (result.isSuccess) return result;
       lastFailure = result.failureOrNull;
       logger.warn(
-          'Strategy ${strategy.meta.name} failed, trying next candidate...',);
+        'Strategy ${strategy.meta.name} failed, trying next candidate...',
+      );
     }
 
     return Result.failure(
