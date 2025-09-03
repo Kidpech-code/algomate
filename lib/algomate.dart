@@ -304,6 +304,7 @@ export 'src/shared/errors.dart';
 
 // Application Ports (for advanced usage)
 export 'src/application/ports/logger.dart';
+export 'src/application/dto/strategy_recommendation.dart';
 
 // Repository interface (for custom implementations)
 export 'src/domain/repositories/strategy_catalog.dart';

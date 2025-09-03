@@ -3,6 +3,27 @@
 [![Build Status](https://github.com/Kidpech-code/algomate/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/Kidpech-code/algomate/actions)
 [![Pub Package](https://img.shields.io/pub/v/algomate.svg)](https://pub.dev/packages/algomate)
 [![Coverage](https://codecov.io/gh/Kidpech-code/algomate/badge.svg)](https://codecov.io/gh/Kidpech-code/algomate)
+
+## Benchmarks & Coverage
+
+- Reproducible runner: `benchmarks/run_bench.sh` (prints system info, Dart/Flutter versions).
+- Outputs JSON and CSV to `benchmarks/out/` for CI artifacts.
+- Coverage is uploaded to Codecov; badge above reflects main branch.
+
+When built-in `List.sort()` is faster:
+
+- Very small lists where VM intrinsics win due to low overhead.
+- Nearly-sorted input benefitting from optimized paths.
+
+When Algomate can outperform:
+
+- Large datasets on multi-core CPUs (parallel strategies).
+- When stability is required or memory limits guide selection.
+
+When not to use Algomate:
+
+- Tiny collections on hot paths where selection overhead matters more than algorithm choice.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Pub Score](https://img.shields.io/pub/points/algomate)](https://pub.dev/packages/algomate/score)
 [![GitHub Stars](https://img.shields.io/github/stars/Kidpech-code/algomate?style=social)](https://github.com/Kidpech-code/algomate)

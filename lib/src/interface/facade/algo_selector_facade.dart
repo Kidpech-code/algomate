@@ -3,6 +3,8 @@ import '../../application/dto/execute_result.dart';
 import '../../application/ports/clock.dart';
 import '../../application/ports/logger.dart';
 import '../../application/usecases/execute_strategy_uc.dart';
+import '../../application/usecases/recommend_strategy_uc.dart';
+import '../../application/dto/strategy_recommendation.dart';
 import '../../application/usecases/register_strategy_uc.dart';
 import '../../domain/entities/strategy.dart';
 import '../../domain/entities/strategy_signature.dart';
@@ -55,7 +57,9 @@ class AlgoSelectorFacade {
           clock: clock,
           enableTiming: enableTiming,
         ),
-        _registerUC = RegisterStrategyUseCase(catalog: catalog, logger: logger);
+        _registerUC = RegisterStrategyUseCase(catalog: catalog, logger: logger),
+        _recommendUC =
+            RecommendStrategyUseCase(catalog: catalog, policy: policy);
 
   final StrategyCatalog catalog;
   final SelectorPolicy policy;
@@ -65,6 +69,7 @@ class AlgoSelectorFacade {
 
   final ExecuteStrategyUseCase _executeUC;
   final RegisterStrategyUseCase _registerUC;
+  final RecommendStrategyUseCase _recommendUC;
 
   /// Register a new strategy.
   ///
@@ -110,6 +115,15 @@ class AlgoSelectorFacade {
     );
 
     return _executeUC.call<I, O>(command);
+  }
+
+  /// Recommend a strategy without executing it (selection-only).
+  /// Returns metadata and explainability for logging/decision making.
+  Result<StrategyRecommendation, AlgoMateFailure> recommend<I, O>({
+    required StrategySignature signature,
+    required SelectorHint hint,
+  }) {
+    return _recommendUC.call<I, O>(signature: signature, hint: hint);
   }
 
   /// Convenience method for search operations.

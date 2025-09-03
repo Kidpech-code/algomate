@@ -15,7 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.1] - 2025-09-02
 
-### Changed
+## Unreleased
+
+- Add reproducible benchmark script `benchmarks/run_bench.sh` with JSON/CSV outputs and CI artifact publishing.
+- Expose selection-only API: `AlgoSelectorFacade.recommend()` returning `StrategyRecommendation` with explainability.
+- CI: tests with coverage and Codecov upload; add badge to README.
+- Benchmark runner enhancements: CLI args (--iterations, --seed, --json, --csv) and basic memory snapshot (RSS). Micro-metrics placeholders for allocations/GC.
 
 - Version bump to 0.2.1.
 - Updated installation snippets and Thai README version mentions.

@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Install dependencies
+        run: dart pub get
+      - name: Run tests with coverage
+        run: |
+          dart pub global activate coverage
+          dart run test --coverage=coverage
+          dart pub global run coverage:format_coverage \
+            --lcov --in coverage --out coverage/lcov.info --report-on=lib
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage/lcov.info
+          fail_ci_if_error: true
+          verbose: true
+
+  benchmark:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Install dependencies
+        run: dart pub get
+      - name: Run benchmarks
+        run: |
+          chmod +x benchmarks/run_bench.sh
+          SEED=42 ITERATIONS=80 DATASET=random ./benchmarks/run_bench.sh
+      - name: Upload benchmark artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: benchmarks/out/*

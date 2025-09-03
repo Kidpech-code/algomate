@@ -1,0 +1,83 @@
+🚀 Starting AlgoMate Benchmark Suite
+Platform: macos Version 15.5 (Build 24F74)
+Dart: 3.8.1 (stable) (Wed May 28 00:47:25 2025 -0700) on "macos_arm64"
+════════════════════════════════════════════════════════════
+
+📊 Sorting Algorithm Benchmarks
+sort_100_random: 9.00μs (±7.63)
+sort_100_sorted: 7.00μs (±0.52)
+sort_100_reverse: 4.00μs (±6.62)
+sort_100_nearly_sorted: 2.00μs (±0.14)
+sort_100_duplicates: 3.00μs (±0.14)
+sort_1000_random: 85.00μs (±17.08)
+sort_1000_sorted: 32.00μs (±5.65)
+sort_1000_reverse: 41.00μs (±13.06)
+sort_1000_nearly_sorted: 59.00μs (±17.02)
+sort_1000_duplicates: 77.00μs (±12.04)
+sort_10000_random: 1286.00μs (±31.09)
+sort_10000_sorted: 439.00μs (±21.87)
+sort_10000_reverse: 516.00μs (±23.57)
+sort_10000_nearly_sorted: 798.00μs (±23.05)
+sort_10000_duplicates: 1230.00μs (±39.20)
+sort_50000_random: 7620.00μs (±166.01)
+sort_50000_sorted: 2423.00μs (±49.17)
+sort_50000_reverse: 2818.00μs (±49.34)
+sort_50000_nearly_sorted: 4714.00μs (±66.72)
+sort_50000_duplicates: 7294.00μs (±151.16)
+
+🔍 Searching Algorithm Benchmarks
+search_1000: 0.00μs (±0.00)
+search_10000: 0.00μs (±0.00)
+search_100000: 0.00μs (±0.10)
+search_1000000: 0.00μs (±0.00)
+
+⚡ Selector Overhead Analysis
+Size: 100
+  Direct median: 5μs
+  Selector median: 5μs
+  Overhead: 0μs (0.00%)
+  P95 overhead: -1μs
+Size: 1000
+  Direct median: 93μs
+  Selector median: 92μs
+  Overhead: -1μs (-1.08%)
+  P95 overhead: -129μs
+Size: 10000
+  Direct median: 1301μs
+  Selector median: 1291μs
+  Overhead: -10μs (-0.77%)
+  P95 overhead: -22μs
+
+📈 Benchmark Report Summary
+════════════════════════════════════════════════════════════
+
+🔄 Sorting Performance:
+  sort_100_random: 9.00μs (P95: 17.00μs)
+  sort_100_sorted: 7.00μs (P95: 7.00μs)
+  sort_100_reverse: 4.00μs (P95: 23.00μs)
+  sort_100_nearly_sorted: 2.00μs (P95: 2.00μs)
+  sort_100_duplicates: 3.00μs (P95: 3.00μs)
+  sort_1000_random: 85.00μs (P95: 115.00μs)
+  sort_1000_sorted: 32.00μs (P95: 42.00μs)
+  sort_1000_reverse: 41.00μs (P95: 49.00μs)
+  sort_1000_nearly_sorted: 59.00μs (P95: 74.00μs)
+  sort_1000_duplicates: 77.00μs (P95: 95.00μs)
+  sort_10000_random: 1286.00μs (P95: 1328.00μs)
+  sort_10000_sorted: 439.00μs (P95: 470.00μs)
+  sort_10000_reverse: 516.00μs (P95: 557.00μs)
+  sort_10000_nearly_sorted: 798.00μs (P95: 840.00μs)
+  sort_10000_duplicates: 1230.00μs (P95: 1293.00μs)
+  sort_50000_random: 7620.00μs (P95: 7966.00μs)
+  sort_50000_sorted: 2423.00μs (P95: 2522.00μs)
+  sort_50000_reverse: 2818.00μs (P95: 2937.00μs)
+  sort_50000_nearly_sorted: 4714.00μs (P95: 4840.00μs)
+  sort_50000_duplicates: 7294.00μs (P95: 7626.00μs)
+
+🔍 Searching Performance:
+  search_1000: 0.00μs (P95: 0.00μs)
+  search_10000: 0.00μs (P95: 0.00μs)
+  search_100000: 0.00μs (P95: 0.00μs)
+  search_1000000: 0.00μs (P95: 0.00μs)
+
+✅ Benchmark completed successfully!
+📊 Detailed results saved to benchmark_results.json

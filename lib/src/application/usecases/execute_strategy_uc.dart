@@ -64,13 +64,9 @@ class ExecuteStrategyUseCase {
       selectionStopwatch?.stop();
       final selectionTimeMicros = selectionStopwatch?.elapsedMicroseconds;
 
-      // 4. Execute the top-ranked strategy
-      final chosenStrategy = ranked.first;
-
-      logger.debug('Selected strategy: ${chosenStrategy.meta.name}');
-
-      return _executeStrategy(
-        strategy: chosenStrategy,
+      // 4. Execute with fallback to next-ranked strategies on failure
+      return _tryExecuteWithFallbacks<I, O>(
+        ranked: ranked,
         input: command.input,
         candidateCount: candidates.length,
         selectionTimeMicros: selectionTimeMicros,
@@ -81,6 +77,35 @@ class ExecuteStrategyUseCase {
         ExecutionFailure('Unexpected error during execution', e.toString()),
       );
     }
+  }
+
+  /// Attempt executing strategies in ranked order until one succeeds.
+  Result<ExecuteResult<O>, AlgoMateFailure> _tryExecuteWithFallbacks<I, O>({
+    required List<Strategy<I, O>> ranked,
+    required I input,
+    required int candidateCount,
+    int? selectionTimeMicros,
+  }) {
+    AlgoMateFailure? lastFailure;
+
+    for (final strategy in ranked) {
+      logger.debug('Selected strategy: ${strategy.meta.name}');
+      final result = _executeStrategy<I, O>(
+        strategy: strategy,
+        input: input,
+        candidateCount: candidateCount,
+        selectionTimeMicros: selectionTimeMicros,
+      );
+
+      if (result.isSuccess) return result;
+      lastFailure = result.failureOrNull;
+      logger.warn(
+          'Strategy ${strategy.meta.name} failed, trying next candidate...',);
+    }
+
+    return Result.failure(
+      lastFailure ?? const ExecutionFailure('All strategies failed', null),
+    );
   }
 
   /// Filter strategies that can be applied to the given command.
