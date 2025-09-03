@@ -1,6 +1,11 @@
 # AlgoMate 🤖⚡
 
-[![Build Status](https://github.com/Kidpech-code/algomate/workflows/CI%2FCD%20Pipeline/badge.svg)](https://github.com/Kidpech-code/algomate/actions)
+[![Pub Downloads](https://img.shields.io/pub/downloads/algomate)](https://pub.dev/packages/algomate)
+[![Contributors](https://img.shields.io/github/contributors/Kidpech-code/algomate)](https://github.com/Kidpech-code/algomate/graphs/contributors)
+[![Issues](https://img.shields.io/github/issues/Kidpech-code/algomate)](https://github.com/Kidpech-code/algomate/issues)
+[![PRs](https://img.shields.io/github/issues-pr/Kidpech-code/algomate)](https://github.com/Kidpech-code/algomate/pulls)
+
+[![Build Status](https://github.com/Kidpech-code/algomate/actions/workflows/ci.yml/badge.svg)](https://github.com/Kidpech-code/algomate/actions)
 [![Pub Package](https://img.shields.io/pub/v/algomate.svg)](https://pub.dev/packages/algomate)
 [![Coverage](https://codecov.io/gh/Kidpech-code/algomate/badge.svg)](https://codecov.io/gh/Kidpech-code/algomate)
 
